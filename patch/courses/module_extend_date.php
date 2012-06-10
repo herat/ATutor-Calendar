@@ -31,52 +31,43 @@ function courses_extend_date($course_id=null){
     $index=0; 
             $row = mysql_fetch_assoc($result);
             
-			$unix_ts = strtotime($row['release_date']);
-			$time = date("h:i A",$unix_ts);
-			// release_date
-			$course[$index][0] =  array(
-						"date"=>date("D M j Y",$unix_ts),
-                        "content"=>strip_tags(
-                        "<div class='content'>".
-                        "<span class='day'> <b>".
-                         date('l',$unix_ts).
-                        "</b> </span>".
-                        "<span class='time'>".
-                              $time.
-                            "</span> - ".                        	
-                        	"<span class='content'>".
-                              "<b>Start Date</b> of".			                  
-			                  "</span>  ".
-                            "<span class='module'> <b>Course</b> </span>".                              
-			                  "</div>","<b>,<div>,<span>,<br>"),
-			            "uuid"=>uniqid(),
-			            "unixts"=>$unix_ts,
-			            "class"=>'course' 
-			            ) ;
-			                               
-			//end date
-			$unix_ts = strtotime($row['end_date']);
-			$time = date("h:i A",$unix_ts);
-			$course[$index][1] = array(
-						"date"=>date("D M j Y",$unix_ts),
-                        "content"=>strip_tags(
-                        	"<div class='content'>".
-                        	"<span class='day'> <b>".
-                        	 date('l',$unix_ts).
-                        	"</b> </span> ".
-                        	"<span class='time'>".
-                              	$time.
-                              	"</span> - ". 
-                              	"<span class='content'>".
-                                "<b>End Date</b> of". 
-			                    "</span>".
-                            	"<span class='module'> <b>Course</b> </span>".
-			                    "</div>","<b>,<div>,<span>,<br>"),
-			            "uuid"=>uniqid(),
-			            "unixts"=>$unix_ts,
-			            "class"=>'course' 
-			            ) ;
-	$index++;
+			if(  strpos( $row['release_date']."", '0000-00-00' ) !== false ||
+				strpos( $row['end_date']."", '0000-00-00' ) !== false )
+			{
+				return $course;
+			}
+			else
+			{
+				$unix_ts = strtotime($row['release_date']);
+				$time = date("h:i A",$unix_ts);
+				// release_date
+				$course[$index] =  array(
+							"id"=>rand(10000,15000)."",
+							"title"=> "Release date of ".$row['title']." course",
+							"start"=>$row['release_date'],
+							"end"=>$row['release_date'],
+							"allDay"=>false,
+							"color"=>"green",
+							"textColor" => "black",
+							"editable"=>false						
+							) ;
+						  
+				$index++;                     
+				//end date
+				$unix_ts = strtotime($row['end_date']);
+				$time = date("h:i A",$unix_ts);
+				$course[$index] = array(
+							"id"=>rand(10000,15000)."",
+							"title"=> "End date of ".$row['title']." course",
+							"start"=>$row['end_date'],
+							"end"=>$row['end_date'],
+							"allDay"=>false,
+							"color"=>"maroon",
+							"textColor" => "white",
+							"editable"=>false 
+							) ;
+				$index++;
+			}
     }
     
 return $course;

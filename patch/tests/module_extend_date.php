@@ -37,61 +37,45 @@ function tests_extend_date($course_id=null){
     if($row_count > 0){
     	$index=0;
         while($row = mysql_fetch_assoc($result)){
+            if(  strpos( $row['start_date']."", '0000-00-00' ) !== false ||
+				strpos( $row['end_date']."", '0000-00-00' ) !== false )
+			{
+				continue;
+			}
+			else
+			{
             
-            
-            $unix_ts = strtotime($row['start_date']);
-			$time = date("h:i A",$unix_ts);
-			$tests[$index][0] = array(
-						"date"=>date("D M j Y",$unix_ts),
-                        "content"=>strip_tags(
-                        	"<div class='content'>".
-                            "<span class='day'> <b>".
-                        	 date('l',$unix_ts).
-                        	"</b> </span>".
-                            "<span class='time'>".
-                            $time.
-                            "</span> - ".                            
-                            "<span class='content'>".
-                            "<b>Start Date</b> for".			                
-			                "</span>".
-			                "<span class='module'> <b>Test</b> on </span>".
-			                "<span class='title'> '"
-                            .$row['title'].
-                            "' </span>".
-			                "</div>","<b>,<div>,<span>,<br>"),
-			            "uuid"=>uniqid(),
-			            "unixts"=>$unix_ts,
-			            "class"=>'tests'			            
-			             ) ;
-	
-	$unix_ts = strtotime($row['end_date']);		
-	$time = date("h:i A",$unix_ts);
-	
-	                               
-			$tests[$index][1] = array(
-						"date"=>date("D M j Y",$unix_ts),
-                        "content"=>strip_tags(
-                        	"<div class='content'>".
-                        	 "<span class='day'> <b>".
-                        	 date('l',$unix_ts).
-                        	"</b> </span>".
-                        	"<span class='time'>".
-                            $time.
-                            "</span> - ".                            
-                            "<span class='content'>".
-                            "<b>End Date</b> for".			                
-			                "</span>".
-			                "<span class='module'> <b>Test</b> on</span>".
-			                "<span class='title'> '"
-                            .$row['title'].
-                            "' </span>".
-			                "</div>","<b>,<div>,<span>,<br>"),
-			            "uuid"=>uniqid(),
-			            "unixts"=>$unix_ts,
-			            "class"=>'tests' 			             
-			            ) ;
-		$index++;
-        }
+				$unix_ts = strtotime($row['start_date']);
+				$time = date("h:i A",$unix_ts);
+				$tests[$index] = array(
+							"id"=>rand(20000,25000)."",
+							"title"=> "Start date of ".$row['title']." test",
+							"start"=>$row['start_date'],
+							"end"=>$row['start_date'],
+							"allDay"=>false,
+							"color"=>"lime",
+							"textColor" => "black",
+							"editable"=>false			            
+							 ) ;
+		
+		$unix_ts = strtotime($row['end_date']);		
+		$time = date("h:i A",$unix_ts);
+				
+				$index++;
+									   
+				$tests[$index] = array(
+							"id"=>rand(20000,25000)."",
+							"title"=> "End date of ".$row['title']." test",
+							"start"=>$row['end_date'],
+							"end"=>$row['end_date'],
+							"allDay"=>false,
+							"color"=>"purple",
+							"textColor" => "white",
+							"editable"=>false 			             
+							) ;
+			$index++;
+			}
+		}
     }
     return $tests;
 }

@@ -38,7 +38,7 @@ $dates=array();
 	$dates['assignments']=$assignments;
 	$dates['tests']=	$tests;
 	//$dates[$_SESSION['course_id']]['assignments']=	$assignments;
-    die(json_encode($dates));
+    echo(json_encode($dates));
 			 
  }
 
