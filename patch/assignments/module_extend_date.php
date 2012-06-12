@@ -48,7 +48,7 @@ function assignments_extend_date($course_id=null){
 				$time = date("h:i A",$unix_ts);
                 if( strpos( $row['date_due']."", '0000-00-00' ) === false )
                 {
-				$assignments[$index] =  array(
+					$assignments[$index] =  array(
 									"id"=>rand(5000,9000)."",
 									"title"=> "Due date of ".$row['title'],
 									"start"=>$row['date_due'],
@@ -59,11 +59,11 @@ function assignments_extend_date($course_id=null){
 									"editable"=>false
 									) ;
 								 
-				$unix_ts = strtotime($row['date_cutoff']);                  
-				$time = date("h:i A",$unix_ts);
-				$index++;
+					$unix_ts = strtotime($row['date_cutoff']);                  
+					$time = date("h:i A",$unix_ts);
+					$index++;
                 }
-				if( $row['date_cutoff']."", '0000-00-00' ) === false )
+				if( strpos($row['date_cutoff']."", '0000-00-00' ) === false )
                 {
                 $assignments[$index] =  array(
 								"id"=>rand(5000,9000)."",
