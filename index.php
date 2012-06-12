@@ -55,8 +55,24 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 			
 			/* Add tooltip to cells. */
 			viewDisplay: function(view) {
+				//if( view.name == "month" )
+				//{
+					fluid.tooltip(".fc-view-"+view.name, {
+								content: function () {
+									return "Click or press enter to create event";						
+								}
+							});
+				/*}
+				else
+				{
+					fluid.tooltip(".fc-agenda-slots", {
+								content: function () {
+									return "Click or press enter to create event";						
+								}
+							});
+				}*/
 				//for month view
-				if( view.name == "month" )
+				/*if( view.name == "month" )
 				{
 					//iterate through all the cells and add the tooltip
 					for( var ty=0; ty<= 41;ty++)
@@ -71,7 +87,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 									return $(this).parent().prev().prev().text();
 								else
 									return $(this).parent().parent().prev().prev().text();
-								return "";*/								
+								return "";								
 							}
 						});
 					}
@@ -106,7 +122,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 							} );
 						});	
 					}
-				}
+				}*/
 			},
 			/* Event is clicked. So open dialog for editing event. */
 			eventClick: function(calevent,jsEvent,view){
@@ -385,7 +401,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 
 						var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
 						var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
-						$.get("mods/calendar/update.php",{id:'',start:mysqlstartd, end:mysqlendd, title:$("#name").val(), cmd:"create",allday:"true"},function(data){ newid = data; 
+						$.get("mods/calendar/update.php",{id:'',start:mysqlstartd, end:mysqlendd, title:$("#name").val(), cmd:"create",allday:"true"},function(data){ /*newid = data; 
 							calendar.fullCalendar('renderEvent',
 							{
 								id: newid, 
@@ -394,7 +410,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 								end: new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])),				                                allDay: true,
 								editable: true
 							},
-							true ); 
+							true ); */
+							calendar.fullCalendar('refetchEvents');
 						});
 						$(this).dialog('close');
 					}
@@ -402,7 +419,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 					{
 						var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2]),timestr[0],timestr[1]), 'yyyy-MM-dd HH:mm')+":00";
 						var mysqlendd = $.fullCalendar.formatDate( new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2]),timestp[0],timestp[1]), 'yyyy-MM-dd HH:mm')+":00";
-						$.get("mods/calendar/update.php",{id:'',start:mysqlstartd, end:mysqlendd, title:$("#name").val(), cmd:"create",allday:"false"}, function(data){ newid = data; 
+						$.get("mods/calendar/update.php",{id:'',start:mysqlstartd, end:mysqlendd, title:$("#name").val(), cmd:"create",allday:"false"}, function(data){ /*newid = data; 
 						calendar.fullCalendar('renderEvent',
 							{
 								id: newid,
@@ -412,7 +429,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 								allDay: false,
 								editable: true		                                        
 							},
-							true ); 
+							true ); */
+							calendar.fullCalendar('refetchEvents');
 						});
 						$(this).dialog('close');
 					}
@@ -560,8 +578,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 					{
 						var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
 						var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
-						$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"true"});
-						calendar.fullCalendar('renderEvent',
+						$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"true"},function(data){
+								calendar.fullCalendar('refetchEvents');
+							});
+						/*calendar.fullCalendar('renderEvent',
 						{
 							id: $("#ori-name1").val(),
 							title: $("#name1").val(),
@@ -569,15 +589,17 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 							end: new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])),				                            editable: true           
 						},
 						true // make the event "stick"
-						);
+						);*/
 						$(this).dialog('close');
 					}
 					else
 					{
 						var mysqlendd = $.fullCalendar.formatDate( new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2]),timestp[0],timestp[1]), 'yyyy-MM-dd HH:mm')+":00";
 						var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2]),timestr[0],timestr[1]), 'yyyy-MM-dd HH:mm')+":00";
-						$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"false"});
-						calendar.fullCalendar('renderEvent',
+						$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"false"},function(data){
+								calendar.fullCalendar('refetchEvents');
+							});
+						/*calendar.fullCalendar('renderEvent',
 							{
 								id: $("#ori-name1").val(),
 								title: $("#name1").val(),
@@ -587,7 +609,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 								editable: true	                                        
 							},
 						true // make the event "stick"
-						);
+						);*/
 						$(this).dialog('close');
 					}
 				},
