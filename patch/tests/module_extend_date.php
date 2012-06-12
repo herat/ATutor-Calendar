@@ -37,14 +37,15 @@ function tests_extend_date($course_id=null){
     if($row_count > 0){
     	$index=0;
         while($row = mysql_fetch_assoc($result)){
-            if(  strpos( $row['start_date']."", '0000-00-00' ) !== false ||
+            /*if(  strpos( $row['start_date']."", '0000-00-00' ) !== false ||
 				strpos( $row['end_date']."", '0000-00-00' ) !== false )
 			{
 				continue;
 			}
 			else
-			{
-            
+			{*/
+            if(  strpos( $row['start_date']."", '0000-00-00' ) === false )
+            {
 				$unix_ts = strtotime($row['start_date']);
 				$time = date("h:i A",$unix_ts);
 				$tests[$index] = array(
@@ -62,7 +63,9 @@ function tests_extend_date($course_id=null){
 		$time = date("h:i A",$unix_ts);
 				
 				$index++;
-									   
+        }
+		if( strpos( $row['end_date']."", '0000-00-00' ) === false )
+            {        
 				$tests[$index] = array(
 							"id"=>rand(20000,25000)."",
 							"title"=> "End date of ".$row['title']." test",

@@ -31,13 +31,15 @@ function courses_extend_date($course_id=null){
     $index=0; 
             $row = mysql_fetch_assoc($result);
             
-			if(  strpos( $row['release_date']."", '0000-00-00' ) !== false ||
+			/*if(  strpos( $row['release_date']."", '0000-00-00' ) !== false ||
 				strpos( $row['end_date']."", '0000-00-00' ) !== false )
 			{
 				return $course;
 			}
 			else
-			{
+			{*/
+            if(  strpos( $row['release_date']."", '0000-00-00' ) === false )
+            {
 				$unix_ts = strtotime($row['release_date']);
 				$time = date("h:i A",$unix_ts);
 				// release_date
@@ -52,8 +54,11 @@ function courses_extend_date($course_id=null){
 							"editable"=>false						
 							) ;
 						  
-				$index++;                     
+				$index++;
+            }
 				//end date
+               if( strpos( $row['end_date']."", '0000-00-00' ) === false )
+               {
 				$unix_ts = strtotime($row['end_date']);
 				$time = date("h:i A",$unix_ts);
 				$course[$index] = array(
