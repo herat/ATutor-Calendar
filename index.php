@@ -128,11 +128,12 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 			},
 			/* Event is clicked. So open dialog for editing event. */
 			eventClick: function(calevent,jsEvent,view){
+                if( document.activeElement.tagName == "A" )
+                    activeelem = document.activeElement;
+                    
 				if( !calevent.editable ) //for atutor events
-					return;
-				
-				activeelem = document.activeElement;
-					
+					return;			
+                
 				$("#fc-emode1").val("edit");
 				$("#dialog1").dialog('open');	                
 				//display event name in the event title input box
@@ -606,6 +607,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 						true // make the event "stick"
 						);*/
 						$(this).dialog('close');
+                        console.log( activeelem.innerHTML );
 					}
 					else
 					{
