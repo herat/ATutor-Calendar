@@ -14,6 +14,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 		var m = date.getMonth();
 		var y = date.getFullYear();
 		
+		var activeelem;
+		
 		var calendar = $('#calendar').fullCalendar({
 		
 			/* Remove comment when ported to ATutor */
@@ -128,6 +130,9 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 			eventClick: function(calevent,jsEvent,view){
 				if( !calevent.editable ) //for atutor events
 					return;
+				
+				activeelem = document.activeElement;
+					
 				$("#fc-emode1").val("edit");
 				$("#dialog1").dialog('open');	                
 				//display event name in the event title input box
@@ -272,6 +277,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 			/* Cell is clicked. So open dialog for creating new event. */
 			select: function (date,end, allDay, jsEvent, view) {
 				
+				activeelem = document.activeElement;
+				
 				$("#fc-emode").val("create");					
 				$("#dialog").dialog('open');
 				//display event title in the input box
@@ -414,6 +421,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 							calendar.fullCalendar('refetchEvents');
 						});
 						$(this).dialog('close');
+						activeelem.focus();
 					}
 					else
 					{
@@ -433,13 +441,16 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 							calendar.fullCalendar('refetchEvents');
 						});
 						$(this).dialog('close');
+						activeelem.focus();
 					}
 				},
 				Cancel: function () {
 					$(this).dialog('close');
+					activeelem.focus();
 				}
 			},
 			close: function () {
+				activeelem.focus();
 			}
 		});
 		
@@ -486,6 +497,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 					}					
 					);
 					$(this).dialog('close');
+					//activeelem.focus();
 				},
 				'Edit event': function () {
 				//get new values of time and date
@@ -527,6 +539,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 					{
 						alert("Enter valid dates");
 						$(this).dialog('close');
+						activeelem.focus();
 						return;
 					}
 				}
@@ -538,6 +551,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 					{
 						alert("Enter valid dates");
 						$(this).dialog('close');
+						activeelem.focus();
 						return;
 					}
 				}
@@ -580,6 +594,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 						var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
 						$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"true"},function(data){
 								calendar.fullCalendar('refetchEvents');
+								activeelem.focus();
 							});
 						/*calendar.fullCalendar('renderEvent',
 						{
@@ -598,6 +613,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 						var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2]),timestr[0],timestr[1]), 'yyyy-MM-dd HH:mm')+":00";
 						$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"false"},function(data){
 								calendar.fullCalendar('refetchEvents');
+								activeelem.focus();
 							});
 						/*calendar.fullCalendar('renderEvent',
 							{
@@ -610,14 +626,16 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 							},
 						true // make the event "stick"
 						);*/
-						$(this).dialog('close');
+						$(this).dialog('close');						
 					}
 				},
 				Cancel: function () {
 					$(this).dialog('close');
+					activeelem.focus();
 				}
 			},
 			close: function () {
+				activeelem.focus();
 			}
 		});	
 	});
