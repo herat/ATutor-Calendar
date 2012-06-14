@@ -4942,6 +4942,13 @@
             var seg;
             var top;
             var k;
+			
+			segs.sort( 
+			function(a,b)
+			{
+				return a.event.start - b.event.start;
+			});
+			
             segmentContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
             daySegElementResolve(segs, segmentContainer.children());
             daySegElementReport(segs);
@@ -5024,7 +5031,7 @@
             var i;
             var segCnt = segs.length;
             var element;
-            tempContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
+			tempContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
             elements = tempContainer.children();
             segmentContainer.append(elements);
             daySegElementResolve(segs, elements);
@@ -5355,14 +5362,30 @@
             var seg;
             var element;
             var event;
+			/*for( i=0;i<segCnt;i++)
+			{
+				console.log(segs[i].event.start);
+			}
+			segs.sort( 
+			function(a,b)
+			{
+				return a.event.start - b.event.start;
+			});
+			console.log( "After" );
+			for( i=0;i<segCnt;i++)
+			{
+				console.log(segs[i].event.start);
+			}*/
             for (i = 0; i < segCnt; i++) {
                 seg = segs[i];
                 element = seg.element;
-                if (element) {
+				if (element) {
                     element[0].style.top = rowTops[seg.row] + (seg.top || 0) + 'px';
+					//element[0].setAttribute("tabIndex",i);
                     event = seg.event;
                     trigger('eventAfterRender', event, event, element);
                 }
+				//console.log( seg.event.title + " " + element[0].tabIndex );
             }
         }
 
