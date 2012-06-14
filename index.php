@@ -40,7 +40,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 			eventAfterRender: function( evento,elemento,viewo ){
 				if( !evento.editable )
 				{
-					elemento.append("<div class='fc-form-hide'>Uneditable event</div>");
+					var childo = elemento.children();
+					childo[1].innerHTML += "<div class='fc-form-hide'>Uneditable event</div>";
 				}
 				else
 				{
