@@ -4,6 +4,7 @@ CREATE TABLE `full_calendar_events` (
   `start` datetime,
   `end` datetime,
   `allDay` varchar(20),
+  `userid` int(8),
   PRIMARY KEY (`id`)
 );
 

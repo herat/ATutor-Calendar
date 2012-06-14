@@ -30,8 +30,8 @@
 	else if( strcmp($command,"create") == 0 )
 	{
 		//New event is created, first insert the record in the table and then return id to javascript.
-		$query = "INSERT INTO `".TABLE_PREFIX."full_calendar_events` (title,start,end,allDay) values".
-		" ('".$newtitle."','".$newstartd."','".$newend."','".$alld."')" ;
+		$query = "INSERT INTO `".TABLE_PREFIX."full_calendar_events` (title,start,end,allDay,userid) values".
+		" ('".$newtitle."','".$newstartd."','".$newend."','".$alld."','".$_SESSION['member_id']."')" ;
 		mysql_query( $query, $db );
 		$query = "SELECT MAX(id) from `".TABLE_PREFIX."full_calendar_events`";
 		$resultno = mysql_query( $query, $db );

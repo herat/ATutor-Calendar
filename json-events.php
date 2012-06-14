@@ -3,7 +3,7 @@
 	define('AT_INCLUDE_PATH', '../../include/');
 	require (AT_INCLUDE_PATH.'vitals.inc.php');
 	global $db;
-	$query = "SELECT * FROM `".TABLE_PREFIX."full_calendar_events`";
+	$query = "SELECT * FROM `".TABLE_PREFIX."full_calendar_events` WHERE userid='".$_SESSION['member_id']."'";
 	$result = mysql_query($query,$db);
 	
 	//Create an empty array and push all the events in it.
