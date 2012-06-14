@@ -50,6 +50,16 @@
 	overflow:hidden;
 	text-decoration:none;
 	}
+/* hide uneditable event text */
+.fc-unedit-announce{
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+	text-decoration:none;
+	}
 /* hide event info in allday row for screen reader */
 .fc-weekday-ehidden{
 	position:absolute;
