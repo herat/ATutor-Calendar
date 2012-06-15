@@ -4943,11 +4943,11 @@
             var top;
             var k;
 			
-			segs.sort( 
+			/*segs.sort( 
 			function(a,b)
 			{
 				return a.event.start - b.event.start;
-			});
+			});*/
 			
             segmentContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
             daySegElementResolve(segs, segmentContainer.children());
@@ -5376,12 +5376,17 @@
 			{
 				console.log(segs[i].event.start);
 			}*/
+			segs.sort( 
+			function(a,b)
+			{
+				return a.event.start - b.event.start;
+			});
             for (i = 0; i < segCnt; i++) {
                 seg = segs[i];
                 element = seg.element;
 				if (element) {
                     element[0].style.top = rowTops[seg.row] + (seg.top || 0) + 'px';
-					//element[0].setAttribute("tabIndex",i);
+					element[0].setAttribute("tabIndex",i+1);
                     event = seg.event;
                     trigger('eventAfterRender', event, event, element);
                 }
