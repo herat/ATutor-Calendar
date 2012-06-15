@@ -5070,6 +5070,13 @@
             var right;
             var skinCss;
             var html = '';
+            
+            segs.sort(
+                function(a,b){
+                    return a.start-b.start;
+                }
+            );
+            
             // calculate desired position/dimensions, create html
             for (i = 0; i < segCnt; i++) {
                 seg = segs[i];
@@ -5386,7 +5393,7 @@
                 element = seg.element;
 				if (element) {
                     element[0].style.top = rowTops[seg.row] + (seg.top || 0) + 'px';
-					element[0].setAttribute("tabIndex",i+1);
+					//element[0].setAttribute("tabIndex",i+1);
                     event = seg.event;
                     trigger('eventAfterRender', event, event, element);
                 }
