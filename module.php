@@ -73,7 +73,8 @@ $this->_pages['mods/calendar/index.php']['img']       = 'mods/calendar/img/calen
 /*******
  * export_import page
  */
-$this->_pages['mods/calendar/export_import.php']['title_var']='Export Calendar to iCal Format';
+$this->_pages['mods/calendar/file_import.php']['title_var']='at_cal_import_file';
+$this->_pages['mods/calendar/file_import.php']['parent'] = 'mods/calendar/index.php';
 
 /*TODO my start page pages 
 $this->_pages[AT_NAV_START]  = array('mods/calendar/index_mystart.php');

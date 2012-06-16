@@ -6,6 +6,7 @@ $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'
 
 require (AT_INCLUDE_PATH.'header.inc.php');
 ?> 
+<a href="mods/calendar/file_import.php"><?php echo _AT("at_cal_import_file"); ?></a>
 <script>
 	$(document).ready(function () {
 		/* Get current date for calculations. */

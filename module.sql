@@ -10,6 +10,8 @@ CREATE TABLE `full_calendar_events` (
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar','Calendar',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_header','ATutor Calendar',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_import_file','Import iCal file',NOW(),'');
+
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_next','Next',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_prev','Previous',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_today','Today',NOW(),'');
