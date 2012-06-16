@@ -1,9 +1,7 @@
 <?php
 define('AT_INCLUDE_PATH', '../../include/');
 require (AT_INCLUDE_PATH.'vitals.inc.php');
-if ($_FILES["file"]["type"] == "application/octet-stream")
-  {
-  if ($_FILES["file"]["error"] > 0)
+if ($_FILES["file"]["error"] > 0)
     {
     //error
 	header('Location: file_import.php');
@@ -34,14 +32,8 @@ if ($_FILES["file"]["type"] == "application/octet-stream")
       //echo "Stored in: " . "../../content/calendar/" . $_FILES["file"]["name"];
       
     }
-  }
-else
-  {
-	  //error invalid file
-	  header('Location: file_import.php');
-  //echo "Invalid file";
-  }
- require_once('SG_iCal.php');
+
+require_once('SG_iCal.php');
 
 function dump_t($x) {
 	echo "<pre>".print_r($x,true)."</pre>";
