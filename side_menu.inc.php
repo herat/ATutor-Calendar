@@ -39,10 +39,10 @@
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                right: ''
             },
             /* Events are editable */
-            editable: true,     
+            editable: false,     
             /* ToDo: Replace with fluid tooltip */
             eventMouseover: function(event, jsEvent, view) {
                 if (view.name !== 'agendaDay') {
@@ -50,58 +50,7 @@
                 }
             },
             /* ToDo: Replace with php file */
-            events: [
-                {
-                    id: 1,
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1),
-                    end: new Date(y,m,1)
-                },
-                {
-                    id: 2,
-                    title: 'Long Event',
-                    start: new Date(y, m, d - 5),
-                    end: new Date(y, m, d - 2)
-                },
-                {
-                    id: 3,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d - 3, 16, 0),
-                    allDay: false
-                },
-                {
-                    id: 4,
-                    title: 'Test Event',
-                    start: new Date(y, m, d + 4, 16, 0),
-                    allDay: false
-                },
-                {
-                    id: 5,
-                    title: 'Meeting',
-                    start: new Date(y, m, 8, 10, 30),
-                    allDay: false,                    
-                },
-                {
-                    id: 6,
-                    title: 'Lunch',
-                    start: new Date(y, m+2, 9, 12, 0),
-                    end: new Date(y, m, 9, 23, 30),
-                    allDay: false,                    
-                },
-                {
-                    id: 7,
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d + 1, 3, 0),
-                    end: new Date(y, m, d + 1, 4, 0),
-                    allDay: false,                    
-                },
-                {
-                    id: 8,
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),                    
-                }
-            ]
+           events: "<?php echo AT_BASE_HREF; ?>mods/calendar/json-events-mini.php"
         }); 
     });
 </script>
