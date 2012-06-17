@@ -2,7 +2,7 @@
   * CSS for mini calendar 
   * All the rules override the default classes
   */
-#calendar {
+#mini-calendar {
     width: 200px;
     margin: 0 auto;
     font-size: 10px;

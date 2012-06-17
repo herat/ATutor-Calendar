@@ -24,15 +24,14 @@ $_custom_head .='
 'jscripts/infusion/InfusionAll.js"></script>
 <script language="javascript" type="text/javascript" src="'.AT_BASE_HREF.
 'jscripts/lib/calendar.js"></script>
-<script language="javascript" type="text/javascript" src="'.AT_BASE_HREF.'mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
 <link href="'.AT_BASE_HREF.'mods/calendar/jquery/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
-<link href="'.AT_BASE_HREF.'mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 <link href="'.AT_BASE_HREF.'jscripts/infusion/lib/jquery/plugins/tooltip/css/jquery.tooltip.css" rel="stylesheet" type="text/css"/>';
 
 /*******
  * create a side menu box/stack.
  */
-$this->_stacks['calendar'] = array('title_var'=>'at_cal_header', 'file'=>'mods/calendar/side_menu.inc.php');
+if( !stristr( $_SERVER["REQUEST_URI"], "calendar") )
+$this->_stacks['at_cal_header'] = array('title_var' => 'at_cal_header', 'file' => AT_INCLUDE_PATH.'../mods/calendar/side_menu.inc.php');
 // ** possible alternative: **
 // $this->addStack('calendar', array('title_var' => 'calendar', 'file' => './side_menu.inc.php');
 
