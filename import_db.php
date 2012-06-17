@@ -2,6 +2,8 @@
 define('AT_INCLUDE_PATH', '../../include/');
 require (AT_INCLUDE_PATH.'vitals.inc.php');
 
+$filename = $_SESSION['member_id'].".ics";
+
 if ($_FILES["file"]["error"] > 0)
 {
     //error
@@ -9,10 +11,10 @@ if ($_FILES["file"]["error"] > 0)
 }
 else
 {
-    if (file_exists("../../content/calendar/" . $_FILES["file"]["name"]))
+    if (file_exists("../../content/calendar/" . $filename))
     {
         //File already exists so replace it with new version
-        if( unlink("../../content/calendar/".$_FILES["file"]["name"] ) )
+        if( unlink("../../content/calendar/".$filename ) )
         {
             //File successfully deleted
         }
@@ -23,7 +25,7 @@ else
         }
     }
     move_uploaded_file($_FILES["file"]["tmp_name"],
-    "../../content/calendar/" . $_FILES["file"]["name"]);
+    "../../content/calendar/" . $filename);
 }
 
 require_once('SG_iCal.php');
@@ -32,7 +34,7 @@ function dump_t($x)
 {
     echo "<pre>".print_r($x,true)."</pre>";
 }
-$ICS = "../../content/calendar/".$_FILES["file"]["name"];
+$ICS = "../../content/calendar/".$filename;
 $ical = new SG_iCalReader($ICS);
 $query = new SG_iCal_Query();
 $evts = $ical->getEvents();
@@ -87,5 +89,6 @@ if( count($data) > 0 )
         mysql_query( $query, $db );
     }
 }
+unlink("../../content/calendar/".$filename );
 header('Location: index.php');
 ?>
