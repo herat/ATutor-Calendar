@@ -8,8 +8,6 @@ if (!defined('AT_INCLUDE_PATH')) { exit; }
  * this file must only be included within a Module obj
  */
 if (!isset($this) || (isset($this) && (strtolower(get_class($this)) != 'module'))) { exit(__FILE__ . ' is not a Module'); }
-
-
 /******
 * modules sub-content to display on course home detailed view
 */
@@ -21,14 +19,13 @@ $this->_list['calendar'] = array('title_var'=>'ATutor Calendar','file'=>'mods/ca
 define('AT_PRIV_CALENDAR',       $this->getPrivilege());
 define('AT_ADMIN_PRIV_CALENDAR', $this->getAdminPrivilege());
 global $_custom_head;
-$_custom_head .=
-'   
-<script language="javascript" type="text/javascript" src="'.AT_BASE_HREF.'jscripts/infusion/InfusionAll.js"></script>
-<script language="javascript" type="text/javascript" src="'.AT_BASE_HREF.'jscripts/lib/calendar.js"></script>
-
+$_custom_head .='
+<script language="javascript" type="text/javascript" src="'.AT_BASE_HREF.
+'jscripts/infusion/InfusionAll.js"></script>
+<script language="javascript" type="text/javascript" src="'.AT_BASE_HREF.
+'jscripts/lib/calendar.js"></script>
 <script language="javascript" type="text/javascript" src="'.AT_BASE_HREF.'mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
 <link href="'.AT_BASE_HREF.'mods/calendar/jquery/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
-
 <link href="'.AT_BASE_HREF.'mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 <link href="'.AT_BASE_HREF.'jscripts/infusion/lib/jquery/plugins/tooltip/css/jquery.tooltip.css" rel="stylesheet" type="text/css"/>';
 
@@ -46,15 +43,6 @@ $_student_tool = 'mods/calendar/index.php';
 // ** possible alternative: **
 // $this->addTool('./index.php');
 
-/*******
- * add the admin pages when needed.
- 
-if (admin_authenticate(AT_ADMIN_PRIV_CALENDAR, TRUE) || admin_authenticate(AT_ADMIN_PRIV_ADMIN, TRUE)) {
-
-	$this->_pages[AT_NAV_ADMIN] = array('mods/calendar/index_admin.php');
-	$this->_pages['mods/calendar/index_admin.php']['title_var'] = 'ATutor Calendar';
-	$this->_pages['mods/calendar/index_admin.php']['parent']    = AT_NAV_ADMIN;
-}*/
 
 /*******
  * instructor Manage section:
@@ -75,12 +63,4 @@ $this->_pages['mods/calendar/index.php']['img']       = 'mods/calendar/img/calen
  */
 $this->_pages['mods/calendar/file_import.php']['title_var']='at_cal_import_file';
 $this->_pages['mods/calendar/file_import.php']['parent'] = 'mods/calendar/index.php';
-
-/*TODO my start page pages 
-$this->_pages[AT_NAV_START]  = array('mods/calendar/index_mystart.php');
-$this->_pages['mods/calendar/index_mystart.php']['title_var'] = 'calendar';
-$this->_pages['mods/calendar/index_mystart.php']['parent'] = 'users/index.php';
-$this->_pages['users/index.php']['children'] = array('mods/calendar/index_mystart.php');
-*/
-
 ?>

@@ -152,10 +152,10 @@
 
 
         options = $.extend(true, {},
-		defaults,
-		(options.isRTL || options.isRTL === undefined && defaults.isRTL) ? rtlDefaults : {},
-		options
-	);
+        defaults,
+        (options.isRTL || options.isRTL === undefined && defaults.isRTL) ? rtlDefaults : {},
+        options
+    );
 
 
         this.each(function (i, _element) {
@@ -263,7 +263,7 @@
                 element.addClass('ui-widget');
             }
             content = $("<div class='fc-content' style='position:relative'/>")
-			.prependTo(element);
+            .prependTo(element);
             header = new Header(t, options);
             headerElement = header.render();
             if (headerElement) {
@@ -774,38 +774,38 @@
                                 if( text.indexOf( "9668" ) > 0 )// previous symbol &9668;
                                 {
                                     $.ajax({
-									  url: "mods/calendar/getlanguage.php",
-									  async: false,
-									  data: {token: 'at_cal_prev'},
-									  success: function(data){
-												  hiddn = data;
-											   }
-									});
-									//hiddn = "Previous";
+                                      url: "mods/calendar/getlanguage.php",
+                                      async: false,
+                                      data: {token: 'at_cal_prev'},
+                                      success: function(data){
+                                                  hiddn = data;
+                                               }
+                                    });
+                                    //hiddn = "Previous";
                                 }
                                 else if( text.indexOf( "9658" ) > 0 )// next symbol &9658;
                                 {
                                     //hiddn = "Next";
-									$.ajax({
-									  url: "mods/calendar/getlanguage.php",
-									  async: false,
-									  data: {token: 'at_cal_next'},
-									  success: function(data){
-												  hiddn = data;
-											   }
-									});
+                                    $.ajax({
+                                      url: "mods/calendar/getlanguage.php",
+                                      async: false,
+                                      data: {token: 'at_cal_next'},
+                                      success: function(data){
+                                                  hiddn = data;
+                                               }
+                                    });
                                 }
                                 else
                                 {
                                     $.ajax({
-									  url: "mods/calendar/getlanguage.php",
-									  async: false,
-									  data: {token: 'at_cal_'+text},
-									  success: function(data){
-												  text = data;
-											   }
-									});
-									hiddn = "";
+                                      url: "mods/calendar/getlanguage.php",
+                                      async: false,
+                                      data: {token: 'at_cal_'+text},
+                                      success: function(data){
+                                                  text = data;
+                                               }
+                                    });
+                                    hiddn = "";
                                 }
                                 var button = $(
                                         "<span class='fc-button fc-button-" + buttonName + " " + tm + "-state-default'>" +
@@ -1538,10 +1538,10 @@
     function formatDates(date1, date2, format, options) {
         options = options || defaults;
         var date = date1,
-		otherDate = date2,
-		i, len = format.length, c,
-		i2, formatter,
-		res = '';
+        otherDate = date2,
+        i, len = format.length, c,
+        i2, formatter,
+        res = '';
         for (i = 0; i < len; i++) {
             c = format.charAt(i);
             if (c == "'") {
@@ -1688,10 +1688,10 @@
     // event rendering utilities
     function sliceSegs(events, visEventEnds, start, end) {
         var segs = [],
-		i, len = events.length, event,
-		eventStart, eventEnd,
-		segStart, segEnd,
-		isStart, isEnd;
+        i, len = events.length, event,
+        eventStart, eventEnd,
+        segStart, segEnd,
+        isStart, isEnd;
         for (i = 0; i < len; i++) {
             event = events[i];
             eventStart = event.start;
@@ -1728,8 +1728,8 @@
     // event rendering calculation utilities
     function stackSegs(segs) {
         var levels = [],
-		i, len = segs.length, seg,
-		j, collide, k;
+        i, len = segs.length, seg,
+        j, collide, k;
         for (i = 0; i < len; i++) {
             seg = segs[i];
             j = 0; // the level index where seg should belong
@@ -1814,19 +1814,19 @@
 
     function hpadding(element) {
         return (parseFloat($.curCSS(element[0], 'paddingLeft', true)) || 0) +
-	       (parseFloat($.curCSS(element[0], 'paddingRight', true)) || 0);
+           (parseFloat($.curCSS(element[0], 'paddingRight', true)) || 0);
     }
 
 
     function hmargins(element) {
         return (parseFloat($.curCSS(element[0], 'marginLeft', true)) || 0) +
-	       (parseFloat($.curCSS(element[0], 'marginRight', true)) || 0);
+           (parseFloat($.curCSS(element[0], 'marginRight', true)) || 0);
     }
 
 
     function hborders(element) {
         return (parseFloat($.curCSS(element[0], 'borderLeftWidth', true)) || 0) +
-	       (parseFloat($.curCSS(element[0], 'borderRightWidth', true)) || 0);
+           (parseFloat($.curCSS(element[0], 'borderRightWidth', true)) || 0);
     }
 
 
@@ -3305,13 +3305,13 @@
             $(".fc-dummy").focus(
                 function(){
                     //$('.fc-agenda-slots').removeClass('fc-agenda-slots1');
-                    $(this).parent().addClass('fc-he-test');					
+                    $(this).parent().addClass('fc-he-test');                    
                 }
             );
             $(".fc-dummy").blur(
                 function(){
                     $(this).parent().removeClass('fc-he-test');
-                    //$('.fc-agenda-slots').addClass('fc-agenda-slots1');					
+                    //$('.fc-agenda-slots').addClass('fc-agenda-slots1');                    
                 }
             );
 
@@ -4113,9 +4113,9 @@
                     $(this).children().children(".fc-event-hf1").removeClass("fc-event-hf1").addClass("fc-event-skin");
                 }
             );
-			$(".fc-event-vert").click(
+            $(".fc-event-vert").click(
                 function (evnt){
-                	evnt.preventDefault();
+                    evnt.preventDefault();
                     var typ;
                     for( var zy = 0;zy < segs.length;zy++)
                     {
@@ -4125,7 +4125,7 @@
                     trigger('eventClick', this, typ, evnt);                    
                 }
             );
-			$(".fc-event-vert").keydown(
+            $(".fc-event-vert").keydown(
                 function (evnt){
                     if( evnt.keyCode == 13 )
                     {
@@ -4747,7 +4747,7 @@
                 function (ev) {
                     trigger('eventMouseout', this, event, ev);
                 }
-            );			
+            );            
             // TODO: don't fire eventMouseover/eventMouseout *while* dragging is occuring (on subject element)
             // TODO: same for resizing
         }
@@ -4803,7 +4803,7 @@
             if( event.end == null )
                 newedate = formatDate(event.start,"yyyy-MM-dd HH:mm") +":00";
             else
-                newedate = formatDate(event.end,"yyyy-MM-dd HH:mm") +":00";			
+                newedate = formatDate(event.end,"yyyy-MM-dd HH:mm") +":00";            
 
             $.get("mods/calendar/update.php",{id:event.id, start:newsdate, end:newedate, title:event.title,allday:'', cmd:"drag"});
             reportEventChange(eventId);
@@ -4942,13 +4942,13 @@
             var seg;
             var top;
             var k;
-			
-			/*segs.sort( 
-			function(a,b)
-			{
-				return a.event.start - b.event.start;
-			});*/
-			
+            
+            /*segs.sort( 
+            function(a,b)
+            {
+                return a.event.start - b.event.start;
+            });*/
+            
             segmentContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
             daySegElementResolve(segs, segmentContainer.children());
             daySegElementReport(segs);
@@ -5004,7 +5004,7 @@
                             }
                         });
                     }
-            );			
+            );            
             $("a.fc-event-hori").keydown(
                 function(event){
                     if( event.keyCode == 13 )
@@ -5031,7 +5031,7 @@
             var i;
             var segCnt = segs.length;
             var element;
-			tempContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
+            tempContainer[0].innerHTML = daySegHTML(segs); // faster than .html()
             elements = tempContainer.children();
             segmentContainer.append(elements);
             daySegElementResolve(segs, elements);
@@ -5369,35 +5369,35 @@
             var seg;
             var element;
             var event;
-			/*for( i=0;i<segCnt;i++)
-			{
-				console.log(segs[i].event.start);
-			}
-			segs.sort( 
-			function(a,b)
-			{
-				return a.event.start - b.event.start;
-			});
-			console.log( "After" );
-			for( i=0;i<segCnt;i++)
-			{
-				console.log(segs[i].event.start);
-			}*/
-			segs.sort( 
-			function(a,b)
-			{
-				return a.event.start - b.event.start;
-			});
+            /*for( i=0;i<segCnt;i++)
+            {
+                console.log(segs[i].event.start);
+            }
+            segs.sort( 
+            function(a,b)
+            {
+                return a.event.start - b.event.start;
+            });
+            console.log( "After" );
+            for( i=0;i<segCnt;i++)
+            {
+                console.log(segs[i].event.start);
+            }*/
+            segs.sort( 
+            function(a,b)
+            {
+                return a.event.start - b.event.start;
+            });
             for (i = 0; i < segCnt; i++) {
                 seg = segs[i];
                 element = seg.element;
-				if (element) {
+                if (element) {
                     element[0].style.top = rowTops[seg.row] + (seg.top || 0) + 'px';
-					//element[0].setAttribute("tabIndex",i+1);
+                    //element[0].setAttribute("tabIndex",i+1);
                     event = seg.event;
                     trigger('eventAfterRender', event, event, element);
                 }
-				//console.log( seg.event.title + " " + element[0].tabIndex );
+                //console.log( seg.event.title + " " + element[0].tabIndex );
             }
         }
 
