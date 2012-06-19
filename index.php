@@ -9,6 +9,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/> 
 <a href="mods/calendar/file_import.php"><?php echo _AT("at_cal_import_file"); ?></a>
+<a align="right" href="mods/calendar/test_export.php">Export ics file</a>
 <script>
     $(document).ready(function () {
         /* Get current date for calculations. */
