@@ -2761,6 +2761,19 @@
              * ATutor - Fire eventClick event when enter is pressed
              * on the highlighted event.
              */
+			$("a.fc-event-hori").click(
+                function(event){
+                    event.preventDefault();
+					var typ;
+					for( var zy = 0;zy < events.length;zy++)
+					{
+						if( events[zy].id == $(this).find(".fc-id").text())
+							typ = events[zy];
+					}
+					//for month view
+					trigger('eventClick', this,typ, event);
+                }
+            ); 
             $("a.fc-event-hori").keydown(
                 function(event){
                     if( event.keyCode == 13 )

@@ -391,7 +391,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 }
             },
             close: function () {
-                activeelem.focus();
+				if( activeelem != null )
+	                activeelem.focus();
             }
         });
         
@@ -538,7 +539,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                                 focusd = true;
                             });
                         $(this).dialog('close');
-                        console.log( activeelem.innerHTML );
+                        //console.log( activeelem.innerHTML );
                     }
                     else
                     {
@@ -557,7 +558,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 }
             },
             close: function () {
-                activeelem.focus();
+				if( activeelem != null )
+	                activeelem.focus();
             }
         });    
     });
