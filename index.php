@@ -79,6 +79,29 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             
             /* Add tooltip to cells. */
             viewDisplay: function(view) {
+                $(".fc-button-firsts").each(
+                   function()
+                   {
+                        if( $(this).text().indexOf( 'Previous' ) >= 0 )
+                        {
+                            if( view.name == "month" )
+                                $(this).text("Previous Month");
+                            else if( view.name == "agendaWeek" )
+                                $(this).text("Previous Week");
+                            else
+                                $(this).text("Previous Day");
+                        }
+                        if( $(this).text().indexOf( 'Next' ) >= 0 )
+                        {
+                            if( view.name == "month" )
+                                $(this).text("Next Month");
+                            else if( view.name == "agendaWeek" )
+                                $(this).text("Next Week");
+                            else
+                                $(this).text("Next Day");
+                        }
+                   }
+                );
                 fluid.tooltip(".fc-view-"+view.name, {
                     content: function () {
                         return "Click or press enter to create event";
