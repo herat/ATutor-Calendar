@@ -1,16 +1,4 @@
 <?php
-    /****************************************************************/
-    /* OpenLearn module for ATutor                                  */
-    /* http://atutoropenlearn.wordpress.com                         */
-    /*                                                              */
-    /* This module allows to search OpenLearn for educational       */
-    /* content.                                                        */
-    /* Author: Herat Gandhi                                            */
-    /* This program is free software. You can redistribute it and/or*/
-    /* modify it under the terms of the GNU General Public License  */
-    /* as published by the Free Software Foundation.                */
-    /****************************************************************/
-
     /**
      * This php file is used for side menu. When instructor allows students to
      * access this module as a course tool then in side menu of course's home page
@@ -21,12 +9,14 @@
     global $savant;
 ?>
 <div id='mini-calendar'></div>
+
 <script type='text/javascript' src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-original.js">
 </script>
+
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/miniCal.css" rel="stylesheet" type="text/css"/>
-<script type='text/javascript'>
 
+<script type='text/javascript'>
     $(document).ready(function() {
         //get current date
         var date = new Date();
@@ -49,12 +39,10 @@
                     $(jsEvent.target).attr('title', event.title);
                 }
             },
-            /* ToDo: Replace with php file */
-           events: "<?php echo AT_BASE_HREF; ?>mods/calendar/json-events-mini.php"
+            events: "<?php echo AT_BASE_HREF; ?>mods/calendar/json-events-mini.php"
         }); 
     });
 </script>
-
 
 <?php
     $savant->assign('dropdown_contents', ob_get_contents());

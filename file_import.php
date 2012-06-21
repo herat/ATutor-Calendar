@@ -1,7 +1,7 @@
 <?php
-define('AT_INCLUDE_PATH', '../../include/');
-require (AT_INCLUDE_PATH.'vitals.inc.php');
-require (AT_INCLUDE_PATH.'header.inc.php');
+    define('AT_INCLUDE_PATH', '../../include/');
+    require (AT_INCLUDE_PATH.'vitals.inc.php');
+    require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
 
 <form action="mods/calendar/import_db.php" method="post" enctype="multipart/form-data">
@@ -12,5 +12,5 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 </form>
 
 <?php
-require (AT_INCLUDE_PATH.'footer.inc.php');
+    require (AT_INCLUDE_PATH.'footer.inc.php');
 ?>
