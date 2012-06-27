@@ -105,7 +105,7 @@ function processPageLoad()
       if( isvalidtoken($_SESSION['sessionToken']) )
       {
             $client = getAuthSubHttpClient();
-            outputCalendarByDateRange($client,'2007-06-01','2015-08-31');
+            outputCalendarByDateRange($client,$_GET['start'],$_GET['end']);
       }
     }
 }
