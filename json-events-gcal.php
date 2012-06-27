@@ -3,59 +3,18 @@ define('AT_INCLUDE_PATH', '../../include/');
 require (AT_INCLUDE_PATH.'vitals.inc.php');
 require_once 'Zend/Loader.php';
 
-/**
- * @see Zend_Gdata
- */
 Zend_Loader::loadClass('Zend_Gdata');
-
-/**
- * @see Zend_Gdata_AuthSub
- */
 Zend_Loader::loadClass('Zend_Gdata_AuthSub');
-
-/**
- * @see Zend_Gdata_ClientLogin
- */
 Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-
-/**
- * @see Zend_Gdata_HttpClient
- */
 Zend_Loader::loadClass('Zend_Gdata_HttpClient');
-
-/**
- * @see Zend_Gdata_Calendar
- */
 Zend_Loader::loadClass('Zend_Gdata_Calendar');
 
-/**
- * @var string Location of AuthSub key file.  include_path is used to find this
- */
 $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
-
-/**
- * @var string Passphrase for AuthSub key file.
- */
 $_authSubKeyFilePassphrase = null;
 
-/**
- * Returns the full URL of the current page, based upon env variables
- *
- * Env variables used:
- * $_SERVER['HTTPS'] = (on|off|)
- * $_SERVER['HTTP_HOST'] = value of the Host: header
- * $_SERVER['SERVER_PORT'] = port number (only used if not http/80,https/443)
- * $_SERVER['REQUEST_URI'] = the URI after the method of the HTTP request
- *
- * @return string Current URL
- */
 function getCurrentUrl()
 {
     global $_SERVER;
-
-    /**
-     * Filter php_self to avoid a security vulnerability.
-     */
     $php_request_uri = htmlentities(substr($_SERVER['REQUEST_URI'], 0, strcspn($_SERVER['REQUEST_URI'], "\n\r")), ENT_QUOTES);
 
     if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
@@ -74,15 +33,6 @@ function getCurrentUrl()
     return $protocol . $host . $port . $php_request_uri;
 }
 
-/**
- * Returns the AuthSub URL which the user must visit to authenticate requests
- * from this application.
- *
- * Uses getCurrentUrl() to get the next URL which the user will be redirected
- * to after successfully authenticating with the Google service.
- *
- * @return string AuthSub URL
- */
 function getAuthSubUrl()
 {
     global $_authSubKeyFile;
@@ -98,31 +48,12 @@ function getAuthSubUrl()
         $session);
 }
 
-/**
- * Outputs a request to the user to login to their Google account, including
- * a link to the AuthSub URL.
- *
- * Uses getAuthSubUrl() to get the URL which the user must visit to authenticate
- *
- * @return void
- */
 function requestUserLogin($linkText)
 {
     $authSubUrl = getAuthSubUrl();
     echo "<a href='javascript:void(0)' onclick=\"window.open('{$authSubUrl}','Authentication','height=500,width=600');\">{$linkText}</a>";
 }
 
-/**
- * Returns a HTTP client object with the appropriate headers for communicating
- * with Google using AuthSub authentication.
- *
- * Uses the $_SESSION['sessionToken'] to store the AuthSub session token after
- * it is obtained.  The single use token supplied in the URL when redirected
- * after the user succesfully authenticated to Google is retrieved from the
- * $_GET['token'] variable.
- *
- * @return Zend_Http_Client
- */
 function getAuthSubHttpClient()
 {
     global $_SESSION, $_GET, $_authSubKeyFile, $_authSubKeyFilePassphrase;
@@ -138,6 +69,7 @@ function getAuthSubHttpClient()
     $client->setAuthSubToken($_SESSION['sessionToken']);
     return $client;
 }
+
 function isvalidtoken( $tokent )
 {
     try
@@ -154,56 +86,30 @@ function isvalidtoken( $tokent )
         $res = mysql_query($qry,$db);
         if( mysql_num_rows($res) > 0 )
         {
-            $qry = "DELETE FROM test_session";
-            mysql_query($qry,$db);
+          $qry = "DELETE FROM test_session";
+          mysql_query($qry,$db);          
         }
         logout();
-    }
-}
-/**
- * Processes loading of this sample code through a web browser.  Uses AuthSub
- * authentication and outputs a list of a user's calendars if succesfully
- * authenticated.
- *
- * @return void
- */
-function processPageLoad()
-{
-    global $db;
-    if( isset($_GET['logout']) )
-    {
-        $qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
-        mysql_query($qry,$db);
-        logout();
-    }
-    else
-    {
-        if (!isset($_GET['token']))
-        {
-            $qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
-            mysql_query($qry,$db);
-            unset($_SESSION['sessionToken']);
-            $authSubUrl = getAuthSubUrl();
-            header("Location:".$authSubUrl);
-        }
-        else
-        {
-            $client = getAuthSubHttpClient();
-            $qry = "INSERT INTO ".TABLE_PREFIX."google_sync (token,userid) values ('".$_SESSION['sessionToken']."','".$_SESSION['member_id']."')";
-            mysql_query($qry,$db);
-            echo "<script>window.opener.location.reload(false);window.close();</script>";
-        }
     }
 }
 
-/**
- * Returns a HTTP client object with the appropriate headers for communicating
- * with Google using the ClientLogin credentials supplied.
- *
- * @param  string $user The username, in e-mail address format, to authenticate
- * @param  string $pass The password for the user specified
- * @return Zend_Http_Client
- */
+function processPageLoad()
+{
+    global $db;
+    $qry = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+    $res = mysql_query($qry,$db);
+    if( mysql_num_rows($res) > 0 )
+    {
+      $row = mysql_fetch_assoc($res);
+      $_SESSION['sessionToken'] = $row['token'];
+      if( isvalidtoken($_SESSION['sessionToken']) )
+      {
+            $client = getAuthSubHttpClient();
+            outputCalendarByDateRange($client,'2007-06-01','2015-08-31');
+      }
+    }
+}
+
 function getClientLoginHttpClient($user, $pass)
 {
     $service = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
@@ -217,13 +123,7 @@ function outputCalendarListCheck($client)
     $gdataCal = new Zend_Gdata_Calendar($client);
     $calFeed = $gdataCal->getCalendarListFeed();
 }
-/**
- * Outputs an HTML unordered list (ul), with each list item representing a
- * calendar in the authenticated user's calendar list.
- *
- * @param  Zend_Http_Client $client The authenticated client object
- * @return void
- */
+
 function outputCalendarList($client)
 {
     $gdataCal = new Zend_Gdata_Calendar($client);
@@ -241,18 +141,8 @@ function outputCalendarList($client)
     echo "</form>";
 }
 
-/**
- * Outputs an HTML unordered list (ul), with each list item representing an
- * event on the authenticated user's calendar.  Includes the start time and
- * event ID in the output.  Events are ordered by starttime and include only
- * events occurring in the future.
- *
- * @param  Zend_Http_Client $client The authenticated client object
- * @return void
- */
 function outputCalendar($client)
 {
-    //echo "<br/>".substr($_POST['calid'],strrpos($_POST['calid'],"/")+1)."<br/>";
     $gdataCal = new Zend_Gdata_Calendar($client);
     $query = $gdataCal->newEventQuery();
     $query->setUser(substr($_POST['calid'],strrpos($_POST['calid'],"/")+1));
@@ -261,14 +151,10 @@ function outputCalendar($client)
     $query->setOrderby('starttime');
     $query->setFutureevents(false);
     $eventFeed = $gdataCal->getCalendarEventFeed($query);
-    // option 2
-    // $eventFeed = $gdataCal->getCalendarEventFeed($query->getQueryUrl());
+    
     echo "<a href='http://localhost/tmpp/google-calendar-for-atutor/ui.php?logout=true' >Logout</a><br/><ul>\n";
     foreach ($eventFeed as $event) {
         echo "\t<li>" . $event->title->text .  " (" . $event->id->text . ")\n";
-        // Zend_Gdata_App_Extensions_Title->__toString() is defined, so the
-        // following will also work on PHP >= 5.2.0
-        //echo "\t<li>" . $event->title .  " (" . $event->id . ")\n";
         echo "\t\t<ul>\n";
         foreach ($event->when as $when) {
             echo "\t\t\t<li>Starts: " . $when->startTime . "</li>\n";
@@ -279,28 +165,11 @@ function outputCalendar($client)
     echo "</ul>\n";
 }
 
-/**
- * Outputs an HTML unordered list (ul), with each list item representing an
- * event on the authenticated user's calendar which occurs during the
- * specified date range.
- *
- * To query for all events occurring on 2006-12-24, you would query for
- * a startDate of '2006-12-24' and an endDate of '2006-12-25' as the upper
- * bound for date queries is exclusive.  See the 'query parameters reference':
- * http://code.google.com/apis/gdata/calendar.html#Parameters
- *
- * @param  Zend_Http_Client $client    The authenticated client object
- * @param  string           $startDate The start date in YYYY-MM-DD format
- * @param  string           $endDate   The end date in YYYY-MM-DD format
- * @return void
- */
 function outputCalendarByDateRange($client, $startDate='2007-05-01',
                                    $endDate='2007-08-01')
 {
-    echo $_SESSION['sessionToken'];
     $gdataCal = new Zend_Gdata_Calendar($client);
     $query = $gdataCal->newEventQuery();
-    //$query->setUser(substr($_POST['calid'],strrpos($_POST['calid'],"/")+1));
     $query->setUser('default');
     $query->setVisibility('private');
     $query->setProjection('full');
@@ -308,7 +177,9 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01',
     $query->setStartMin($startDate);
     $query->setStartMax($endDate);
     $eventFeed = $gdataCal->getCalendarEventFeed($query);
-
+    
+    $rows = array();
+    
     foreach ($eventFeed as $event) {
 
         $eventID = "";
@@ -317,8 +188,6 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01',
             $eventID .= $event->id->text[rand(0,strlen($event->id->text)-1)];
         }
 
-        echo "\t<li>" . $event->title->text .  " (" . $eventID . ")\n";
-        echo "\t\t<ul>\n";
         foreach ($event->when as $when) {
             $startD = substr($when->startTime,0,19);
             $startD = str_replace("T"," ",$startD);
@@ -337,29 +206,40 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01',
             {
                 $allDay = 'true';
             }
-            echo "\t\t\t<li>Starts: " . $startD . "</li>\n";
-            echo "\t\t\t<li>Ends:". $endD ."</li>\n";
-            echo "\t\t\t<li>allDay:". $allDay ."</li>\n";
-        }
-        echo "\t\t</ul>\n";
-        echo "\t</li>\n";
+            
+            $row = array();
+            $row["title"] = $event->title->text;
+            $row["id"] = $eventID;
+            $row["start"] = $startD;
+            $row["end"] = $endD;
+            $row["allDay"] = $allDay;
+            
+            array_push( $rows, $row );            
+        }        
     }
-    echo "</ul>\n";
+    //Encode in JSON format.
+    $str =  json_encode( $rows );
+    
+    //Replace "true","false" with true,false for javascript.
+    $str = str_replace('"true"','true',$str);
+    $str = str_replace('"false"','false',$str);
+    
+    //Return the events in the JSON format.
+    echo $str;    
 }
 
 function logout()
 {
     // Carefully construct this value to avoid application security problems.
     $php_self = htmlentities(substr($_SERVER['PHP_SELF'],
-            0,
-            strcspn($_SERVER['PHP_SELF'], "\n\r")),
-        ENT_QUOTES);
-
+                             0,
+                             strcspn($_SERVER['PHP_SELF'], "\n\r")),
+                             ENT_QUOTES);
+     
     Zend_Gdata_AuthSub::AuthSubRevokeToken($_SESSION['sessionToken']);
     unset($_SESSION['sessionToken']);
-    echo "<script>window.opener.location.reload(false);window.close();</script>";
+    header('Location: ' . $php_self);
     exit();
 }
-
 processPageLoad();
 ?>

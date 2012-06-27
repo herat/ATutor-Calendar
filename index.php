@@ -6,12 +6,27 @@ $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'
 
 require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
-<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
-<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/> 
 
-<a href="mods/calendar/file_import.php"><?php echo _AT("at_cal_import_file"); ?></a>
+<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
+<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
+
+<a href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a>
 <a style="text-align:right;float:right" href="mods/calendar/test_export.php">Export ics file</a>
-<a style="" href="mods/calendar/google_connect.php" target="_blank">Connect with Google Calendar</a>
+
+<?php
+    global $db;
+    $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+    $res = mysql_query($query,$db);
+    if( mysql_num_rows($res) > 0 )
+    {
+        echo "<a style='display:block;text-align: center !important;' href='mods/calendar/google_connect.php?logout=yes' target='_blank'>Disconnect from Google Calendar</a>";
+    }
+    else
+    {
+        echo "<a style='display:block;text-align: center !important;' href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a>";
+    }
+?>
+
 <br/>
 <br/>
 <script>
@@ -347,7 +362,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             /* Events are editable. */
             editable: false,
             /* Retrieve events from php file. */
-            events: "mods/calendar/json-events.php"
+            events: "mods/calendar/json-events-gcal.php"
         });
         
         /*Create event jQuery dialog*/
