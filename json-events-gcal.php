@@ -59,7 +59,12 @@ function processPageLoad()
       if( isvalidtoken($_SESSION['sessionToken']) )
       {
             $client = getAuthSubHttpClient();
-            outputCalendarByDateRange($client,$_GET['start'],$_GET['end']);
+            $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+            $res = mysql_query($query);
+            $rowval = mysql_fetch_assoc($res);
+            $prevval = $rowval['calids'];
+
+            outputCalendarByDateRange($client,$_GET['start'],$_GET['end'],$prevval);
       }
     }
 }
@@ -87,56 +92,64 @@ function outputCalendarList($client)
     echo "</form>";
 }
 
-function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2007-08-01')
+function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2007-08-01',$idsofcal)
 {
     $gdataCal = new Zend_Gdata_Calendar($client);
-    $query = $gdataCal->newEventQuery();
-    $query->setUser('default');
-    $query->setVisibility('private');
-    $query->setProjection('full');
-    $query->setOrderby('starttime');
-    $query->setStartMin($startDate);
-    $query->setStartMax($endDate);
-    $eventFeed = $gdataCal->getCalendarEventFeed($query);
-    
     $rows = array();
-    
-    foreach ($eventFeed as $event) {
 
-        $eventID = "";
-        for($i=0;$i<7;$i++)
+    $idsofcal = explode(',',$idsofcal);
+
+    foreach( $idsofcal as $idofcal )
+    {
+        if( $idofcal != '' )
         {
-            $eventID .= $event->id->text[rand(0,strlen($event->id->text)-1)];
+            $query = $gdataCal->newEventQuery();
+            $query->setUser(substr($idofcal,strrpos($idofcal,"/")+1));
+            $query->setVisibility('private');
+            $query->setProjection('full');
+            $query->setOrderby('starttime');
+            $query->setStartMin($startDate);
+            $query->setStartMax($endDate);
+            $eventFeed = $gdataCal->getCalendarEventFeed($query);
+
+            foreach ($eventFeed as $event) {
+
+                $eventID = "";
+                for($i=0;$i<7;$i++)
+                {
+                    $eventID .= $event->id->text[rand(0,strlen($event->id->text)-1)];
+                }
+
+                foreach ($event->when as $when) {
+                    $startD = substr($when->startTime,0,19);
+                    $startD = str_replace("T"," ",$startD);
+
+                    $endD = substr($when->endTime,0,19);
+                    $endD = str_replace("T"," ",$endD);
+
+                    /*
+                     * If both start time and end time are different and their time parts differ then allDay is false
+                     */
+                    if( ($startD != $endD) && substr($startD,0,10) == substr($endD,0,10) )
+                    {
+                        $allDay = 'false';
+                    }
+                    else
+                    {
+                        $allDay = 'true';
+                    }
+
+                    $row = array();
+                    $row["title"] = $event->title->text;
+                    $row["id"] = $eventID;
+                    $row["start"] = $startD;
+                    $row["end"] = $endD;
+                    $row["allDay"] = $allDay;
+
+                    array_push( $rows, $row );
+                }
+            }
         }
-
-        foreach ($event->when as $when) {
-            $startD = substr($when->startTime,0,19);
-            $startD = str_replace("T"," ",$startD);
-
-            $endD = substr($when->endTime,0,19);
-            $endD = str_replace("T"," ",$endD);
-
-            /*
-             * If both start time and end time are different and their time parts differ then allDay is false
-             */
-            if( ($startD != $endD) && substr($startD,0,10) == substr($endD,0,10) )
-            {
-                $allDay = 'false';
-            }
-            else
-            {
-                $allDay = 'true';
-            }
-            
-            $row = array();
-            $row["title"] = $event->title->text;
-            $row["id"] = $eventID;
-            $row["start"] = $startD;
-            $row["end"] = $endD;
-            $row["allDay"] = $allDay;
-            
-            array_push( $rows, $row );            
-        }        
     }
     //Encode in JSON format.
     $str =  json_encode( $rows );

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="572020f2-af6d-4114-a03f-1298e6132628" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/google_connect.php" afterPath="$PROJECT_DIR$/google_connect.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/google_connect.php" afterPath="$PROJECT_DIR$/google_connect.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="calendar.iws" />
@@ -30,10 +30,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="25" selection-start="1115" selection-end="1115" vertical-scroll-proportion="0.7846154">
+            <state line="5" column="0" selection-start="205" selection-end="205" vertical-scroll-proportion="-2.6153846">
               <folding>
                 <marker date="1340851900785" expanded="true" signature="1026:1085" placeholder="..." />
               </folding>
@@ -41,10 +41,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="calendarlist.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="calendarlist.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/calendarlist.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="35" selection-start="2248" selection-end="2248" vertical-scroll-proportion="-12.653846">
+            <state line="67" column="36" selection-start="1870" selection-end="1870" vertical-scroll-proportion="0.6403846">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gcalid.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gcalid.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="33" selection-start="185" selection-end="385" vertical-scroll-proportion="-9.153846">
               <folding />
             </state>
           </provider>
@@ -53,7 +62,7 @@
       <file leaf-file-name="json-events-gcal.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/json-events-gcal.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="4" selection-start="0" selection-end="4733" vertical-scroll-proportion="-65.38461">
+            <state line="84" column="9" selection-start="2729" selection-end="2729" vertical-scroll-proportion="-0.65384614">
               <folding />
             </state>
           </provider>
@@ -62,7 +71,7 @@
       <file leaf-file-name="json-events.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/json-events.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="9" selection-start="842" selection-end="842" vertical-scroll-proportion="-7.8461537">
+            <state line="23" column="9" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -71,7 +80,7 @@
       <file leaf-file-name="google_connect.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/google_connect.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="186" column="12" selection-start="5340" selection-end="5340" vertical-scroll-proportion="-121.61539">
+            <state line="186" column="12" selection-start="5340" selection-end="5340" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -80,7 +89,7 @@
       <file leaf-file-name="module.sql" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/module.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="2" selection-start="208" selection-end="338" vertical-scroll-proportion="0.0">
+            <state line="17" column="0" selection-start="208" selection-end="354" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -101,8 +110,9 @@
       <list>
         <option value="$PROJECT_DIR$/file_import.php" />
         <option value="$PROJECT_DIR$/google_connect.php" />
-        <option value="$PROJECT_DIR$/json-events-gcal.php" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/gcalid.php" />
+        <option value="$PROJECT_DIR$/json-events-gcal.php" />
         <option value="$PROJECT_DIR$/calendarlist.php" />
       </list>
     </option>
@@ -140,6 +150,16 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -156,16 +176,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="calendar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -214,15 +224,35 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25454545" sideWeight="0.6712329" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2621212" sideWeight="0.6712329" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -317,45 +347,48 @@
         <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module.sql">
+    <entry file="file://$PROJECT_DIR$/json-events.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="2" selection-start="208" selection-end="338" vertical-scroll-proportion="0.0" />
+        <state line="23" column="9" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/google_connect.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="186" column="12" selection-start="5340" selection-end="5340" vertical-scroll-proportion="-121.61539">
-          <folding />
+        <state line="186" column="12" selection-start="5340" selection-end="5340" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="208" selection-end="354" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="205" selection-end="205" vertical-scroll-proportion="-2.6153846">
+          <folding>
+            <marker date="1340851900785" expanded="true" signature="1026:1085" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/json-events.php">
+    <entry file="file://$PROJECT_DIR$/gcalid.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="9" selection-start="842" selection-end="842" vertical-scroll-proportion="-7.8461537">
+        <state line="14" column="33" selection-start="185" selection-end="385" vertical-scroll-proportion="-9.153846">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/json-events-gcal.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="4" selection-start="0" selection-end="4733" vertical-scroll-proportion="-65.38461">
+        <state line="84" column="9" selection-start="2729" selection-end="2729" vertical-scroll-proportion="-0.65384614">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/calendarlist.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="35" selection-start="2248" selection-end="2248" vertical-scroll-proportion="-12.653846">
+        <state line="67" column="36" selection-start="1870" selection-end="1870" vertical-scroll-proportion="0.6403846">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="25" selection-start="1115" selection-end="1115" vertical-scroll-proportion="0.7846154">
-          <folding>
-            <marker date="1340851900785" expanded="true" signature="1026:1085" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>

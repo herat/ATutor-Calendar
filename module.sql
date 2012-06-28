@@ -12,6 +12,7 @@ CREATE TABLE `google_sync`(
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`token` varchar(256),
 	`userid` int(8),
+	`calids` text,
 	PRIMARY KEY (`id`)
 );
 

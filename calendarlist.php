@@ -38,15 +38,6 @@ function isvalidtoken( $tokent )
     }
     catch( Zend_Gdata_App_HttpException $e )
     {
-        $db = mysql_connect('localhost','root','root');
-        mysql_select_db('test',$db);
-        $qry = "SELECT * FROM test_session";
-        $res = mysql_query($qry,$db);
-        if( mysql_num_rows($res) > 0 )
-        {
-            $qry = "DELETE FROM test_session";
-            mysql_query($qry,$db);
-        }
         logout();
     }
 }
@@ -74,8 +65,10 @@ function outputCalendarList($client)
     $calFeed = $gdataCal->getCalendarListFeed();
     echo "<ul>\n";
     foreach ($calFeed as $calendar) {
-        //echo "\t<li>" . $calendar->title->text . "</li>\n";
-        echo "\t<input onclick='if(this.checked)alert(this.value);' type='checkbox' name ='calid' value='".$calendar->id->text."'/>".$calendar->title->text."<br/>";
+        //state according to browser
+        echo "\t<input onclick='if(this.checked) $.get(\"mods/calendar/gcalid.php\", { calid: this.value, mode: \"add\" } );
+        else $.get(\"mods/calendar/gcalid.php\", { calid: this.value, mode: \"remove\" } );' type='checkbox' name ='calid' value='".
+            $calendar->id->text."'/>".$calendar->title->text."<br/>";
     }
     echo "</ul>\n";
 }
