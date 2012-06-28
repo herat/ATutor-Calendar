@@ -19,7 +19,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
     $res = mysql_query($query,$db);
     if( mysql_num_rows($res) > 0 )
     {
-        echo "<a style='display:block;text-align: center !important;' href='mods/calendar/google_connect.php?logout=yes' target='_blank'>Disconnect from Google Calendar</a>";
+        echo "<a style='display:block;text-align: center !important;' href='mods/calendar/google_connect.php?logout=yes'
+        target='_blank'>Disconnect from Google Calendar</a>";
+
+        include('calendarlist.php');
     }
     else
     {
