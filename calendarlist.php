@@ -75,7 +75,7 @@ function outputCalendarList($client)
     echo "<ul>\n";
     foreach ($calFeed as $calendar) {
         //echo "\t<li>" . $calendar->title->text . "</li>\n";
-        echo "\t<input type='radio' name ='calid' value='".$calendar->id->text."'/>".$calendar->title->text."<br/>";
+        echo "\t<input onclick='if(this.checked)alert(this.value);' type='checkbox' name ='calid' value='".$calendar->id->text."'/>".$calendar->title->text."<br/>";
     }
     echo "</ul>\n";
 }
