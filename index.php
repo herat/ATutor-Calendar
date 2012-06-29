@@ -609,6 +609,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             }
         });    
     });
+    function refreshevents()
+    {
+        $("#calendar").fullCalendar("refetchEvents");
+    }
     </script>
     <style type='text/css'>
     #calendar {
@@ -616,9 +620,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
         margin: 0 auto;
     }
     </style>
-</head>
 
-<body>
     <div id="dialog" class="event-dialog" title="Create Event">
         <div id="dialog-inner">
            <table border="0" cellpadding="5">

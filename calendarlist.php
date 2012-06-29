@@ -80,9 +80,9 @@ function outputCalendarList($client)
         echo "\t<input type='checkbox' name ='calid' value='".
             $calendar->id->text."' ".$selectd.
             " onclick='if(this.checked) $.get(\"mods/calendar/gcalid.php\",
-            { calid: this.value, mode: \"add\" },function (data){ window.location.reload(false); } );
+            { calid: this.value, mode: \"add\" },function (data){ refreshevents(); } );
             else $.get(\"mods/calendar/gcalid.php\",
-            { calid: this.value, mode: \"remove\" },function (data){ window.location.reload(false); } );'
+            { calid: this.value, mode: \"remove\" },function (data){ refreshevents(); } );'
             />".$calendar->title->text."<br/>";
     }
     echo "</ul>\n";
