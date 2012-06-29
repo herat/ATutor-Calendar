@@ -366,7 +366,11 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             /* Events are editable. */
             editable: false,
             /* Retrieve events from php file. */
-            events: "mods/calendar/json-events-gcal.php"
+            //events: "mods/calendar/json-events-gcal.php"
+            eventSources: [
+                'mods/calendar/json-events.php',
+                'mods/calendar/json-events-gcal.php'
+            ]
         });
         
         /*Create event jQuery dialog*/
