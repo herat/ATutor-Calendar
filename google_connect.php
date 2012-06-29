@@ -189,7 +189,7 @@ function processPageLoad()
         else
         {
             $client = getAuthSubHttpClient();
-            $qry = "INSERT INTO ".TABLE_PREFIX."google_sync (token,userid) values ('".$_SESSION['sessionToken']."','".$_SESSION['member_id']."')";
+            $qry = "INSERT INTO ".TABLE_PREFIX."google_sync (token,userid,calids) values ('".$_SESSION['sessionToken']."','".$_SESSION['member_id']."','')";
             mysql_query($qry,$db);
             echo "<script>window.opener.location.reload(false);window.close();</script>";
         }

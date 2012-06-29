@@ -64,11 +64,26 @@ function outputCalendarList($client)
     $gdataCal = new Zend_Gdata_Calendar($client);
     $calFeed = $gdataCal->getCalendarListFeed();
     echo "<ul>\n";
+    global $db;
+    $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+    $res = mysql_query($query);
+    $rowval = mysql_fetch_assoc($res);
+    $prevval = $rowval['calids'];
+    $selectd = '';
+
     foreach ($calFeed as $calendar) {
         //state according to browser
-        echo "\t<input onclick='if(this.checked) $.get(\"mods/calendar/gcalid.php\", { calid: this.value, mode: \"add\" } );
-        else $.get(\"mods/calendar/gcalid.php\", { calid: this.value, mode: \"remove\" } );' type='checkbox' name ='calid' value='".
-            $calendar->id->text."'/>".$calendar->title->text."<br/>";
+        if( strpos($prevval,$calendar->id->text.',') === false )
+            $selectd = '';
+        else
+            $selectd = "checked='checked'";
+        echo "\t<input type='checkbox' name ='calid' value='".
+            $calendar->id->text."' ".$selectd.
+            " onclick='if(this.checked) $.get(\"mods/calendar/gcalid.php\",
+            { calid: this.value, mode: \"add\" },function (data){ window.location.reload(false); } );
+            else $.get(\"mods/calendar/gcalid.php\",
+            { calid: this.value, mode: \"remove\" },function (data){ window.location.reload(false); } );'
+            />".$calendar->title->text."<br/>";
     }
     echo "</ul>\n";
 }

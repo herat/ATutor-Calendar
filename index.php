@@ -33,6 +33,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <br/>
 <br/>
 <script>
+    $.ajaxSetup({ cache: false});
     $(document).ready(function () {
         /* Get current date for calculations. */
         var date = new Date();
