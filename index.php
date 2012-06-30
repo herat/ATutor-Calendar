@@ -10,8 +10,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 
-<a href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a>
-<a style="text-align:right;float:right" href="mods/calendar/test_export.php">Export ics file</a>
+<a style="float:right" href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> <br/>
+<a style="text-align:right;float:right" href="mods/calendar/test_export.php">Export ics file</a> <br/>
 
 <?php
     global $db;
@@ -19,14 +19,14 @@ require (AT_INCLUDE_PATH.'header.inc.php');
     $res = mysql_query($query,$db);
     if( mysql_num_rows($res) > 0 )
     {
-        echo "<a style='display:block;text-align: center !important;' href='mods/calendar/google_connect.php?logout=yes'
+        echo "<a style='float: right' href='mods/calendar/google_connect.php?logout=yes'
         target='_blank'>Disconnect from Google Calendar</a>";
 
         include('calendarlist.php');
     }
     else
     {
-        echo "<a style='display:block;text-align: center !important;' href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a>";
+        echo "<a style='float: right' href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a>";
     }
 ?>
 
@@ -724,7 +724,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             <input type="hidden" id="ori-name1" />              
         </div>
     </div>
-    <div id="calendar"></div>
+    <div style="float:left" id="calendar"></div>
     
 <?php
 require (AT_INCLUDE_PATH.'footer.inc.php'); 

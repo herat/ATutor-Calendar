@@ -63,14 +63,14 @@ function outputCalendarList($client)
 {
     $gdataCal = new Zend_Gdata_Calendar($client);
     $calFeed = $gdataCal->getCalendarListFeed();
-    echo "<ul>\n";
+    
     global $db;
     $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
     $res = mysql_query($query);
     $rowval = mysql_fetch_assoc($res);
     $prevval = $rowval['calids'];
     $selectd = '';
-
+    echo "<br/><div style='float: right'>"; 
     foreach ($calFeed as $calendar) {
         //state according to browser
         if( strpos($prevval,$calendar->id->text.',') === false )
@@ -84,8 +84,8 @@ function outputCalendarList($client)
             else $.get(\"mods/calendar/gcalid.php\",
             { calid: this.value, mode: \"remove\" },function (data){ refreshevents(); } );'
             />".$calendar->title->text."<br/>";
-    }
-    echo "</ul>\n";
+    }   
+    echo "</div>";    
 }
 
 processPageLoad();
