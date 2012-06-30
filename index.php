@@ -10,6 +10,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 
+<div class="sidemenu-cal">
 <a style="float:right" href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> <br/>
 <a style="text-align:right;float:right" href="mods/calendar/test_export.php">Export ics file</a> <br/>
 
@@ -29,7 +30,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
         echo "<a style='float: right' href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a>";
     }
 ?>
-
+</div>
 <br/>
 <br/>
 <script>
