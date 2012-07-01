@@ -4,6 +4,7 @@ require (AT_INCLUDE_PATH.'vitals.inc.php');
 
 require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
+<div style="left:50%; z-index:20000; position:absolute; top:50%" id="loader"><img src="mods/calendar/img/loader.gif" alt="Loading" /> </div>
 
 <div style="float:right;width:20%" class="box">
 <h2><span>Calendar Options</span></h2><br/>
@@ -35,8 +36,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 <script>
     $.ajaxSetup({ cache: false});
-    $(document).ready(function () {
+		
+	$(document).ready(function () {
         /* Get current date for calculations. */
+				
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
@@ -50,6 +53,13 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             /* Remove comment when ported to ATutor */
             /*defaultView: 'agendaWeek',*/
             
+			loading: function (isLoading, view){
+				if( isLoading )
+					$("#loader").show();
+				else
+					$("#loader").hide();
+			},
+			
             /* Apply theme */
             theme: false,
             
@@ -66,6 +76,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             
             /* Add tooltip to events after they are rendered. */
             eventAfterRender: function( evento,elemento,viewo ){
+				//$("#loader").hide();
                 if( !evento.editable )
                 {
                     var childo = elemento.children();
