@@ -2,17 +2,14 @@
 define('AT_INCLUDE_PATH', '../../include/');
 require (AT_INCLUDE_PATH.'vitals.inc.php');
 
-$_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet
-
 require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
 
-<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
-<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
-
-<div class="sidemenu-cal">
-<a style="float:right" href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> <br/>
-<a style="text-align:right;float:right" href="mods/calendar/test_export.php">Export ics file</a> <br/>
+<div style="float:right" class="box">
+<h2><span>Calendar Options</span></h2><br/>
+<ul class="social_side_menu">
+<li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
+<li><a  href="mods/calendar/test_export.php">Export ics file</a> </li>
 
 <?php
     global $db;
@@ -20,19 +17,22 @@ require (AT_INCLUDE_PATH.'header.inc.php');
     $res = mysql_query($query,$db);
     if( mysql_num_rows($res) > 0 )
     {
-        echo "<a style='float: right' href='mods/calendar/google_connect.php?logout=yes'
-        target='_blank'>Disconnect from Google Calendar</a>";
-
+        echo "<li><a href='mods/calendar/google_connect.php?logout=yes'
+        target='_blank'>Disconnect from Google Calendar</a></li>";
+		echo "<br/><h2><span>  Google Calendars </span></h2>";
         include('calendarlist.php');
     }
     else
     {
-        echo "<a style='float: right' href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a>";
+        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a></li>";
     }
 ?>
+</ul>
 </div>
-<br/>
-<br/>
+
+<?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
+<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
+<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 <script>
     $.ajaxSetup({ cache: false});
     $(document).ready(function () {
@@ -621,7 +621,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
     </script>
     <style type='text/css'>
     #calendar {
-        width: 900px;
+        width: 800px;
         margin: 0 auto;
     }
     </style>
