@@ -51,7 +51,7 @@
  * The event description format as well as the content format should be made more generic.
  * Personalized calendar, where users can create their own events, needs to be implemented.
  
-CINDY'S NOTES
+CINDY'S NOTES:
 A few suggestions:
 
 1. delete the backup scripts and the scripts that are no longer in use or don't belong to where they are now
