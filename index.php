@@ -5,7 +5,7 @@ require (AT_INCLUDE_PATH.'vitals.inc.php');
 require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
 
-<div style="float:right" class="box">
+<div style="float:right;width:20%" class="box">
 <h2><span>Calendar Options</span></h2><br/>
 <ul class="social_side_menu">
 <li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
@@ -621,7 +621,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
     </script>
     <style type='text/css'>
     #calendar {
-        width: 800px;
+        width: 75%;
         margin: 0 auto;
     }
     </style>

@@ -70,7 +70,7 @@ function outputCalendarList($client)
     $rowval = mysql_fetch_assoc($res);
     $prevval = $rowval['calids'];
     $selectd = '';
-    echo "<br/><div style='float: right'>"; 
+    echo "<br/>"; 
     foreach ($calFeed as $calendar) {
         //state according to browser
         if( strpos($prevval,$calendar->id->text.',') === false )
@@ -85,7 +85,7 @@ function outputCalendarList($client)
             { calid: this.value, mode: \"remove\" },function (data){ refreshevents(); } );'
             />".$calendar->title->text."<br/>";
     }   
-    echo "</div>";    
+    echo "";    
 }
 
 processPageLoad();
