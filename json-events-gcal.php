@@ -139,7 +139,7 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2
                     $row["start"] = $startD;
                     $row["end"] = $endD;
                     $row["allDay"] = $allDay;
-					$row["color"]= "LightBlue";
+					$row["color"]= "#3399FF";
 					$row["textColor"]="Black";
 
                     array_push( $rows, $row );
