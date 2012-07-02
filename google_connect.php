@@ -148,15 +148,9 @@ function isvalidtoken( $tokent )
     }
     catch( Zend_Gdata_App_HttpException $e )
     {
-        $db = mysql_connect('localhost','root','root');
-        mysql_select_db('test',$db);
-        $qry = "SELECT * FROM test_session";
-        $res = mysql_query($qry,$db);
-        if( mysql_num_rows($res) > 0 )
-        {
-            $qry = "DELETE FROM test_session";
-            mysql_query($qry,$db);
-        }
+       	global $db;
+		$qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+        mysql_query($qry,$db);
         logout();
     }
 }

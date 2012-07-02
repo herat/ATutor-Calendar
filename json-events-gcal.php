@@ -34,15 +34,9 @@ function isvalidtoken( $tokent )
     }
     catch( Zend_Gdata_App_HttpException $e )
     {
-        $db = mysql_connect('localhost','root','root');
-        mysql_select_db('test',$db);
-        $qry = "SELECT * FROM test_session";
-        $res = mysql_query($qry,$db);
-        if( mysql_num_rows($res) > 0 )
-        {
-          $qry = "DELETE FROM test_session";
-          mysql_query($qry,$db);          
-        }
+		global $db;
+		$qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+        mysql_query($qry,$db);
         logout();
     }
 }
@@ -160,6 +154,20 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2
     
     //Return the events in the JSON format.
     echo $str;    
+}
+
+function logout()
+{
+    // Carefully construct this value to avoid application security problems.
+    $php_self = htmlentities(substr($_SERVER['PHP_SELF'],
+            0,
+            strcspn($_SERVER['PHP_SELF'], "\n\r")),
+        ENT_QUOTES);
+
+    Zend_Gdata_AuthSub::AuthSubRevokeToken($_SESSION['sessionToken']);
+    unset($_SESSION['sessionToken']);
+    echo "<script>window.location.reload(false);</script>";
+    exit();
 }
 
 processPageLoad();
