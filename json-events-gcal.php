@@ -92,6 +92,7 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2
     $rows = array();
 
     $idsofcal = explode(',',$idsofcal);
+	$calFeed = $gdataCal->getCalendarListFeed();
 
     foreach( $idsofcal as $idofcal )
     {
@@ -105,6 +106,14 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2
             $query->setStartMin($startDate);
             $query->setStartMax($endDate);
             $eventFeed = $gdataCal->getCalendarEventFeed($query);
+			
+			$color = "#3399FF";
+			foreach ($calFeed as $calendar) {
+				if( strpos($idofcal,$calendar->id->text) !== false )
+				{
+					$color = $calendar->color->value;
+				}
+			}
 
             foreach ($eventFeed as $event) {
 
@@ -139,8 +148,8 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2
                     $row["start"] = $startD;
                     $row["end"] = $endD;
                     $row["allDay"] = $allDay;
-					$row["color"]= "#3399FF";
-					$row["textColor"]="Black";
+					$row["color"]= $color;
+					$row["textColor"]="white";
 
                     array_push( $rows, $row );
                 }

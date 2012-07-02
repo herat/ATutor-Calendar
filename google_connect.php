@@ -185,7 +185,7 @@ function processPageLoad()
             $client = getAuthSubHttpClient();
             $qry = "INSERT INTO ".TABLE_PREFIX."google_sync (token,userid,calids) values ('".$_SESSION['sessionToken']."','".$_SESSION['member_id']."','')";
             mysql_query($qry,$db);
-            echo "<script>window.opener.location.reload(false);window.close();</script>";
+            echo "<script>window.opener.location.reload(true);window.close();</script>";
         }
     }
 }
@@ -200,7 +200,7 @@ function logout()
 
     Zend_Gdata_AuthSub::AuthSubRevokeToken($_SESSION['sessionToken']);
     unset($_SESSION['sessionToken']);
-    echo "<script>window.opener.location.reload(false);window.close();</script>";
+    echo "<script>window.opener.location.reload(true);window.close();</script>";
     exit();
 }
 
