@@ -5,8 +5,8 @@
 
     //Create ics file in $ical string variable
     $ical = "BEGIN:VCALENDAR
-    VERSION:2.0
-    PRODID:-//hacksw/handcal//NONSGML v1.0//EN";
+VERSION:2.0
+PRODID:-//ATutor//ATutor Calendar Module//EN";
     
     //Get all the events of a user
     $qry = "SELECT * FROM `".TABLE_PREFIX."full_calendar_events` WHERE userid='".$_SESSION['member_id']."'";
@@ -52,17 +52,17 @@
         $s_time_p = explode( ":", $parts[1] );
         $e_time_p = explode( ":", $parts1[1] );
         $ical .= "
-            BEGIN:VEVENT
-            UID:" . md5(uniqid(mt_rand(), true))."@atutor.ca
-            DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
-            DTSTART:".$s_date_p[0].$s_date_p[1].$s_date_p[2]."T".$s_time_p[0].$s_time_p[1]."00Z
-            DTEND:".$e_date_p[0].$e_date_p[1].$e_date_p[2]."T".$e_time_p[0].$e_time_p[1]."00Z
-            SUMMARY:". $row["title"] ."
-            END:VEVENT";
+BEGIN:VEVENT
+UID:" . md5(uniqid(mt_rand(), true))."@atutor.ca
+DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
+DTSTART:".$s_date_p[0].$s_date_p[1].$s_date_p[2]."T".$s_time_p[0].$s_time_p[1]."00Z
+DTEND:".$e_date_p[0].$e_date_p[1].$e_date_p[2]."T".$e_time_p[0].$e_time_p[1]."00Z
+SUMMARY:". $row["title"] ."
+END:VEVENT";
     }
 
     $ical .= "
-    END:VCALENDAR";
+END:VCALENDAR";
 
     //set correct content-type-header
     header('Content-type: text/calendar; charset=utf-8');
