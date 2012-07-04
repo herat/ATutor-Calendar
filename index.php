@@ -55,7 +55,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 				if( !isset($_SESSION['fc-viewname']) )
 					echo "'month'"; 
 				else
-					echo "'".$_SESSION['fc-viewname']."'";
+					echo $_SESSION['fc-viewname'];
 			?>,
             
 			loading: function (isLoading, view){
@@ -119,7 +119,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             
             /* Add tooltip to cells. */
             viewDisplay: function(view) {
-				$.get("mods/calendar/change_view.php",{viewn: view.name});
+                $.get("mods/calendar/change_view.php",{viewn: ""+view.name});
 				$(".fc-button-firsts").each(
                    function()
                    {
