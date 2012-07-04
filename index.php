@@ -119,7 +119,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             
             /* Add tooltip to cells. */
             viewDisplay: function(view) {
-                $.get("mods/calendar/change_view.php",{viewn: ""+view.name});
+                //$.get("mods/calendar/change_view.php",{viewn: ""+view.name});
+                $.ajax(url:{"mods/calendar/change_view.php?viewn="+view.name,async:false});
 				$(".fc-button-firsts").each(
                    function()
                    {
