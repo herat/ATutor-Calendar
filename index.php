@@ -37,10 +37,10 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <script>
     $.ajaxSetup({ cache: false});
 	
-	function changeview( name )
+	function changeview( name, year, month, datem )
 	{
 		//$.get("mods/calendar/change_view.php",{viewn: ""+name});
-		$.ajax({url:"mods/calendar/change_view.php?viewn="+name,async:false});
+		$.ajax({url:"mods/calendar/change_view.php?viewn="+name+"&year="+year+"&month="+month+"&date="+datem,async:false});
 	}
 	
 	$(document).ready(function () {
@@ -125,7 +125,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             
             /* Add tooltip to cells. */
             viewDisplay: function(view) {
-                changeview( view.name );
+                changeview( view.name, view.start.getFullYear(), view.start.getMonth(), view.start.getDate() );
 				
 				$(".fc-button-firsts").each(
                    function()
@@ -637,7 +637,12 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 	                activeelem.focus();
             }
         });
-        //calendar.fullCalendar('gotoDate',2012,8,12);        
+        <?php 
+			if( isset( $_SESSION['fc-viewname'] ) )
+			{
+				echo "calendar.fullCalendar('gotoDate',".$_SESSION['fc-year'].",".$_SESSION['fc-month'].",".$_SESSION['fc-date'].");";
+			}
+		 ?>//calendar.fullCalendar('gotoDate',2012,8,12);        
     });
     function refreshevents()
     {
