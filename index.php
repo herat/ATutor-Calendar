@@ -50,8 +50,13 @@ require (AT_INCLUDE_PATH.'header.inc.php');
         
         var calendar = $('#calendar').fullCalendar({
         
-            /* Remove comment when ported to ATutor */
-            /*defaultView: 'agendaWeek',*/
+            defaultView: 
+			<?php 
+				if( !isset($_SESSION['fc-viewname']) )
+					echo "'month'"; 
+				else
+					echo "'".$_SESSION['fc-viewname']."'";
+			?>,
             
 			loading: function (isLoading, view){
 				if( isLoading )
@@ -114,7 +119,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             
             /* Add tooltip to cells. */
             viewDisplay: function(view) {
-                $(".fc-button-firsts").each(
+				$.get("mods/calendar/change_view.php",{viewn: view.name});
+				$(".fc-button-firsts").each(
                    function()
                    {
                         if( $(this).text().indexOf( 'Previous' ) >= 0 )
