@@ -36,7 +36,13 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 <script>
     $.ajaxSetup({ cache: false});
-		
+	
+	function changeview( name )
+	{
+		//$.get("mods/calendar/change_view.php",{viewn: ""+name});
+		$.ajax({url:"mods/calendar/change_view.php?viewn="+name,async:false});
+	}
+	
 	$(document).ready(function () {
         /* Get current date for calculations. */
 				
@@ -119,8 +125,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             
             /* Add tooltip to cells. */
             viewDisplay: function(view) {
-                //$.get("mods/calendar/change_view.php",{viewn: ""+view.name});
-                $.ajax({url:"mods/calendar/change_view.php?viewn="+view.name,async:false});
+                changeview( view.name );
+				
 				$(".fc-button-firsts").each(
                    function()
                    {
