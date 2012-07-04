@@ -629,12 +629,13 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 				if( activeelem != null )
 	                activeelem.focus();
             }
-        });    
+        });
+        calendar.fullCalendar('gotoDate',2012,8,12);        
     });
     function refreshevents()
     {
         $("#calendar").fullCalendar("refetchEvents");
-    }
+    }    
     </script>
     <style type='text/css'>
     #calendar {
