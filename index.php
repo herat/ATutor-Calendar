@@ -36,11 +36,12 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 <script>
     $.ajaxSetup({ cache: false});
-	
+
 	function changeview( name, year, month, datem )
 	{
 		//$.get("mods/calendar/change_view.php",{viewn: ""+name});
-		$.ajax({url:"mods/calendar/change_view.php?viewn="+name+"&year="+year+"&month="+month+"&date="+datem,async:false});
+		//alert( name );
+		$.ajax({url:"mods/calendar/change_view.php?viewn="+name+"&year="+year+"&month="+month+"&date="+datem});
 	}
 	
 	$(document).ready(function () {
