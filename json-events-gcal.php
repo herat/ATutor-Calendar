@@ -117,11 +117,11 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2
 
             foreach ($eventFeed as $event) {
 
-                $eventID = "";
+                /*$eventID = "";
                 for($i=0;$i<7;$i++)
                 {
                     $eventID .= $event->id->text[rand(0,strlen($event->id->text)-1)];
-                }
+                }*/
 
                 foreach ($event->when as $when) {
                     $startD = substr($when->startTime,0,19);
@@ -144,7 +144,8 @@ function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2
 
                     $row = array();
                     $row["title"] = $event->title->text;
-                    $row["id"] = $eventID;
+                    $row["id"] = $event->id->text;
+					$row["editable"]=true;
                     $row["start"] = $startD;
                     $row["end"] = $endD;
                     $row["allDay"] = $allDay;
