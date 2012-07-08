@@ -480,8 +480,15 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             modal: true,
             buttons: {
                 'Delete Event': function() {
-                    //delete event from db
-                    $.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:'',end:'',title:'',allday:'',cmd:"delete"});
+					if( $("#ori-name1").val().indexOf('http') >= 0 )
+					{
+                    	$.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val()});
+					}
+					else
+					{
+						//delete event from db
+                    	$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:'',end:'',title:'',allday:'',cmd:"delete"});
+					}
                     calendar.fullCalendar('removeEvents',
                     function( ev ){
                         //remove event data from hidden elements
@@ -514,6 +521,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                             return true;
                     }                    
                     );
+					calendar.fullCalendar('refetchEvents');
                     $(this).dialog('close');
                     //activeelem.focus();
                 },
