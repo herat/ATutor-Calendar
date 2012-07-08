@@ -37,11 +37,20 @@ try
 	}
 	else if( strcmp($command,"update") == 0 )
 	{
-		//update event
+		$event->title = $gdataCal->newTitle($_GET['title']);
+		$when = $gdataCal->newWhen();
+		$when->startTime = $_GET['start'];
+		$when->endTime=$_GET['end'];		
+		// Apply the when property to an event
+		$event->when = array($when);
+		
+		$event->save();
 	}
+	exit();
 } 
 catch (Zend_Gdata_App_Exception $e) 
 {
 	echo "Error: " . $e->getMessage();
+	exit();
 }
 ?>

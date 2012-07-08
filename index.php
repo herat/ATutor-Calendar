@@ -616,12 +616,24 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 //add edited event as a new event and also update db values
                 if( $('#viewname1').val() == "true" )
                     {
-                        var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
-                        var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
-                        $.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"true"},function(data){
+                        if( $("#ori-name1").val().indexOf('http') >= 0 )
+						{
+							var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'u');
+                        	var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'u');
+							$.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
                                 calendar.fullCalendar('refetchEvents'); 
                                 focusd = true;
                             });
+						}
+						else
+						{
+							var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
+                        	var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
+                        	$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"true"},function(data){
+                                calendar.fullCalendar('refetchEvents'); 
+                                focusd = true;
+                            });
+						}
                         $(this).dialog('close');
                         //console.log( activeelem.innerHTML );
                     }
