@@ -26,10 +26,19 @@ $client = getAuthSubHttpClient();
 $gdataCal = new Zend_Gdata_Calendar($client);
 
 $eventURL = $_GET['id'];
+$command = $_GET["cmd"];
+
 try 
 {
 	$event = $gdataCal->getCalendarEventEntry($eventURL);
-	$event->delete();
+	if( strcmp($command,"delete") == 0 )
+	{
+		$event->delete();
+	}
+	else if( strcmp($command,"update") == 0 )
+	{
+		//update event
+	}
 } 
 catch (Zend_Gdata_App_Exception $e) 
 {

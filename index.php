@@ -482,7 +482,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 'Delete Event': function() {
 					if( $("#ori-name1").val().indexOf('http') >= 0 )
 					{
-                    	$.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val()});
+                    	$.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),cmd:"delete"});
 					}
 					else
 					{
