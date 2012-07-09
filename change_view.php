@@ -2,7 +2,7 @@
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
 
-    sleep( 1 );
+    //sleep( 1 );
 
     $_SESSION['fc-viewname'] = "'".$_GET['viewn']."'";
     $_SESSION['fc-year'] = $_GET['year'];

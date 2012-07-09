@@ -55,6 +55,7 @@
         
         var activeelem;
         var focusd = false;
+        var viewchangd = false;
         
         var calendar = $('#calendar').fullCalendar({
         
@@ -89,6 +90,12 @@
             
             /* Add tooltip to events after they are rendered. */
             eventAfterRender: function( evento,elemento,viewo ){
+                if( viewchangd )
+                {
+                    changeview( viewo.name, viewo.start.getFullYear(), 
+                    viewo.start.getMonth(), viewo.start.getDate() );
+                    viewchangd = false;
+                }
                 //$("#loader").hide();
                 if( !evento.editable )
                 {
@@ -127,8 +134,7 @@
             
             /* Add tooltip to cells. */
             viewDisplay: function(view) {
-                changeview( view.name, view.start.getFullYear(), view.start.getMonth(), view.start.getDate() );
-                
+                viewchangd = true;
                 $(".fc-button-firsts").each(
                    function()
                    {
