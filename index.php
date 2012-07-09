@@ -1,8 +1,8 @@
 <?php
-define('AT_INCLUDE_PATH', '../../include/');
-require (AT_INCLUDE_PATH.'vitals.inc.php');
+    define('AT_INCLUDE_PATH', '../../include/');
+    require (AT_INCLUDE_PATH.'vitals.inc.php');
 
-require (AT_INCLUDE_PATH.'header.inc.php');
+    require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
 <div style="left:50%; z-index:20000; position:absolute; top:50%" id="loader"><img src="mods/calendar/img/loader.gif" alt="Loading" /> </div>
 
@@ -20,7 +20,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
     {
         echo "<li><a href='mods/calendar/google_connect.php?logout=yes'
         target='_blank'>Disconnect from Google Calendar</a></li>";
-		echo "<br/><h2><span>  Google Calendars </span></h2>";
+        echo "<br/><h2><span>  Google Calendars </span></h2>";
         include('calendarlist.php');
     }
     else
@@ -32,21 +32,22 @@ require (AT_INCLUDE_PATH.'header.inc.php');
 </div>
 
 <?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
+
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 <script>
     $.ajaxSetup({ cache: false});
 
-	function changeview( name, year, month, datem )
-	{
-		//$.get("mods/calendar/change_view.php",{viewn: ""+name});
-		//alert( name );
-		$.ajax({url:"mods/calendar/change_view.php?viewn="+name+"&year="+year+"&month="+month+"&date="+datem});
-	}
-	
-	$(document).ready(function () {
+    function changeview( name, year, month, datem )
+    {
+        //$.get("mods/calendar/change_view.php",{viewn: ""+name});
+        //alert( name );
+        $.ajax({url:"mods/calendar/change_view.php?viewn="+name+"&year="+year+"&month="+month+"&date="+datem});
+    }
+    
+    $(document).ready(function () {
         /* Get current date for calculations. */
-				
+                
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
@@ -58,20 +59,20 @@ require (AT_INCLUDE_PATH.'header.inc.php');
         var calendar = $('#calendar').fullCalendar({
         
             defaultView: 
-			<?php 
-				if( !isset($_SESSION['fc-viewname']) )
-					echo "'month'"; 
-				else
-					echo $_SESSION['fc-viewname'];
-			?>,
+            <?php 
+                if( !isset($_SESSION['fc-viewname']) )
+                    echo "'month'"; 
+                else
+                    echo $_SESSION['fc-viewname'];
+            ?>,
             
-			loading: function (isLoading, view){
-				if( isLoading )
-					$("#loader").show();
-				else
-					$("#loader").hide();
-			},
-			
+            loading: function (isLoading, view){
+                if( isLoading )
+                    $("#loader").show();
+                else
+                    $("#loader").hide();
+            },
+            
             /* Apply theme */
             theme: false,
             
@@ -88,7 +89,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             
             /* Add tooltip to events after they are rendered. */
             eventAfterRender: function( evento,elemento,viewo ){
-				//$("#loader").hide();
+                //$("#loader").hide();
                 if( !evento.editable )
                 {
                     var childo = elemento.children();
@@ -127,8 +128,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             /* Add tooltip to cells. */
             viewDisplay: function(view) {
                 changeview( view.name, view.start.getFullYear(), view.start.getMonth(), view.start.getDate() );
-				
-				$(".fc-button-firsts").each(
+                
+                $(".fc-button-firsts").each(
                    function()
                    {
                         if( $(this).text().indexOf( 'Previous' ) >= 0 )
@@ -467,8 +468,8 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 }
             },
             close: function () {
-				if( activeelem != null )
-	                activeelem.focus();
+                if( activeelem != null )
+                    activeelem.focus();
             }
         });
         
@@ -480,15 +481,15 @@ require (AT_INCLUDE_PATH.'header.inc.php');
             modal: true,
             buttons: {
                 'Delete Event': function() {
-					if( $("#ori-name1").val().indexOf('http') >= 0 )
-					{
-                    	$.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),cmd:"delete"});
-					}
-					else
-					{
-						//delete event from db
-                    	$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:'',end:'',title:'',allday:'',cmd:"delete"});
-					}
+                    if( $("#ori-name1").val().indexOf('http') >= 0 )
+                    {
+                        $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),cmd:"delete"});
+                    }
+                    else
+                    {
+                        //delete event from db
+                        $.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:'',end:'',title:'',allday:'',cmd:"delete"});
+                    }
                     calendar.fullCalendar('removeEvents',
                     function( ev ){
                         //remove event data from hidden elements
@@ -521,7 +522,7 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                             return true;
                     }                    
                     );
-					calendar.fullCalendar('refetchEvents');
+                    calendar.fullCalendar('refetchEvents');
                     $(this).dialog('close');
                     //activeelem.focus();
                 },
@@ -617,46 +618,46 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 if( $('#viewname1').val() == "true" )
                     {
                         if( $("#ori-name1").val().indexOf('http') >= 0 )
-						{
-							var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'u');
-                        	var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'u');
-							$.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
+                        {
+                            var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'u');
+                            var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'u');
+                            $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
                                 calendar.fullCalendar('refetchEvents'); 
                                 focusd = true;
                             });
-						}
-						else
-						{
-							var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
-                        	var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
-                        	$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"true"},function(data){
+                        }
+                        else
+                        {
+                            var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
+                            var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'yyyy-MM-dd HH:mm')+":00";
+                            $.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"true"},function(data){
                                 calendar.fullCalendar('refetchEvents'); 
                                 focusd = true;
                             });
-						}
+                        }
                         $(this).dialog('close');
                         //console.log( activeelem.innerHTML );
                     }
                     else
                     {
-						if( $("#ori-name1").val().indexOf('http') >= 0 )
-						{
-							var mysqlendd = $.fullCalendar.formatDate( new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2]),timestp[0],timestp[1]), 'u');
-							var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2]),timestr[0],timestr[1]), 'u');
-							$.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
-									calendar.fullCalendar('refetchEvents');
-									focusd = true;
-								});
-						}
-						else
-						{
-							var mysqlendd = $.fullCalendar.formatDate( new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2]),timestp[0],timestp[1]), 'yyyy-MM-dd HH:mm')+":00";
-							var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2]),timestr[0],timestr[1]), 'yyyy-MM-dd HH:mm')+":00";
-							$.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"false"},function(data){
-									calendar.fullCalendar('refetchEvents');
-									focusd = true;
-								});
-						}
+                        if( $("#ori-name1").val().indexOf('http') >= 0 )
+                        {
+                            var mysqlendd = $.fullCalendar.formatDate( new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2]),timestp[0],timestp[1]), 'u');
+                            var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2]),timestr[0],timestr[1]), 'u');
+                            $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
+                                    calendar.fullCalendar('refetchEvents');
+                                    focusd = true;
+                                });
+                        }
+                        else
+                        {
+                            var mysqlendd = $.fullCalendar.formatDate( new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2]),timestp[0],timestp[1]), 'yyyy-MM-dd HH:mm')+":00";
+                            var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2]),timestr[0],timestr[1]), 'yyyy-MM-dd HH:mm')+":00";
+                            $.get("mods/calendar/update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update",allday:"false"},function(data){
+                                    calendar.fullCalendar('refetchEvents');
+                                    focusd = true;
+                                });
+                        }
                         $(this).dialog('close');
                     }
                 },
@@ -666,16 +667,16 @@ require (AT_INCLUDE_PATH.'header.inc.php');
                 }
             },
             close: function () {
-				if( activeelem != null )
-	                activeelem.focus();
+                if( activeelem != null )
+                    activeelem.focus();
             }
         });
         <?php 
-			if( isset( $_SESSION['fc-viewname'] ) )
-			{
-				echo "calendar.fullCalendar('gotoDate',".$_SESSION['fc-year'].",".$_SESSION['fc-month'].",".$_SESSION['fc-date'].");";
-			}
-		 ?>//calendar.fullCalendar('gotoDate',2012,8,12);        
+            if( isset( $_SESSION['fc-viewname'] ) )
+            {
+                echo "calendar.fullCalendar('gotoDate',".$_SESSION['fc-year'].",".$_SESSION['fc-month'].",".$_SESSION['fc-date'].");";
+            }
+         ?>//calendar.fullCalendar('gotoDate',2012,8,12);        
     });
     function refreshevents()
     {
@@ -791,5 +792,5 @@ require (AT_INCLUDE_PATH.'header.inc.php');
     <div style="float:left" id="calendar"></div>
     
 <?php
-require (AT_INCLUDE_PATH.'footer.inc.php'); 
+    require (AT_INCLUDE_PATH.'footer.inc.php'); 
 ?>

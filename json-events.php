@@ -5,14 +5,14 @@
     global $db;
     $query = "SELECT * FROM `".TABLE_PREFIX."full_calendar_events` WHERE userid='".$_SESSION['member_id']."'";
     $result = mysql_query($query,$db);
-    
+
     //Create an empty array and push all the events in it.
     $rows = array();
     while ($row = mysql_fetch_assoc($result)) {
         $row["editable"]=true;
         array_push( $rows, $row );
     }
-    
+
     function get_dates($all=null) {
         global $moduleFactory;
         global $rows;
@@ -37,7 +37,7 @@
                 array_push( $rows, $event );
         }
     }
-    
+
     if(isset($_SESSION['valid_user'])) {
          if($_SESSION['valid_user']) {
          /* check if the user is enrolled in the course */
@@ -56,14 +56,14 @@
             }
          }
      }
-    
+
     //Encode in JSON format.
     $str =  json_encode( $rows );
-    
+
     //Replace "true","false" with true,false for javascript.
     $str = str_replace('"true"','true',$str);
     $str = str_replace('"false"','false',$str);
-    
+
     //Return the events in the JSON format.
     echo $str;
 ?>
