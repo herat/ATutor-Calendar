@@ -56,8 +56,8 @@
         var activeelem;
         var focusd = false;
         var viewchangd = false;
-        
-        var calendar = $('#calendar').fullCalendar({
+		
+		var calendar = $('#calendar').fullCalendar({
         
             defaultView: 
             <?php 
@@ -696,7 +696,7 @@
     }
     </style>
 
-    <div id="dialog" class="event-dialog" title="Create Event">
+    <div id="dialog" class="event-dialog initial-hide" title="Create Event">
         <div id="dialog-inner">
            <table border="0" cellpadding="5">
             <tr> 
@@ -745,7 +745,7 @@
             <input type="hidden"  id="fc-emode" />
       </div>
     </div>
-    <div id="dialog1" class="event-dialog" title="Edit Event">
+    <div id="dialog1" class="event-dialog initial-hide" title="Edit Event">
         <div id="dialog-inner1">
             <table border="0" cellpadding="5">
              <tr> 
