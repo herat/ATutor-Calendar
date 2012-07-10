@@ -1,20 +1,29 @@
 <?php
+    /**
+     * This file is used to populate database using the uploaded ics
+     * file. Once database is populated, the uploaded ics file is deleted.
+     */
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
 
     $filename = $_SESSION['member_id'].".ics";
 
-    if ($_FILES["file"]["error"] > 0) {
+    if ($_FILES["file"]["error"] > 0) 
+    {
         //error
         header('Location: file_import.php');
     }
-    else {
-        if (file_exists("../../content/calendar/" . $filename)) {
+    else 
+    {
+        if (file_exists("../../content/calendar/" . $filename)) 
+        {
             //File already exists so replace it with new version
-            if( unlink("../../content/calendar/".$filename ) ) {
+            if( unlink("../../content/calendar/".$filename ) ) 
+            {
                 //File successfully deleted
             }
-            else {
+            else 
+            {
                 //error in deleting files
                 header('Location: file_import.php');
             }
@@ -25,7 +34,8 @@
 
     require_once('SG_iCal.php');
 
-    function dump_t($x) {
+    function dump_t($x) 
+    {
         echo "<pre>".print_r($x,true)."</pre>";
     }
     $ICS = "../../content/calendar/".$filename;
@@ -33,7 +43,8 @@
     $query = new SG_iCal_Query();
     $evts = $ical->getEvents();
     $data = array();
-    foreach($evts as $id => $ev) {
+    foreach($evts as $id => $ev) 
+    {
         $jsEvt = array(
             "id" => ($id+1),
             "title" => $ev->getProperty('summary'),
@@ -42,13 +53,15 @@
             "allDay" => $ev->isWholeDay()
         );
 
-        if (isset($ev->recurrence)) {
+        if (isset($ev->recurrence)) 
+        {
             $count = 0;
             $start = $ev->getStart();
             $freq = $ev->getFrequency();
             if ($freq->firstOccurrence() == $start)
                 $data[] = $jsEvt;
-            while (($next = $freq->nextOccurrence($start)) > 0 ) {
+            while (($next = $freq->nextOccurrence($start)) > 0 ) 
+            {
                 if (!$next or $count >= 1000) 
                     break;
                 $count++;
@@ -62,12 +75,16 @@
             $data[] = $jsEvt;
     }
     global $db;
-    if( count($data) > 0 ) {
-        foreach($data as $event) {
-            if( $event["allDay"] == 1 ) {
+    if( count($data) > 0 ) 
+    {
+        foreach($data as $event) 
+        {
+            if( $event["allDay"] == 1 ) 
+            {
                 $alld = "true";
             }
-            else {
+            else 
+            {
                 $alld = "false";
             }
             $query = "INSERT INTO `".TABLE_PREFIX."full_calendar_events` (title,start,end,allDay,userid) values".

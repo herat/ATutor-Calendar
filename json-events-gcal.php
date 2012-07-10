@@ -1,4 +1,7 @@
 <?php
+    /**
+     * This file returns events from Google Calendar in JSON format.
+     */
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
     require_once 'Zend/Loader.php';

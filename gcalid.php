@@ -1,4 +1,10 @@
 <?php
+    /**
+     * This file manages user's requests to sync or not-sync
+     * Google calendars. The sidemenu in the right side shows
+     * available Google calendars for sync. If user changes preference
+     * for a calendar then it is reflected in the database using this file.
+     */
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
 

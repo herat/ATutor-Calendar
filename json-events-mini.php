@@ -1,4 +1,9 @@
 <?php
+    /**
+     * This file returns events from database as well as 
+     * ATutor events in JSON format for mini calendar displayed 
+     * in the sidemenu.
+     */
     //Retrieve all the events.
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
@@ -14,33 +19,39 @@
         array_push( $rows, $row );        
     }
     /* Get ATutor dates */
-    function get_dates($all=null){
+    function get_dates($all=null)
+    {
         global $moduleFactory;
         global $rows;
         $coursesmod = $moduleFactory->getModule("_core/courses");
         $courses=$coursesmod->extend_date();    
-        if( $courses != "" ) {
+        if( $courses != "" ) 
+        {
             foreach ( $courses as $event )
                 array_push( $rows, $event );
         }
         
         $assignmentsmod = $moduleFactory->getModule("_standard/assignments");
         $assignments=$assignmentsmod->extend_date();
-        if( $assignments != "" ) {
+        if( $assignments != "" ) 
+        {
             foreach ( $assignments as $event )
                 array_push( $rows, $event );
         }        
         
         $testsmod = $moduleFactory->getModule("_standard/tests");
         $tests=$testsmod->extend_date();
-        if( $tests != "" ) {
+        if( $tests != "" ) 
+        {
             foreach ( $tests as $event )
                 array_push( $rows, $event );
         }
     }
 
-    if(isset($_SESSION['valid_user'])) {
-         if($_SESSION['valid_user']) {
+    if(isset($_SESSION['valid_user'])) 
+    {
+         if($_SESSION['valid_user']) 
+         {
             /* check if the user is enrolled in the course */
             $sql = "SELECT COUNT(*) FROM
                    `".TABLE_PREFIX."course_enrollment`
@@ -50,10 +61,12 @@
             $result = mysql_query($sql,$db);
             $row = mysql_fetch_row($result);
             
-            if($row[0]>0) {
+            if($row[0]>0) 
+            {
                 $dates = get_dates();
             }
-            else {
+            else 
+            {
             }
          }
      }

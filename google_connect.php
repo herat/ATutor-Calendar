@@ -1,41 +1,22 @@
 <?php
+    /**
+     * This file is used to associate user's Google account with
+     * ATutor Calendar module. First this page will display a login
+     * screen, after login is successful or user is already logged in
+     * a consent screen is displaed. After user gives consent, the
+     * pop-up window closes and the caledar page gets refreshed.
+     */
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
     require_once 'Zend/Loader.php';
 
-    /**
-     * @see Zend_Gdata
-     */
     Zend_Loader::loadClass('Zend_Gdata');
-
-    /**
-     * @see Zend_Gdata_AuthSub
-     */
     Zend_Loader::loadClass('Zend_Gdata_AuthSub');
-
-    /**
-     * @see Zend_Gdata_ClientLogin
-     */
     Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-
-    /**
-     * @see Zend_Gdata_HttpClient
-     */
     Zend_Loader::loadClass('Zend_Gdata_HttpClient');
-
-    /**
-     * @see Zend_Gdata_Calendar
-     */
     Zend_Loader::loadClass('Zend_Gdata_Calendar');
 
-    /**
-     * @var string Location of AuthSub key file.  include_path is used to find this
-     */
     $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
-
-    /**
-     * @var string Passphrase for AuthSub key file.
-     */
     $_authSubKeyFilePassphrase = null;
 
     /**
@@ -138,6 +119,15 @@
         $client->setAuthSubToken($_SESSION['sessionToken']);
         return $client;
     }
+    
+    /**
+     * Checks validity of a token. If token is valid then proceed ahead
+     * otherwise the user will be logged out. To check token a dummy
+     * call to function getCalendarListFeed is made. If there are some 
+     * problems then the token is not valid.
+     *
+     * @return void
+     */
     function isvalidtoken( $tokent )
     {
         try
@@ -190,6 +180,13 @@
         }
     }
 
+    /**
+     * If there are some discrepancies in the session or user
+     * wants not to connect his/her Google Calendars with ATutor
+     * then this function will securely log out the user.
+     *
+     * @return void
+     */
     function logout()
     {
         // Carefully construct this value to avoid application security problems.

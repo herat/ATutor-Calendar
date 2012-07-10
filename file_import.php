@@ -1,4 +1,7 @@
 <?php
+    /**
+     * This file provides UI for uploading ics file.
+     */
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
     require (AT_INCLUDE_PATH.'header.inc.php');
