@@ -29,6 +29,14 @@
     }
 ?>
 </ul>
+<br/>
+<input type="text" size="2" name="color" disabled="disabled" style="background-color:rgb(51,102,204)" />Personal Events<br/>
+<input type="text" size="2" name="color" disabled="disabled" style="background-color:yellow" />Assignment Due Date<br/>
+<input type="text" size="2" name="color" disabled="disabled" style="background-color:red" />Assignment Cut off Date<br/>
+<input type="text" size="2" name="color" disabled="disabled" style="background-color:green" />Course Release Date<br/>
+<input type="text" size="2" name="color" disabled="disabled" style="background-color:maroon" />Course End Date<br/>
+<input type="text" size="2" name="color" disabled="disabled" style="background-color:lime" />Test Start Date<br/>
+<input type="text" size="2" name="color" disabled="disabled" style="background-color:purple" />Test End Date<br/>
 </div>
 
 <?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
@@ -71,7 +79,7 @@
                 if( isLoading )
                     $("#loader").show();
                 else
-                    $("#loader").hide();
+					$("#loader").hide();
             },
             
             /* Apply theme */
