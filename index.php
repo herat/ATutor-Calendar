@@ -19,16 +19,16 @@
     if( mysql_num_rows($res) > 0 )
     {
         echo "<li><a href='mods/calendar/google_connect.php?logout=yes'
-        target='_blank'>Disconnect from Google Calendar</a></li>";
+        target='_blank'>Disconnect from Google Calendar</a></li></ul>";
         echo "<br/><h2><span>  Google Calendars </span></h2>";
         include('calendarlist.php');
     }
     else
     {
-        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a></li>";
+        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a></li></ul>";
     }
 ?>
-</ul>
+
 <br/>
 <input type="text" size="2" name="color" disabled="disabled" style="background-color:rgb(51,102,204)" />Personal Events<br/>
 <input type="text" size="2" name="color" disabled="disabled" style="background-color:yellow" />Assignment Due Date<br/>
