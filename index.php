@@ -7,7 +7,8 @@
 <div style="left:50%; z-index:20000; position:absolute; top:50%" id="loader"><img src="mods/calendar/img/loader.gif" alt="Loading" /> </div>
 
 <div style="float:right;width:20%" class="box">
-<h2><span>Calendar Options</span></h2><br/>
+<fieldset>
+<legend><h4>Calendar Options</h4></legend>
 <ul class="social_side_menu">
 <li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
 <li><a  href="mods/calendar/test_export.php">Export ics file</a> </li>
@@ -19,17 +20,20 @@
     if( mysql_num_rows($res) > 0 )
     {
         echo "<li><a href='mods/calendar/google_connect.php?logout=yes'
-        target='_blank'>Disconnect from Google Calendar</a></li></ul>";
-        echo "<br/><h2><span>Google Calendars</span></h2>";
+        target='_blank'>Disconnect from Google Calendar</a></li></ul></fieldset>";
+        echo "<br/><fieldset><legend><h4>Google Calendars</h4></legend>";
         include('calendarlist.php');
+		echo "</fieldset>";
     }
     else
     {
-        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a></li></ul>";
+        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a></li></ul></fieldset>";
     }
 ?>
 
 <br/>
+<fieldset>
+<legend><h4>ATutor Internal Events</h4></legend>
 <input type="text" size="1" name="color" disabled="disabled" style="background-color:rgb(51,102,204)" />Personal Events<br/>
 <input type="text" size="1" name="color" disabled="disabled" style="background-color:yellow" />Assignment Due Date<br/>
 <input type="text" size="1" name="color" disabled="disabled" style="background-color:red" />Assignment Cut off Date<br/>
@@ -37,6 +41,7 @@
 <input type="text" size="1" name="color" disabled="disabled" style="background-color:maroon" />Course End Date<br/>
 <input type="text" size="1" name="color" disabled="disabled" style="background-color:lime" />Test Start Date<br/>
 <input type="text" size="1" name="color" disabled="disabled" style="background-color:purple" />Test End Date<br/>
+</fieldset>
 </div>
 
 <?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
