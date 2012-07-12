@@ -96,19 +96,21 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            
-            /* Allow adding events by selecting cells. */
-            selectable: true,
-            selectHelper: true,
-            
-            /* Add tooltip to events after they are rendered. */
-            eventAfterRender: function( evento,elemento,viewo ){
+            saveView: function() {
+                var viewo = calendar.fullCalendar('getView');
                 if( viewchangd )
                 {
                     changeview( viewo.name, viewo.start.getFullYear(), 
                     viewo.start.getMonth(), viewo.start.getDate() );
                     viewchangd = false;
                 }
+            },
+            /* Allow adding events by selecting cells. */
+            selectable: true,
+            selectHelper: true,
+            
+            /* Add tooltip to events after they are rendered. */
+            eventAfterRender: function( evento,elemento,viewo ){
                 //$("#loader").hide();
                 if( !evento.editable )
                 {

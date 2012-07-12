@@ -2792,6 +2792,7 @@
                     }
                 }
             );
+            trigger('saveView');
         }
 
 
@@ -4223,7 +4224,7 @@
                     trigger('eventAfterRender', event, event, eventElement);
                 }
             }
-
+            trigger('saveView');
         }
 
 
