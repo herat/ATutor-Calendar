@@ -18,7 +18,9 @@ CREATE TABLE `google_sync` (
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar','Calendar',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_header','ATutor Calendar',NOW(),'');
-INSERT INTO `language_text` VALUES ('en', '_module','at_cal_import_file','Import iCal file',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_import_file','Import ics file',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_upload_file','Upload ics file',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_submit','Submit',NOW(),'');
 
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_next','Next',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_prev','Previous',NOW(),'');

@@ -8,10 +8,10 @@
 ?>
 
 <form action="mods/calendar/import_db.php" method="post" enctype="multipart/form-data">
-    <label for="file">iCal file:</label>
+    <label for="file"><?php echo _AT("at_cal_upload_file"); ?></label>
     <input type="file" name="file" id="file" />
     <br />
-    <input type="submit" name="submit" value="Submit" />
+    <input type="submit" name="submit" value="<?php echo _AT("at_cal_submit"); ?>" />
 </form>
 
 <?php
