@@ -489,6 +489,7 @@
                 }
             },
             close: function () {
+				scwHide();
                 if( activeelem != null )
                     activeelem.focus();
             }
@@ -688,6 +689,7 @@
                 }
             },
             close: function () {
+				scwHide();
                 if( activeelem != null )
                     activeelem.focus();
             }
