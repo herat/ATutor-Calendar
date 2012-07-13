@@ -8,6 +8,7 @@
  * Date: Mon Feb 6 22:40:40 2012 -0800
  *
  */
+ /* hide initial rendering */
  .initial-hide{
 	 display:none;
  }

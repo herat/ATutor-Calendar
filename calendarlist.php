@@ -109,19 +109,24 @@
         $rowval = mysql_fetch_assoc($res);
         $prevval = $rowval['calids'];
         $selectd = ''; 
+		$i=1;
         foreach ($calFeed as $calendar) {
             //state according to browser
             if( strpos($prevval,$calendar->id->text.',') === false )
                 $selectd = '';
             else
                 $selectd = "checked='checked'";
-            echo "\t<input type='text' size='1' name='color' disabled='disabled' style='background-color:".$calendar->color->value."' /><input type='checkbox' name ='calid' value='".
+            echo "\t<input type='text' size='1' name='color' disabled='disabled' 
+			style='background-color:".$calendar->color->value."' />
+			<input id='gcal".$i."' type='checkbox' name ='calid' value='".
                 $calendar->id->text."' ".$selectd.
                 " onclick='if(this.checked) $.get(\"mods/calendar/gcalid.php\",
                 { calid: this.value, mode: \"add\" },function (data){ refreshevents(); } );
                 else $.get(\"mods/calendar/gcalid.php\",
                 { calid: this.value, mode: \"remove\" },function (data){ refreshevents(); } );'
-                />".$calendar->title->text."<br/>";
+                />
+				<label for='gcal".$i."'>".$calendar->title->text."</label><br/>";
+				$i++;
         }
     }
 
