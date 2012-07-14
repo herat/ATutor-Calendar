@@ -15,6 +15,7 @@
     while ($row = mysql_fetch_assoc($result)) 
     {
         $row["editable"]=true;
+		$row["calendar"]="Personal event";
         array_push( $rows, $row );
     }
 
@@ -27,7 +28,10 @@
         if( $courses != "" ) 
         {
             foreach ( $courses as $event )
+			{
+				$event["calendar"]="ATutor internal";
                 array_push( $rows, $event );
+			}
         }
         
         $assignmentsmod = $moduleFactory->getModule("_standard/assignments");
@@ -35,7 +39,10 @@
         if( $assignments != "" ) 
         {
             foreach ( $assignments as $event )
+            {
+				$event["calendar"]="ATutor internal";
                 array_push( $rows, $event );
+			}
         }        
         
         $testsmod = $moduleFactory->getModule("_standard/tests");
@@ -43,7 +50,10 @@
         if( $tests != "" ) 
         {
             foreach ( $tests as $event )
+            {
+				$event["calendar"]="ATutor internal";
                 array_push( $rows, $event );
+			}
         }
     }
 

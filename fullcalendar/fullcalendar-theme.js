@@ -4268,7 +4268,7 @@
             "<div class='fc-event-title'>" +
             htmlEscape(event.title) +
             "</div>" +
-            "</div>" +
+            "<span class='fc-cal-type'>"+event.calendar+"</span></div>" +
             "<div class='fc-event-bg'></div>" +
             "</div>"; // close inner
             if (seg.isEnd && isEventResizable(event)) {
@@ -5153,7 +5153,7 @@
                 }
                 html +=
                 "<span class='fc-event-title'>" + htmlEscape(event.title) + "</span>" +
-                "</div>";
+                "<span class='fc-cal-type'>"+event.calendar+"</span></div>";
                 if (seg.isEnd && isEventResizable(event)) {
                     html +=
                     "<div class='ui-resizable-handle ui-resizable-" + (rtl ? 'w' : 'e') + "'>" +

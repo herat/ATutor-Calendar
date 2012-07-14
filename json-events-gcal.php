@@ -152,8 +152,9 @@
                         $row["start"] = $startD;
                         $row["end"] = $endD;
                         $row["allDay"] = $allDay;
-                        $row["color"]= $color;
-                        $row["textColor"]="white";
+                        $row["color"] = $color;
+                        $row["textColor"] = "white";
+						$row["calendar"] = "Google Calendar event";
 
                         array_push( $rows, $row );
                     }
