@@ -8,10 +8,10 @@
 
 <div style="float:right;width:20%" class="box">
 <fieldset>
-<legend><h4>Calendar Options</h4></legend>
+<legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
 <ul class="social_side_menu">
 <li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
-<li><a  href="mods/calendar/test_export.php">Export ics file</a> </li>
+<li><a  href="mods/calendar/test_export.php"><?php echo _AT('at_cal_export_file')?></a> </li>
 
 <?php
     global $db;
@@ -20,27 +20,27 @@
     if( mysql_num_rows($res) > 0 )
     {
         echo "<li><a href='mods/calendar/google_connect.php?logout=yes'
-        target='_blank'>Disconnect from Google Calendar</a></li></ul></fieldset>";
-        echo "<br/><fieldset><legend><h4>Google Calendars</h4></legend>";
+        target='_blank'>"._AT('at_cal_disconnect_gcal')."</a></li></ul></fieldset>";
+        echo "<br/><fieldset><legend><h4>"._AT('at_cal_gcals')."</h4></legend>";
         include('calendarlist.php');
 		echo "</fieldset>";
     }
     else
     {
-        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>Connect with Google Calendar</a></li></ul></fieldset>";
+        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>"._AT('at_cal_connect_gcal')."</a></li></ul></fieldset>";
     }
 ?>
 
 <br/>
 <fieldset>
-<legend><h4>ATutor Internal Events</h4></legend>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:rgb(51,102,204)" />Personal Events<br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:yellow" />Assignment Due Date<br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:red" />Assignment Cut off Date<br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:green" />Course Release Date<br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:maroon" />Course End Date<br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:lime" />Test Start Date<br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:purple" />Test End Date<br/>
+<legend><h4><?php echo _AT('at_cal_internal_events'); ?></h4></legend>
+<input type="text" size="1" name="color" disabled="disabled" style="background-color:rgb(51,102,204)" /><?php echo _AT('at_cal_events_persnl'); ?><br/>
+<input type="text" size="1" name="color" disabled="disabled" style="background-color:yellow" /><?php echo _AT('at_cal_events_assign_due'); ?><br/>
+<input type="text" size="1" name="color" disabled="disabled" style="background-color:red" /><?php echo _AT('at_cal_events_assign_cut'); ?><br/>
+<input type="text" size="1" name="color" disabled="disabled" style="background-color:green" /><?php echo _AT('at_cal_events_course_rel'); ?><br/>
+<input type="text" size="1" name="color" disabled="disabled" style="background-color:maroon" /><?php echo _AT('at_cal_events_course_end'); ?><br/>
+<input type="text" size="1" name="color" disabled="disabled" style="background-color:lime" /><?php echo _AT('at_cal_events_test_start'); ?><br/>
+<input type="text" size="1" name="color" disabled="disabled" style="background-color:purple" /><?php echo _AT('at_cal_events_test_end'); ?><br/>
 </fieldset>
 </div>
 
@@ -125,7 +125,7 @@
                 {
                     fluid.tooltip( elemento, {
                             content: function(){
-                                return "Click or press enter to edit event";
+                                return "<?php echo _AT('at_cal_tooltip_event'); ?>";
                             }
                         });
                 }
@@ -175,7 +175,7 @@
                 );
                 fluid.tooltip(".fc-view-"+view.name, {
                     content: function () {
-                        return "Click or press enter to create event";
+                        return "<?php echo _AT('at_cal_tooltip_cell'); ?>";
                     }
                 });
             },
@@ -718,7 +718,7 @@
            <table border="0" cellpadding="5">
             <tr> 
                 <td>               
-                    <label for="name">Event Title</label>
+                    <label for="name"><?php echo _AT('at_cal_form_title'); ?></label>
                 </td>
                 <td>
                     <input type="text" name="name" id="name">
@@ -726,10 +726,10 @@
             </tr>                
             <tr>
                 <td>
-                    <label for="date-start">Start Date (yyyy-mm-dd)</label>
+                    <label for="date-start"><?php echo _AT('at_cal_form_start_d'); ?></label>
                 </td>
                 <td>
-                    <label id="lbl-start-time" for ="time-start">Start Time (24hours)</label>
+                    <label id="lbl-start-time" for ="time-start"><?php echo _AT('at_cal_form_start_t'); ?></label>
                 </td>
             </tr>
             <tr>
@@ -742,10 +742,10 @@
             </tr>
             <tr>
                 <td>
-                    <label for="date-end">End Date (yyyy-mm-dd)</label>
+                    <label for="date-end"><?php echo _AT('at_cal_form_end_d'); ?></label>
                 </td>
                 <td>
-                    <label id="lbl-end-time" for ="time-end">End Time (24hours)</label>
+                    <label id="lbl-end-time" for ="time-end"><?php echo _AT('at_cal_form_end_t'); ?></label>
                 </td>
             </tr>
             <tr>
@@ -767,7 +767,7 @@
             <table border="0" cellpadding="5">
              <tr> 
                 <td>               
-                    <label for="name1">Event Title</label>
+                    <label for="name1"><?php echo _AT('at_cal_form_title'); ?></label>
                 </td>
                 <td>
                     <input type="text" name="name" id="name1">
@@ -775,10 +775,10 @@
             </tr>                
             <tr>
                 <td>
-                    <label for="date-start1">Start Date (yyyy-mm-dd)</label>
+                    <label for="date-start1"><?php echo _AT('at_cal_form_start_d'); ?></label>
                 </td>
                 <td>
-                    <label id="lbl-start-time1" for ="time-start1">Start Time (24hours)</label>
+                    <label id="lbl-start-time1" for ="time-start1"><?php echo _AT('at_cal_form_start_t'); ?></label>
                 </td>
             </tr>
             <tr>
@@ -791,10 +791,10 @@
             </tr>
             <tr>
                 <td>
-                    <label for="date-end1">End Date (yyyy-mm-dd)</label>
+                    <label for="date-end1"><?php echo _AT('at_cal_form_end_d'); ?></label>
                 </td>
                 <td>
-                    <label id="lbl-end-time1" for ="time-end1">End Time (24hours)</label>
+                    <label id="lbl-end-time1" for ="time-end1"><?php echo _AT('at_cal_form_end_t'); ?></label>
                 </td>
             </tr>
             <tr>
