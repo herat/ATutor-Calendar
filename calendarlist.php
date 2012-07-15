@@ -116,8 +116,8 @@
                 $selectd = '';
             else
                 $selectd = "checked='checked'";
-            echo "\t<input type='text' size='1' name='color' disabled='disabled' 
-			style='background-color:".$calendar->color->value."' />
+            echo "\t <div class='fc-square fc-inline-block'
+			style='background-color:".$calendar->color->value."' ></div>
 			<input id='gcal".$i."' type='checkbox' name ='calid' value='".
                 $calendar->id->text."' ".$selectd.
                 " onclick='if(this.checked) $.get(\"mods/calendar/gcalid.php\",

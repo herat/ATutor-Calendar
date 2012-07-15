@@ -8,6 +8,24 @@
  * Date: Mon Feb 6 22:40:40 2012 -0800
  *
  */
+ /* Google style color */
+ .fc-inline-block{
+	 position:relative;
+	 display:-moz-inline-box;
+	 display:inline-block
+	}
+ .fc-square{
+	 background:#fff;
+	 border:1px solid #dcdcdc;
+	 border-radius:1px;
+	 height:15px;
+	 margin-right:4px;
+	 top:2px;
+	 *top:-1px;
+	 width:15px;
+	 -moz-border-radius:1px;
+	 -webkit-border-radius:1px
+	}
  /* Hide calendar type */
  .fc-cal-type{
     position:absolute;

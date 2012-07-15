@@ -34,13 +34,14 @@
 <br/>
 <fieldset>
 <legend><h4><?php echo _AT('at_cal_internal_events'); ?></h4></legend>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:rgb(51,102,204)" /><?php echo _AT('at_cal_events_persnl'); ?><br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:yellow" /><?php echo _AT('at_cal_events_assign_due'); ?><br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:red" /><?php echo _AT('at_cal_events_assign_cut'); ?><br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:green" /><?php echo _AT('at_cal_events_course_rel'); ?><br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:maroon" /><?php echo _AT('at_cal_events_course_end'); ?><br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:lime" /><?php echo _AT('at_cal_events_test_start'); ?><br/>
-<input type="text" size="1" name="color" disabled="disabled" style="background-color:purple" /><?php echo _AT('at_cal_events_test_end'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:rgb(51,102,204)"></div>
+<?php echo _AT('at_cal_events_persnl'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:yellow"></div><?php echo _AT('at_cal_events_assign_due'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:red"></div><?php echo _AT('at_cal_events_assign_cut'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:green"></div><?php echo _AT('at_cal_events_course_rel'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:maroon"></div><?php echo _AT('at_cal_events_course_end'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:lime"></div><?php echo _AT('at_cal_events_test_start'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:purple"></div><?php echo _AT('at_cal_events_test_end'); ?><br/>
 </fieldset>
 </div>
 
