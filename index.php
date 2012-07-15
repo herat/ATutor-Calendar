@@ -156,20 +156,20 @@
                         if( $(this).text().indexOf( 'Previous' ) >= 0 )
                         {
                             if( view.name == "month" )
-                                $(this).text("Previous Month");
+                                $(this).text("<?php echo _AT('at_cal_prv_mnth'); ?>");
                             else if( view.name == "agendaWeek" )
-                                $(this).text("Previous Week");
+                                $(this).text("<?php echo _AT('at_cal_prv_week'); ?>");
                             else
-                                $(this).text("Previous Day");
+                                $(this).text("<?php echo _AT('at_cal_prv_day'); ?>");
                         }
                         if( $(this).text().indexOf( 'Next' ) >= 0 )
                         {
                             if( view.name == "month" )
-                                $(this).text("Next Month");
+                                $(this).text("<?php echo _AT('at_cal_nxt_mnth'); ?>");
                             else if( view.name == "agendaWeek" )
-                                $(this).text("Next Week");
+                                $(this).text("<?php echo _AT('at_cal_nxt_week'); ?>");
                             else
-                                $(this).text("Next Day");
+                                $(this).text("<?php echo _AT('at_cal_nxt_day'); ?>");
                         }
                    }
                 );
@@ -428,7 +428,7 @@
             width: 500,
             modal: true,
                 buttons: {
-                    'Create event': function () {
+                    '<?php echo _AT('at_cal_creat_e'); ?>': function () {
                     //get start date
                     var startsplt = $("#date-start").val().split("-");
                     var ends;
@@ -483,7 +483,7 @@
                         activeelem.focus();
                     }
                 },
-                Cancel: function () {
+                <?php echo _AT('at_cal_cancel_e'); ?>: function () {
                     $(this).dialog('close');
                     activeelem.focus();
                 }
@@ -502,7 +502,7 @@
             width: 700,
             modal: true,
             buttons: {
-                'Delete Event': function() {
+                '<?php echo _AT('at_cal_del_e'); ?>': function() {
                     if( $("#ori-name1").val().indexOf('http') >= 0 )
                     {
                         $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),cmd:"delete"});
@@ -548,7 +548,7 @@
                     $(this).dialog('close');
                     //activeelem.focus();
                 },
-                'Edit event': function () {
+                '<?php echo _AT('at_cal_edit_e'); ?>': function () {
                 //get new values of time and date
                 var startsplt = $("#date-start1").val().split("-");
                 var ends;
@@ -683,7 +683,7 @@
                         $(this).dialog('close');
                     }
                 },
-                Cancel: function () {
+                <?php echo _AT('at_cal_cancel_e'); ?>: function () {
                     $(this).dialog('close');
                     activeelem.focus();
                 }

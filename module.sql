@@ -53,3 +53,15 @@ INSERT INTO `language_text` VALUES ('en', '_module','at_cal_today','Today',NOW()
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_month','Month',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_week','Week',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_day','Day',NOW(),'');
+
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_nxt_mnth','Next Month',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_prv_mnth','Previous Month',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_nxt_week','Next Week',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_prv_week','Previous Week',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_nxt_day','Next Day',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_prv_day','Previous Day',NOW(),'');
+
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_creat_e','Create Event',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_cancel_e','Cancel',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_edit_e','Edit Event',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_del_e','Delete Event',NOW(),'');
