@@ -111,10 +111,15 @@
                 $eventFeed = $gdataCal->getCalendarEventFeed($query);
                 
                 $color = "#3399FF";
+				$accesslevl = true;
                 foreach ($calFeed as $calendar) {
                     if( strpos($idofcal,$calendar->id->text) !== false )
                     {
                         $color = $calendar->color->value;
+						if( $calendar->accesslevel->value == 'read' )
+						{
+							$accesslevl = false;
+						}
                     }
                 }
 
@@ -148,7 +153,7 @@
                         $row = array();
                         $row["title"] = $event->title->text;
                         $row["id"] = $event->id->text;
-                        $row["editable"]=true;
+                        $row["editable"]=$accesslevl;
                         $row["start"] = $startD;
                         $row["end"] = $endD;
                         $row["allDay"] = $allDay;
