@@ -12,7 +12,7 @@
 <ul class="social_side_menu">
 <li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
 <li><a  href="mods/calendar/test_export.php"><?php echo _AT('at_cal_export_file')?></a> </li>
-
+<li><a  href='mods/calendar/send_mail.php'>Send Email</a></li>
 <?php
     global $db;
     $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
