@@ -64,4 +64,7 @@
      */
     $this->_pages['mods/calendar/file_import.php']['title_var']='at_cal_import_file';
     $this->_pages['mods/calendar/file_import.php']['parent'] = 'mods/calendar/index.php';
+	
+	$this->_pages['mods/calendar/send_mail.php']['title_var']='Share Calendar';
+    $this->_pages['mods/calendar/send_mail.php']['parent'] = 'mods/calendar/index.php';
 ?>
