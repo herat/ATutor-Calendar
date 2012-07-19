@@ -1,19 +1,36 @@
 <?php
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
+	
+	if( isset($_GET['bookm']) && $_GET['bookm'] == 1 )
+	{
+		//insert or update
+		exit;
+	}
 
     require (AT_INCLUDE_PATH.'header.inc.php');
 ?>
 <div style="left:50%; z-index:20000; position:absolute; top:50%" id="loader"><img src="mods/calendar/img/loader.gif" alt="Loading" /> </div>
 
+<?php 
+	if( isset($_GET['email']) && $_GET['email'] == 1 )
+	{
+?>
 <div style="float:right;width:20%" class="box">
     <fieldset>
         <legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
         <ul class="social_side_menu">
-        <li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
+        <li>
+        	<a  href='mods/calendar/shared_cal.php?mid=<?php echo $_GET['mid'];?>&bookm=1'>
+        		Bookmark this calendar
+            </a> 
+        </li>
         </ul>
     </fieldset>
 </div>
+<?php
+	}
+?>
 
 <?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
 
@@ -385,7 +402,7 @@
             /* Events are editable. */
             editable: false,
             /* Retrieve events from php file. */
-            events: "mods/calendar/json-events-shared.php?mid=1"            
+            events: "mods/calendar/json-events-shared.php?mid=<?php echo $_GET['mid']; ?>"            
         });
         
         /*Create event jQuery dialog
@@ -395,7 +412,7 @@
             width: 500,
             modal: true,
                 buttons: {
-                    '<?php echo _AT('at_cal_creat_e'); ?>': function () {
+                    '<?php //echo _AT('at_cal_creat_e'); ?>': function () {
                     //get start date
                     var startsplt = $("#date-start").val().split("-");
                     var ends;
@@ -450,7 +467,7 @@
                         activeelem.focus();
                     }
                 },
-                <?php echo _AT('at_cal_cancel_e'); ?>: function () {
+                <?php //echo _AT('at_cal_cancel_e'); ?>: function () {
                     $(this).dialog('close');
                     activeelem.focus();
                 }
@@ -469,7 +486,7 @@
             width: 700,
             modal: true,
             buttons: {
-                '<?php echo _AT('at_cal_del_e'); ?>': function() {
+                '<?php //echo _AT('at_cal_del_e'); ?>': function() {
                     if( $("#ori-name1").val().indexOf('http') >= 0 )
                     {
                         $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),cmd:"delete"});
@@ -515,7 +532,7 @@
                     $(this).dialog('close');
                     //activeelem.focus();
                 },
-                '<?php echo _AT('at_cal_edit_e'); ?>': function () {
+                '<?php //echo _AT('at_cal_edit_e'); ?>': function () {
                 //get new values of time and date
                 var startsplt = $("#date-start1").val().split("-");
                 var ends;
@@ -650,7 +667,7 @@
                         $(this).dialog('close');
                     }
                 },
-                <?php echo _AT('at_cal_cancel_e'); ?>: function () {
+                <?php //echo _AT('at_cal_cancel_e'); ?>: function () {
                     $(this).dialog('close');
                     activeelem.focus();
                 }
