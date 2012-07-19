@@ -67,4 +67,7 @@
 	
 	$this->_pages['mods/calendar/send_mail.php']['title_var']='Share Calendar';
     $this->_pages['mods/calendar/send_mail.php']['parent'] = 'mods/calendar/index.php';
+    
+    $this->_pages['mods/calendar/shared_cal.php']['title_var']='View Shared Calendar';
+    $this->_pages['mods/calendar/shared_cal.php']['parent'] = 'mods/calendar/index.php';
 ?>

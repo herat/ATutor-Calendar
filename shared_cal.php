@@ -7,42 +7,12 @@
 <div style="left:50%; z-index:20000; position:absolute; top:50%" id="loader"><img src="mods/calendar/img/loader.gif" alt="Loading" /> </div>
 
 <div style="float:right;width:20%" class="box">
-<fieldset>
-<legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
-<ul class="social_side_menu">
-<li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
-<li><a  href="mods/calendar/test_export.php"><?php echo _AT('at_cal_export_file')?></a> </li>
-<li><a  href='mods/calendar/send_mail.php'>Share Calendar</a></li>
-<?php
-    global $db;
-    $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
-    $res = mysql_query($query,$db);
-    if( mysql_num_rows($res) > 0 )
-    {
-        echo "<li><a href='mods/calendar/google_connect.php?logout=yes'
-        target='_blank'>"._AT('at_cal_disconnect_gcal')."</a></li></ul></fieldset>";
-        echo "<br/><fieldset><legend><h4>"._AT('at_cal_gcals')."</h4></legend>";
-        include('calendarlist.php');
-		echo "</fieldset>";
-    }
-    else
-    {
-        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>"._AT('at_cal_connect_gcal')."</a></li></ul></fieldset>";
-    }
-?>
-
-<br/>
-<fieldset>
-<legend><h4><?php echo _AT('at_cal_internal_events'); ?></h4></legend>
-<div class="fc-square fc-inline-block" style="background-color:rgb(51,102,204)"></div>
-<?php echo _AT('at_cal_events_persnl'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:yellow"></div><?php echo _AT('at_cal_events_assign_due'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:red"></div><?php echo _AT('at_cal_events_assign_cut'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:green"></div><?php echo _AT('at_cal_events_course_rel'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:maroon"></div><?php echo _AT('at_cal_events_course_end'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:lime"></div><?php echo _AT('at_cal_events_test_start'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:purple"></div><?php echo _AT('at_cal_events_test_end'); ?><br/>
-</fieldset>
+    <fieldset>
+        <legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
+        <ul class="social_side_menu">
+        <li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
+        </ul>
+    </fieldset>
 </div>
 
 <?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
@@ -415,11 +385,7 @@
             /* Events are editable. */
             editable: false,
             /* Retrieve events from php file. */
-            //events: "mods/calendar/json-events-gcal.php"
-            eventSources: [
-                'mods/calendar/json-events.php',
-                'mods/calendar/json-events-gcal.php'
-            ]
+            events: "mods/calendar/json-events-shared.php"            
         });
         
         /*Create event jQuery dialog*/
