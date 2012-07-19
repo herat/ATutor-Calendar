@@ -2,61 +2,72 @@
 define('AT_INCLUDE_PATH', '../../include/');
 require (AT_INCLUDE_PATH.'vitals.inc.php');
 
-if ($_POST['cancel']) {
-	$msg->addFeedback('CANCELLED');
-
-	header('Location: index.php');
-	exit;
-} else if ($_POST['submit']) {
+	if ($_POST['cancel']) {
+		
+		header('Location: index.php');
+		exit;
+	} 
+	else if ($_POST['submit']) {
+	
 	$missing_fields = array();
-
-	$_POST['subject'] = trim($_POST['subject']);
-	$_POST['body'] = trim($_POST['body']);
 
 	if (($_POST['to'] == '') || ($_POST['to'] == 0)) {
 		$missing_fields[] = _AT('to');
 	}
-
-	if ($_POST['subject'] == '') {
-		$missing_fields[] = _AT('subject');
-	}
-
-	if ($_POST['body'] == '') {
-		$missing_fields[] = _AT('body');
+	
+	if( $_POST['to'] == 3 && $_POST['emails'] == '' ) {
+		$missing_fields[] = 'email';		
 	}
 
 	if ($missing_fields) {
 		$missing_fields = implode(', ', $missing_fields);
 		$msg->addError(array('EMPTY_FIELDS', $missing_fields));
 	}
+	
+	if( $_POST['to'] == 3 && $_POST['emails'] != '' ) {
+		if( filter_var($_POST['emails'], FILTER_VALIDATE_EMAIL) ) {
+		}
+		else {
+			$msg->addError('INVALID_EMAIL');
+		}
+	}
+	
 	if (!$msg->containsErrors()) {
 		if ($_POST['to'] == 1) {
-			// choose all instructors
-			$sql	= "SELECT * FROM ".TABLE_PREFIX."members WHERE status = ".AT_STATUS_INSTRUCTOR;
+			// choose all members associated with course
+			$sql	= "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
+				"course_enrollment WHERE course_id=".$_SESSION['course_id']." and member_id <> ".$_SESSION['member_id']." )";
 		} else if ($_POST['to'] == 2) {
 			// choose all students
-			$sql 	= "SELECT * FROM ".TABLE_PREFIX."members WHERE status = ".AT_STATUS_STUDENT;
+			$sql 	= "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_POST['selection'];
 		} else {
-			// choose all members
-			$sql 	= "SELECT * FROM ".TABLE_PREFIX."members WHERE status = ".AT_STATUS_INSTRUCTOR." OR status = ".AT_STATUS_STUDENT;
+			//user entered email address
 		}
 		
-		$result = mysql_query($sql,$db);
-
-		require(AT_INCLUDE_PATH . 'classes/phpmailer/atutormailer.class.php');
-
-		$mail = new ATutorMailer;
-
-		while ($row = mysql_fetch_assoc($result)) {
-			$mail->AddBCC($row['email']);
+		if( $_POST['to'] == 1 || $_POST['to'] == 2 )
+		{
+			$result = mysql_query($sql,$db);
+			require(AT_INCLUDE_PATH . 'classes/phpmailer/atutormailer.class.php');
+			$mail = new ATutorMailer;
+			while ($row = mysql_fetch_assoc($result)) {
+				$mail->AddBCC($row['email']);
+			}
+	
 		}
-
-
+		else
+		{
+			require(AT_INCLUDE_PATH . 'classes/phpmailer/atutormailer.class.php');
+			$mail = new ATutorMailer;
+			$mail->AddBCC($_POST['emails']);
+		}
+		
+		$body = "";
+		
 		$mail->From     = $_config['contact_email'];
 		$mail->FromName = $_config['site_name'];
 		$mail->AddAddress($_config['contact_email']);
-		$mail->Subject = $stripslashes($_POST['subject']);
-		$mail->Body    = $stripslashes($_POST['body']);
+		$mail->Subject = $stripslashes("Shared Calendar");
+		$mail->Body    = $stripslashes($body);
 
 		if(!$mail->Send()) {
 		   //echo 'There was an error sending the message';
@@ -64,25 +75,14 @@ if ($_POST['cancel']) {
 		   exit;
 		}
 		unset($mail);
-
+		
 		$msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');
 		header('Location: index.php');
 		exit;
 	}
 }
 
-$onload = 'document.form.subject.focus();';
-
 require(AT_INCLUDE_PATH.'header.inc.php');
-
-$sql	= "SELECT COUNT(*) AS cnt FROM ".TABLE_PREFIX."members ORDER BY login";
-$result = mysql_query($sql,$db);
-$row	= mysql_fetch_array($result);
-if ($row['cnt'] == 0) {
-	$msg->printErrors('NO_MEMBERS');
-	require(AT_INCLUDE_PATH.'footer.inc.php');
-	exit;
-}
 ?>
 
 <style type="text/css">
@@ -95,26 +95,43 @@ if ($row['cnt'] == 0) {
 <div class="input-form">
 	<div class="row">
 		<span class="required" title="<?php echo _AT('required_field'); ?>">*</span><?php echo  _AT('to'); ?><br />
-	    <input type="radio" name="to" value="1" id="all"
+	    <input type="radio" name="to" value="1" id="all" <?php if( $_POST['to'] == 1 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').addClass('fc-forme-hide');$('#selection').addClass('fc-forme-hide');" />
         <label for="all">Send to all</label>
-        <input type="radio" name="to" value="2" id="list"
+        <input type="radio" name="to" value="2" id="list" <?php if( $_POST['to'] == 2 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').addClass('fc-forme-hide');$('#selection').removeClass('fc-forme-hide');" />
         <label for="list">Select from list</label>
-        <input type="radio" name="to" value="3" id="manual" 
+        <input type="radio" name="to" value="3" id="manual" <?php if( $_POST['to'] == 3 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').removeClass('fc-forme-hide');$('#selection').addClass('fc-forme-hide');" />
         <label for="manual">Enter email address</label>
 	</div>
     
     <div class="row">
-    	<input type="text" class="fc-forme-hide" id="emails" name="emails" />
-        <select class="fc-forme-hide" name="selection" id="selection">
-        	<option value="1">ABC</option>
+    	
+        <span id="emails" <?php if( $_POST['to'] != 3 ) echo "class='fc-forme-hide'"; ?> >
+        <label for="emails1">Enter email:</label>
+    	<input type="text" id="emails1" name="emails" value="<?php echo $_POST['emails']; ?>"/>
+        </span>
+        
+        <span id="selection" <?php if( $_POST['to'] != 2 ) echo "class='fc-forme-hide'"; ?>>
+        <label for="selection1">Select member:</label>
+        <select name="selection" id="selection1">
+        	<?php
+				global $db;
+				$sql = "SELECT login,member_id FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
+				"course_enrollment WHERE course_id=".$_SESSION['course_id']." and member_id <> ".$_SESSION['member_id']." )";
+				$result = mysql_query($sql, $db);
+				while ($row = mysql_fetch_assoc($result)) {
+					echo "<option value='".$row['member_id']."'>". $row['login'] ."</option>";					
+				}
+			?>
         </select>
+        </span>
+    
     </div>
 
 	<div class="row">
-		<span class="required" title="<?php echo _AT('required_field'); ?>">*</span><label for="subject">Title of Calendar</label><br />
+		<label for="subject">Title of Calendar</label><br />
 		<input type="text" name="subject" size="40" id="subject" value="<?php echo $_POST['subject']; ?>" />
 	</div>	
 
