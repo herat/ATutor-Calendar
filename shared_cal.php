@@ -385,10 +385,10 @@
             /* Events are editable. */
             editable: false,
             /* Retrieve events from php file. */
-            events: "mods/calendar/json-events-shared.php"            
+            events: "mods/calendar/json-events-shared.php?mid=1"            
         });
         
-        /*Create event jQuery dialog*/
+        /*Create event jQuery dialog
         $("#dialog").dialog({
             autoOpen: false,
             height: 300,
@@ -462,7 +462,7 @@
             }
         });
         
-        /* Edit event dialog */
+        /* Edit event dialog
         $("#dialog1").dialog({
             autoOpen: false,
             height: 350,
@@ -666,7 +666,7 @@
             {
                 echo "calendar.fullCalendar('gotoDate',".$_SESSION['fc-year'].",".$_SESSION['fc-month'].",".$_SESSION['fc-date'].");";
             }
-         ?>//calendar.fullCalendar('gotoDate',2012,8,12);        
+         ?>//calendar.fullCalendar('gotoDate',2012,8,12);   */     
     });
     function refreshevents()
     {
