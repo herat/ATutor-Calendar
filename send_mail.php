@@ -60,11 +60,15 @@ require (AT_INCLUDE_PATH.'vitals.inc.php');
 		{
 			$mail->AddBCC($_POST['emails']);
 		}
-		
+		if( isset($_POST['subject']) && $_POST['subject'] != "" )
+			$calname = $_POST['subject'];
+		else
+			$calname = get_display_name($_SESSION['member_id'])."'s Calendar";
+			
 		$body = "";
-		/*$body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=TestCal'>
-					View shared calendar</a>";*/
-		$body .= AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=TestCal";
+		$body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id'].
+		"&email=1&calname=".$calname."'>View shared calendar</a>";
+		//$body .= AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=TestCal";
 				
 		$mail->From     = $_config['contact_email'];
 		$mail->FromName = $_config['site_name'];
