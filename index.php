@@ -43,6 +43,30 @@
 <div class="fc-square fc-inline-block" style="background-color:lime"></div><?php echo _AT('at_cal_events_test_start'); ?><br/>
 <div class="fc-square fc-inline-block" style="background-color:purple"></div><?php echo _AT('at_cal_events_test_end'); ?><br/>
 </fieldset>
+
+<?php
+	$query = "SELECT * FROM ".TABLE_PREFIX."bookmark_cal WHERE memberid = ".$_SESSION['member_id'];
+	$res = mysql_query($query);
+	if( mysql_num_rows( $res ) > 0 )
+	{
+?>
+<fieldset>
+<legend><h4>Bookmarked Calendars</h4></legend>
+<ul class="social_side_menu">
+<?php
+	while ($row = mysql_fetch_assoc($res)) 
+	{
+?>
+<li><a  href='mods/calendar/shared_cal.php?mid=<?php echo $row['ownerid']; ?>'><?php echo $row['calname'];?></a> </li>
+<?php
+	}
+?>
+</ul>
+</fieldset>
+<?php
+	}
+?>
+
 </div>
 
 <?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>

@@ -4,7 +4,19 @@
 	
 	if( isset($_GET['bookm']) && $_GET['bookm'] == 1 )
 	{
-		//insert or update
+		global $db;
+		$sql = "SELECT * FROM ".TABLE_PREFIX."bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+		$result = mysql_query( $sql, $db );
+		if( mysql_num_rows( $result ) > 0 )
+		{
+			$msg->addError('cal already bookmarked');
+		}
+		else
+		{
+			$sql = "INSERT INTO ".TABLE_PREFIX."bookmark_cal VALUES (".$_SESSION['member_id'].",".$_GET['mid'].",'".$_GET['calname']."')";
+			mysql_query( $sql, $db );
+		}
+		header('Location: index.php');
 		exit;
 	}
 
@@ -21,7 +33,7 @@
         <legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
         <ul class="social_side_menu">
         <li>
-        	<a  href='mods/calendar/shared_cal.php?mid=<?php echo $_GET['mid'];?>&bookm=1'>
+        	<a  href='mods/calendar/shared_cal.php?mid=<?php echo $_GET['mid'];?>&bookm=1&calname=<?php echo $_GET['calname']; ?>'>
         		Bookmark this calendar
             </a> 
         </li>

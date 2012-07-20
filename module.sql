@@ -17,10 +17,9 @@ CREATE TABLE `google_sync` (
 );
 
 CREATE TABLE `bookmark_cal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(8),
-  `bookmarkedid` varchar(100),
-  PRIMARY KEY (`id`)
+  `memberid` int(11),
+  `ownerid` int(8),
+  `calname` varchar(256)
 );
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar','Calendar',NOW(),'');
