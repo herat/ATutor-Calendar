@@ -38,38 +38,42 @@ require (AT_INCLUDE_PATH.'vitals.inc.php');
 			$sql	= "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
 				"course_enrollment WHERE course_id=".$_SESSION['course_id']." and member_id <> ".$_SESSION['member_id']." )";
 		} else if ($_POST['to'] == 2) {
-			// choose all students
+			// choose particular login
 			$sql 	= "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_POST['selection'];
 		} else {
 			//user entered email address
 		}
 		
+		require(AT_INCLUDE_PATH . 'classes/phpmailer/atutormailer.class.php');
+		$mail = new ATutorMailer;
+		
 		if( $_POST['to'] == 1 || $_POST['to'] == 2 )
 		{
 			$result = mysql_query($sql,$db);
-			require(AT_INCLUDE_PATH . 'classes/phpmailer/atutormailer.class.php');
-			$mail = new ATutorMailer;
-			while ($row = mysql_fetch_assoc($result)) {
+			while ($row = mysql_fetch_assoc($result)) 
+			{
 				$mail->AddBCC($row['email']);
 			}
 	
 		}
 		else
 		{
-			require(AT_INCLUDE_PATH . 'classes/phpmailer/atutormailer.class.php');
-			$mail = new ATutorMailer;
 			$mail->AddBCC($_POST['emails']);
 		}
 		
 		$body = "";
-		
+		/*$body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=TestCal'>
+					View shared calendar</a>";*/
+		$body .= AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=TestCal";
+				
 		$mail->From     = $_config['contact_email'];
 		$mail->FromName = $_config['site_name'];
 		$mail->AddAddress($_config['contact_email']);
 		$mail->Subject = $stripslashes("Shared Calendar");
-		$mail->Body    = $stripslashes($body);
+		$mail->Body    = $body;
 
-		if(!$mail->Send()) {
+		if(!$mail->Send()) 
+		{
 		   //echo 'There was an error sending the message';
 		   $msg->printErrors('SENDING_ERROR');
 		   exit;
