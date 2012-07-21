@@ -71,3 +71,18 @@ INSERT INTO `language_text` VALUES ('en', '_module','at_cal_creat_e','Create Eve
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_cancel_e','Cancel',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_edit_e','Edit Event',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_del_e','Delete Event',NOW(),'');
+
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_share','Share Calendar',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_bookmarkd','Bookmarked Calendars',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_of','Calendar of',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_viewcal','View',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_sendall','Send to all',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_sellist','Select from list',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_manemail','Enter email address',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_mailtxt','Enter email',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_membrselect','Select member',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_titletxt','Title of Calendar',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_bookmark_this','Bookmark this Calendar',NOW(),'');
+
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_INVALID_EMAIL','Email address is invalid.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_ALREADY_BOOKMARKED','Calendar is already bookmarked.',NOW(),'');

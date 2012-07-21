@@ -9,7 +9,7 @@
 		$result = mysql_query( $sql, $db );
 		if( mysql_num_rows( $result ) > 0 )
 		{
-			$msg->addError('cal already bookmarked');
+			$msg->addError('ALREADY_BOOKMARKED');
 		}
 		else
 		{
@@ -34,7 +34,7 @@
         <ul class="social_side_menu">
         <li>
         	<a  href='mods/calendar/shared_cal.php?mid=<?php echo $_GET['mid'];?>&bookm=1&calname=<?php echo $_GET['calname']; ?>'>
-        		Bookmark this calendar
+        		<?php echo _AT('at_cal_bookmark_this'); ?>
             </a> 
         </li>
         </ul>

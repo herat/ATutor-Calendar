@@ -12,7 +12,7 @@
 <ul class="social_side_menu">
 <li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
 <li><a  href="mods/calendar/test_export.php"><?php echo _AT('at_cal_export_file')?></a> </li>
-<li><a  href='mods/calendar/send_mail.php'>Share Calendar</a></li>
+<li><a  href='mods/calendar/send_mail.php'><?php echo _AT('at_cal_share'); ?></a></li>
 <?php
     global $db;
     $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
@@ -51,7 +51,7 @@
 	{
 ?>
 <fieldset>
-<legend><h4>Bookmarked Calendars</h4></legend>
+<legend><h4><?php echo _AT('at_cal_bookmarkd'); ?></h4></legend>
 <ul class="social_side_menu">
 <?php
 	while ($row = mysql_fetch_assoc($res)) 

@@ -63,11 +63,11 @@ require (AT_INCLUDE_PATH.'vitals.inc.php');
 		if( isset($_POST['subject']) && $_POST['subject'] != "" )
 			$calname = $_POST['subject'];
 		else
-			$calname = "Calendar of ".get_display_name($_SESSION['member_id']);
+			$calname = _AT('at_cal_of')." ".get_display_name($_SESSION['member_id']);
 			
 		$body = "";
 		$body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id'].
-		"&email=1&calname=".$calname."'>View shared calendar</a>";
+		"&email=1&calname=".$calname."'>"._AT('at_cal_viewcal')." ".$calname."</a>";
 		//$body .= AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=TestCal";
 		//echo $body;
 		//exit;
@@ -105,26 +105,29 @@ require(AT_INCLUDE_PATH.'header.inc.php');
 <div class="input-form">
 	<div class="row">
 		<span class="required" title="<?php echo _AT('required_field'); ?>">*</span><?php echo  _AT('to'); ?><br />
-	    <input type="radio" name="to" value="1" id="all" <?php if( $_POST['to'] == 1 ) echo "checked = 'checked'"; ?>
+	    
+        <input type="radio" name="to" value="1" id="all" <?php if( $_POST['to'] == 1 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').addClass('fc-forme-hide');$('#selection').addClass('fc-forme-hide');" />
-        <label for="all">Send to all</label>
+        <label for="all"><?php echo _AT('at_cal_sendall'); ?></label>
+        
         <input type="radio" name="to" value="2" id="list" <?php if( $_POST['to'] == 2 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').addClass('fc-forme-hide');$('#selection').removeClass('fc-forme-hide');" />
-        <label for="list">Select from list</label>
+        <label for="list"><?php echo _AT('at_cal_sellist'); ?></label>
+        
         <input type="radio" name="to" value="3" id="manual" <?php if( $_POST['to'] == 3 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').removeClass('fc-forme-hide');$('#selection').addClass('fc-forme-hide');" />
-        <label for="manual">Enter email address</label>
+        <label for="manual"><?php echo _AT('at_cal_manemail'); ?></label>
 	</div>
     
     <div class="row">
     	
         <span id="emails" <?php if( $_POST['to'] != 3 ) echo "class='fc-forme-hide'"; ?> >
-        <label for="emails1">Enter email:</label>
+        <label for="emails1"> <?php echo _AT('at_cal_mailtxt'); ?>: </label>
     	<input type="text" id="emails1" name="emails" value="<?php echo $_POST['emails']; ?>"/>
         </span>
         
         <span id="selection" <?php if( $_POST['to'] != 2 ) echo "class='fc-forme-hide'"; ?>>
-        <label for="selection1">Select member:</label>
+        <label for="selection1"> <?php echo _AT('at_cal_membrselect'); ?>: </label>
         <select name="selection" id="selection1">
         	<?php
 				global $db;
@@ -141,7 +144,7 @@ require(AT_INCLUDE_PATH.'header.inc.php');
     </div>
 
 	<div class="row">
-		<label for="subject">Title of Calendar</label><br />
+		<label for="subject"> <?php echo _AT('at_cal_titletxt'); ?> </label><br />
 		<input type="text" name="subject" size="40" id="subject" value="<?php echo $_POST['subject']; ?>" />
 	</div>	
 
