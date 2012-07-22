@@ -11,6 +11,7 @@
     if ($_FILES["file"]["error"] > 0) 
     {
         //error
+		$msg->addError('CAL_FILE_ERROR');
         header('Location: file_import.php');
     }
     else 
@@ -25,6 +26,7 @@
             else 
             {
                 //error in deleting files
+				$msg->addError('CAL_FILE_DELETE');
                 header('Location: file_import.php');
             }
         }
@@ -93,6 +95,7 @@
             mysql_query( $query, $db );
         }
     }
+	$msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');
     unlink("../../content/calendar/".$filename );
     header('Location: index.php');
 ?>

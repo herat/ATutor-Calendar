@@ -90,3 +90,5 @@ INSERT INTO `language_text` VALUES ('en', '_module','at_cal_view_title','View Sh
 
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_INVALID_EMAIL','Email address is invalid.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_ALREADY_BOOKMARKED','Calendar is already bookmarked.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_CAL_FILE_ERROR','Error in file processing.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_CAL_FILE_DELETE','Error in removing duplicate file.',NOW(),'');
