@@ -68,13 +68,22 @@ require (AT_INCLUDE_PATH.'vitals.inc.php');
 		$body = "";
 		$body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id'].
 		"&email=1&calname=".$calname."'>"._AT('at_cal_viewcal')." ".$calname."</a>";
+		
+		$sql = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_SESSION['member_id'];
+		$result = mysql_query($sql,$db);
+		$fromemail = $_config['contact_email'];
+		while ($row = mysql_fetch_assoc($result)) 
+		{
+			$fromemail = $row['email'];
+		}
+		
 		//$body .= AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=TestCal";
 		//echo $body;
 		//exit;
 				
-		$mail->From     = $_config['contact_email'];
+		$mail->From     = $fromemail;
 		$mail->FromName = $_config['site_name'];
-		$mail->AddAddress($_config['contact_email']);
+		$mail->AddAddress($fromemail);
 		$mail->Subject = $stripslashes("Shared Calendar");
 		$mail->Body    = $body;
 
