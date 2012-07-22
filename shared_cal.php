@@ -2,9 +2,10 @@
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
 	
+	global $db;
+	
 	if( isset($_GET['bookm']) && $_GET['bookm'] == 1 )
 	{
-		global $db;
 		$sql = "SELECT * FROM ".TABLE_PREFIX."bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
 		$result = mysql_query( $sql, $db );
 		if( mysql_num_rows( $result ) > 0 )
@@ -16,6 +17,20 @@
 			$sql = "INSERT INTO ".TABLE_PREFIX."bookmark_cal VALUES (".$_SESSION['member_id'].",".$_GET['mid'].",'".$_GET['calname']."')";
 			mysql_query( $sql, $db );
 		}
+		header('Location: index.php');
+		exit;
+	}
+	else if( isset($_GET['del']) && $_GET['del'] == 1 )
+	{
+		$sql = "DELETE FROM ".TABLE_PREFIX."bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+		mysql_query( $sql, $db );
+		header('Location: index.php');
+		exit;
+	}
+	else if( isset($_GET['editname']) && $_GET['editname'] == 1 && trim($_GET['calname']) != "" )
+	{
+		$sql = "UPDATE ".TABLE_PREFIX."bookmark_cal SET calname='".$_GET['calname']."' WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+		mysql_query( $sql, $db );
 		header('Location: index.php');
 		exit;
 	}
@@ -41,6 +56,35 @@
     </fieldset>
 </div>
 <?php
+	}
+	else
+	{
+?>
+<div style="float:right;width:20%" class="box">
+    <fieldset>
+        <legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
+        <ul class="social_side_menu">
+        <li>
+        	<form action="mods/calendar/shared_cal.php" method="get" >
+            	<label for="calname"><?php echo _AT('at_cal_edit_title'); ?></label>
+                <br/>
+                <input type="hidden" value="<?php echo $_GET['mid'];?>" name="mid" />
+                <input type="hidden" value="1" name="editname" />
+                <input type="text" value="<?php echo $_GET['calname']; ?>" name="calname" id="calname" />
+                <br/>
+                &nbsp;&nbsp;
+                <input type="submit" value="<?php echo _AT('at_cal_save'); ?>" />
+            </form>
+        </li>
+        <li>
+        	<a  href='mods/calendar/shared_cal.php?mid=<?php echo $_GET['mid'];?>&del=1&calname=<?php echo $_GET['calname']; ?>'>
+        		<?php echo _AT('at_cal_del_bookmark'); ?>
+            </a>
+        </li>        	
+        </ul>
+    </fieldset>
+</div>
+<?php		
 	}
 ?>
 

@@ -83,6 +83,9 @@ INSERT INTO `language_text` VALUES ('en', '_module','at_cal_mailtxt','Enter emai
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_membrselect','Select member',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_titletxt','Title of Calendar',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_bookmark_this','Bookmark this Calendar',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_del_bookmark','Remove Bookmark',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_save','Save',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_edit_title','Edit Title',NOW(),'');
 
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_INVALID_EMAIL','Email address is invalid.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_ALREADY_BOOKMARKED','Calendar is already bookmarked.',NOW(),'');
