@@ -70,7 +70,7 @@
                 <br/>
                 <input type="hidden" value="<?php echo $_GET['mid'];?>" name="mid" />
                 <input type="hidden" value="1" name="editname" />
-                <input type="text" value="<?php echo $_GET['calname']; ?>" name="calname" id="calname" />
+                <input type="text" size="12" value="<?php echo $_GET['calname']; ?>" name="calname" id="calname" />
                 <br/>
                 &nbsp;&nbsp;
                 <input type="submit" value="<?php echo _AT('at_cal_save'); ?>" />
