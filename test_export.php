@@ -43,8 +43,14 @@ PRODID:-//ATutor//ATutor Calendar Module//EN";
     }
 
     foreach( $rows as $row ) {
-        $parts = explode( " ", $row["start"] );
-        $parts1 = explode(" ", $row["end"] );
+		$sstamp = strtotime($row["start"])-($_GET['hrs']*60*60);
+		$estamp = strtotime($row["end"])-($_GET['hrs']*60*60);
+		
+		$startdt = gmdate("Y-m-d H:i:s",$sstamp);
+		$enddt = gmdate("Y-m-d H:i:s",$estamp);
+		
+        $parts = explode( " ", $startdt );
+        $parts1 = explode(" ", $enddt );
 
         $s_date_p = explode( "-", $parts[0] );
         $e_date_p = explode( "-", $parts1[0] );

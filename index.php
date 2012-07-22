@@ -11,7 +11,7 @@
 <legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
 <ul class="social_side_menu">
 <li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
-<li><a  href="mods/calendar/test_export.php"><?php echo _AT('at_cal_export_file')?></a> </li>
+<li><a id="export" href="mods/calendar/test_export.php"><?php echo _AT('at_cal_export_file')?></a> </li>
 <li><a  href='mods/calendar/send_mail.php'><?php echo _AT('at_cal_share'); ?></a></li>
 <?php
     global $db;
@@ -94,6 +94,10 @@
         var activeelem;
         var focusd = false;
         var viewchangd = false;
+		
+		var gmtHours = -date.getTimezoneOffset()/60;
+		
+		$("#export").attr("href","mods/calendar/test_export.php?hrs="+gmtHours);
 		
 		var calendar = $('#calendar').fullCalendar({
         
