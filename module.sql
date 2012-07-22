@@ -86,6 +86,7 @@ INSERT INTO `language_text` VALUES ('en', '_module','at_cal_bookmark_this','Book
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_del_bookmark','Remove Bookmark',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_save','Save',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_edit_title','Edit Title',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_view_title','View Shared Calendar',NOW(),'');
 
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_INVALID_EMAIL','Email address is invalid.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_ALREADY_BOOKMARKED','Calendar is already bookmarked.',NOW(),'');
