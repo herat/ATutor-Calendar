@@ -37,8 +37,7 @@
      *
      * @return Zend_Http_Client
      */
-    function getAuthSubHttpClient()
-    {
+    function getAuthSubHttpClient() {
         global $_SESSION, $_GET, $_authSubKeyFile, $_authSubKeyFilePassphrase;
         $client = new Zend_Gdata_HttpClient();
         if ($_authSubKeyFile != null) {
@@ -57,22 +56,18 @@
      *
      * @return void
      */
-    function outputCalendarListCheck($client)
-    {
+    function outputCalendarListCheck($client) {
         $gdataCal = new Zend_Gdata_Calendar($client);
         $calFeed = $gdataCal->getCalendarListFeed();
     }
     
-    function isvalidtoken( $tokent )
-    {
-        try
-        {
+    function isvalidtoken( $tokent ) {
+        try {
             $client = getAuthSubHttpClient();
             outputCalendarListCheck($client);
             return true;
         }
-        catch( Zend_Gdata_App_HttpException $e )
-        {
+        catch( Zend_Gdata_App_HttpException $e ) {
             global $db;
             $qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
             mysql_query($qry,$db);
@@ -87,17 +82,14 @@
      *
      * @return void
      */
-    function processPageLoad()
-    {
+    function processPageLoad() {
         global $db;
         $qry = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
         $res = mysql_query($qry,$db);
-        if( mysql_num_rows($res) > 0 )
-        {
+        if( mysql_num_rows($res) > 0 ) {
             $row = mysql_fetch_assoc($res);
             $_SESSION['sessionToken'] = $row['token'];
-            if( isvalidtoken($_SESSION['sessionToken']) )
-            {
+            if( isvalidtoken($_SESSION['sessionToken']) ) {
                 $client = getAuthSubHttpClient();
                 outputCalendarList($client);
             }
@@ -110,20 +102,23 @@
      *
      * @return void
      */
-    function outputCalendarList($client)
-    {
+    function outputCalendarList($client) {
         $gdataCal = new Zend_Gdata_Calendar($client);
         $calFeed = $gdataCal->getCalendarListFeed();
         
+        //Get calendar list from database
         global $db;
-        $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+        $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".
+                  $_SESSION['member_id']."'";
         $res = mysql_query($query);
         $rowval = mysql_fetch_assoc($res);
         $prevval = $rowval['calids'];
         $selectd = ''; 
-        $i=1;
+        $i = 1;
+        
+        //Iterate through each calendar id
         foreach ($calFeed as $calendar) {
-            //state according to browser
+            //set state according to database and if changed then update database
             if( strpos($prevval,$calendar->id->text.',') === false )
                 $selectd = '';
             else
@@ -138,7 +133,7 @@
                 { calid: this.value, mode: \"remove\" },function (data){ refreshevents(); } );'
                 />
                 <label for='gcal".$i."'>".$calendar->title->text."</label><br/>";
-                $i++;
+            $i++;
         }
     }
 
@@ -149,16 +144,14 @@
      *
      * @return void
      */
-    function logout()
-    {
+    function logout() {
         // Carefully construct this value to avoid application security problems.
-        $php_self = htmlentities(substr($_SERVER['PHP_SELF'],
-                0,
-                strcspn($_SERVER['PHP_SELF'], "\n\r")),
-            ENT_QUOTES);
-
+        $php_self = htmlentities(substr($_SERVER['PHP_SELF'], 0 ,
+                    strcspn($_SERVER['PHP_SELF'], "\n\r")), ENT_QUOTES);
+        //Revoke access for the stored token
         Zend_Gdata_AuthSub::AuthSubRevokeToken($_SESSION['sessionToken']);
         unset($_SESSION['sessionToken']);
+        //Close this popup window
         echo "<script>window.location.reload(false);</script>";
         exit();
     }

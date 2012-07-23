@@ -42,14 +42,14 @@
      *
      * @return string Current URL
      */
-    function getCurrentUrl()
-    {
+    function getCurrentUrl() {
         global $_SERVER;
 
         /**
          * Filter php_self to avoid a security vulnerability.
          */
-        $php_request_uri = htmlentities(substr($_SERVER['REQUEST_URI'], 0, strcspn($_SERVER['REQUEST_URI'], "\n\r")), ENT_QUOTES);
+        $php_request_uri = htmlentities(substr($_SERVER['REQUEST_URI'], 0, 
+                           strcspn($_SERVER['REQUEST_URI'], "\n\r")), ENT_QUOTES);
 
         if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
             $protocol = 'https://';
@@ -76,8 +76,7 @@
      *
      * @return string AuthSub URL
      */
-    function getAuthSubUrl()
-    {
+    function getAuthSubUrl() {
         global $_authSubKeyFile;
         $next = getCurrentUrl();
         $scope = 'http://www.google.com/calendar/feeds/';
@@ -99,8 +98,7 @@
      *
      * @return void
      */
-    function requestUserLogin($linkText)
-    {
+    function requestUserLogin($linkText) {
         $authSubUrl = getAuthSubUrl();
         echo "<a href='javascript:void(0)' onclick=\"window.open('{$authSubUrl}','Authentication','height=500,width=600');\">{$linkText}</a>";
     }
@@ -116,8 +114,7 @@
      *
      * @return Zend_Http_Client
      */
-    function getAuthSubHttpClient()
-    {
+    function getAuthSubHttpClient() {
         global $_SESSION, $_GET, $_authSubKeyFile, $_authSubKeyFilePassphrase;
         $client = new Zend_Gdata_HttpClient();
         if ($_authSubKeyFile != null) {
@@ -140,16 +137,13 @@
      *
      * @return void
      */
-    function isvalidtoken( $tokent )
-    {
-        try
-        {
+    function isvalidtoken($tokent) {
+        try {
             $client = getAuthSubHttpClient();
             outputCalendarListCheck($client);
             return true;
         }
-        catch( Zend_Gdata_App_HttpException $e )
-        {
+        catch(Zend_Gdata_App_HttpException $e) {
                global $db;
             $qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
             mysql_query($qry,$db);
@@ -157,33 +151,26 @@
         }
     }
     /**
-     * Processes loading of this sample code through a web browser.  Uses AuthSub
-     * authentication and outputs a list of a user's calendars if succesfully
-     * authenticated.
+     * Processes loading of this code through a web browser.
      *
      * @return void
      */
-    function processPageLoad()
-    {
+    function processPageLoad() {
         global $db;
-        if( isset($_GET['logout']) )
-        {
+        if( isset($_GET['logout']) ) {
             $qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
             mysql_query($qry,$db);
             logout();
         }
-        else
-        {
-            if (!isset($_GET['token']))
-            {
+        else {
+            if (!isset($_GET['token'])) {
                 $qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
                 mysql_query($qry,$db);
                 unset($_SESSION['sessionToken']);
                 $authSubUrl = getAuthSubUrl();
                 header("Location:".$authSubUrl);
             }
-            else
-            {
+            else {
                 $client = getAuthSubHttpClient();
                 $qry = "INSERT INTO ".TABLE_PREFIX."google_sync (token,userid,calids) values ('".$_SESSION['sessionToken']."','".$_SESSION['member_id']."','')";
                 mysql_query($qry,$db);
@@ -199,8 +186,7 @@
      *
      * @return void
      */
-    function logout()
-    {
+    function logout() {
         // Carefully construct this value to avoid application security problems.
         $php_self = htmlentities(substr($_SERVER['PHP_SELF'],
                 0,

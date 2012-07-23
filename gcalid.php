@@ -25,8 +25,7 @@
     $mode = $_GET['mode'];
 
     global $db;
-    if( $mode == "add" )
-    {
+    if( $mode == "add" ) {
         //Get calendar ids from database, append the new id and update database
         $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
         $res = mysql_query($query);
@@ -36,8 +35,7 @@
         $query = "UPDATE ".TABLE_PREFIX."google_sync SET calids='".$prevval."' WHERE userid='".$_SESSION['member_id']."'";
         mysql_query($query,$db);
     }
-    else
-    {
+    else {
         //Get calendar ids from database, remove entry for selected id and update database
         $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
         $res = mysql_query($query);
