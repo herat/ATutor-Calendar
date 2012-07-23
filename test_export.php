@@ -1,4 +1,19 @@
 <?php
+    /****************************************************************/
+    /* ATutor Calendar Module                                       */
+    /* https://atutorcalendar.wordpress.com/                        */
+    /*                                                              */
+    /* This module provides standard calendar features in ATutor.   */
+    /*                                                              */
+    /* Author: Anurup Raveendran, Herat Gandhi                      */
+    /* This program is free software. You can redistribute it and/or*/
+    /* modify it under the terms of the GNU General Public License  */
+    /* as published by the Free Software Foundation.                */
+    /****************************************************************/
+    
+    /**
+     * This file is used to generate ics file.
+     */
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
     global $db;
@@ -43,12 +58,13 @@ PRODID:-//ATutor//ATutor Calendar Module//EN";
     }
 
     foreach( $rows as $row ) {
-		$sstamp = strtotime($row["start"])-($_GET['hrs']*60*60);
-		$estamp = strtotime($row["end"])-($_GET['hrs']*60*60);
-		
-		$startdt = gmdate("Y-m-d H:i:s",$sstamp);
-		$enddt = gmdate("Y-m-d H:i:s",$estamp);
-		
+        //Timezone manipulation
+        $sstamp = strtotime($row["start"])-($_GET['hrs']*60*60);
+        $estamp = strtotime($row["end"])-($_GET['hrs']*60*60);
+        
+        $startdt = gmdate("Y-m-d H:i:s",$sstamp);
+        $enddt = gmdate("Y-m-d H:i:s",$estamp);
+        
         $parts = explode( " ", $startdt );
         $parts1 = explode(" ", $enddt );
 
