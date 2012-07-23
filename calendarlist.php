@@ -1,4 +1,15 @@
 <?php
+    /****************************************************************/
+    /* ATutor Calendar Module                                       */
+    /* https://atutorcalendar.wordpress.com/                        */
+    /*                                                              */
+    /* This module provides standard calendar features in ATutor.   */
+    /*                                                              */
+    /* Author: Anurup Raveendran, Herat Gandhi                      */
+    /* This program is free software. You can redistribute it and/or*/
+    /* modify it under the terms of the GNU General Public License  */
+    /* as published by the Free Software Foundation.                */
+    /****************************************************************/
     /**
      * This file is used to display all the available
      * calendars in Google Account of a user.
@@ -109,7 +120,7 @@
         $rowval = mysql_fetch_assoc($res);
         $prevval = $rowval['calids'];
         $selectd = ''; 
-		$i=1;
+        $i=1;
         foreach ($calFeed as $calendar) {
             //state according to browser
             if( strpos($prevval,$calendar->id->text.',') === false )
@@ -117,16 +128,16 @@
             else
                 $selectd = "checked='checked'";
             echo "\t <div class='fc-square fc-inline-block'
-			style='background-color:".$calendar->color->value."' ></div>
-			<input id='gcal".$i."' type='checkbox' name ='calid' value='".
+                style='background-color:".$calendar->color->value."' ></div>
+                <input id='gcal".$i."' type='checkbox' name ='calid' value='".
                 $calendar->id->text."' ".$selectd.
                 " onclick='if(this.checked) $.get(\"mods/calendar/gcalid.php\",
                 { calid: this.value, mode: \"add\" },function (data){ refreshevents(); } );
                 else $.get(\"mods/calendar/gcalid.php\",
                 { calid: this.value, mode: \"remove\" },function (data){ refreshevents(); } );'
                 />
-				<label for='gcal".$i."'>".$calendar->title->text."</label><br/>";
-				$i++;
+                <label for='gcal".$i."'>".$calendar->title->text."</label><br/>";
+                $i++;
         }
     }
 
