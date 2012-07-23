@@ -10,8 +10,9 @@
     /* modify it under the terms of the GNU General Public License  */
     /* as published by the Free Software Foundation.                */
     /****************************************************************/
+    
     /**
-     * This file used to save calendar's state
+     * This file is used to save calendar's state
      * that is current view and starting date.
      * So that when user refreshes the page, he/she
      * will get the same state again.

@@ -1,6 +1,18 @@
 <?php
+    /****************************************************************/
+    /* ATutor Calendar Module                                       */
+    /* https://atutorcalendar.wordpress.com/                        */
+    /*                                                              */
+    /* This module provides standard calendar features in ATutor.   */
+    /*                                                              */
+    /* Author: Anurup Raveendran, Herat Gandhi                      */
+    /* This program is free software. You can redistribute it and/or*/
+    /* modify it under the terms of the GNU General Public License  */
+    /* as published by the Free Software Foundation.                */
+    /****************************************************************/
+    
     /** 
-     * This file returns the string for a language token. 
+     * This file returns text for a term. 
      */
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
