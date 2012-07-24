@@ -24,7 +24,7 @@ VERSION:2.0
 PRODID:-//ATutor//ATutor Calendar Module//EN";
     
     //Get all the events of a user
-    $qry = "SELECT * FROM `".TABLE_PREFIX."full_calendar_events` WHERE userid='".$_SESSION['member_id']."'";
+    $qry = "SELECT * FROM `".TABLE_PREFIX."at_cal_full_calendar_events` WHERE userid='".$_SESSION['member_id']."'";
     $result = mysql_query($qry,$db);
     $rows = array();
 

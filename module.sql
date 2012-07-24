@@ -1,4 +1,4 @@
-CREATE TABLE `full_calendar_events` (
+CREATE TABLE `at_cal_full_calendar_events` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(256),
   `start` datetime,
@@ -8,7 +8,7 @@ CREATE TABLE `full_calendar_events` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `google_sync` (
+CREATE TABLE `at_cal_google_sync` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `token` varchar(256),
   `userid` int(8),
@@ -16,7 +16,7 @@ CREATE TABLE `google_sync` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `bookmark_cal` (
+CREATE TABLE `at_cal_bookmark_cal` (
   `memberid` int(11),
   `ownerid` int(8),
   `calname` varchar(256)

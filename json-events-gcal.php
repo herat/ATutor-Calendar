@@ -70,7 +70,7 @@
         }
         catch(Zend_Gdata_App_HttpException $e) {
             global $db;
-            $qry = "DELETE FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+            $qry = "DELETE FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
             mysql_query($qry,$db);
             logout();
         }
@@ -82,7 +82,7 @@
      */
     function processPageLoad() {
         global $db;
-        $qry = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+        $qry = "SELECT * FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
         $res = mysql_query($qry,$db);
         if(mysql_num_rows($res) > 0) {
             $row = mysql_fetch_assoc($res);

@@ -91,7 +91,7 @@
             else  {
                 $alld = "false";
             }
-            $query = "INSERT INTO `".TABLE_PREFIX."full_calendar_events` (title,start,end,allDay,userid) values".
+            $query = "INSERT INTO `".TABLE_PREFIX."at_cal_full_calendar_events` (title,start,end,allDay,userid) values".
             " ('".$event["title"]."','".Date('Y-m-d H:m:s',$event["start"])."','".Date('Y-m-d H:m:s',$event["end"]).
             "','".$alld."','".$_SESSION['member_id']."')" ;
             mysql_query( $query, $db );

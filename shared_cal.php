@@ -6,7 +6,7 @@
 	
 	if( isset($_GET['bookm']) && $_GET['bookm'] == 1 )
 	{
-		$sql = "SELECT * FROM ".TABLE_PREFIX."bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+		$sql = "SELECT * FROM ".TABLE_PREFIX."at_cal_bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
 		$result = mysql_query( $sql, $db );
 		if( mysql_num_rows( $result ) > 0 )
 		{
@@ -14,7 +14,7 @@
 		}
 		else
 		{
-			$sql = "INSERT INTO ".TABLE_PREFIX."bookmark_cal VALUES (".$_SESSION['member_id'].",".$_GET['mid'].",'".$_GET['calname']."')";
+			$sql = "INSERT INTO ".TABLE_PREFIX."at_cal_bookmark_cal VALUES (".$_SESSION['member_id'].",".$_GET['mid'].",'".$_GET['calname']."')";
 			mysql_query( $sql, $db );
 		}
 		header('Location: index.php');
@@ -22,14 +22,14 @@
 	}
 	else if( isset($_GET['del']) && $_GET['del'] == 1 )
 	{
-		$sql = "DELETE FROM ".TABLE_PREFIX."bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+		$sql = "DELETE FROM ".TABLE_PREFIX."at_cal_bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
 		mysql_query( $sql, $db );
 		header('Location: index.php');
 		exit;
 	}
 	else if( isset($_GET['editname']) && $_GET['editname'] == 1 && trim($_GET['calname']) != "" )
 	{
-		$sql = "UPDATE ".TABLE_PREFIX."bookmark_cal SET calname='".$_GET['calname']."' WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+		$sql = "UPDATE ".TABLE_PREFIX."at_cal_bookmark_cal SET calname='".$_GET['calname']."' WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
 		mysql_query( $sql, $db );
 		header('Location: index.php');
 		exit;

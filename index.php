@@ -15,7 +15,7 @@
 <li><a  href='mods/calendar/send_mail.php'><?php echo _AT('at_cal_share'); ?></a></li>
 <?php
     global $db;
-    $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
+    $query = "SELECT * FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
     $res = mysql_query($query,$db);
     if( mysql_num_rows($res) > 0 )
     {
@@ -45,8 +45,8 @@
 </fieldset>
 
 <?php
-	$query = "SELECT * FROM ".TABLE_PREFIX."bookmark_cal WHERE memberid = ".$_SESSION['member_id'];
-	$res = mysql_query($query);
+	$query = "SELECT * FROM ".TABLE_PREFIX."at_cal_bookmark_cal WHERE memberid = ".$_SESSION['member_id'];
+	$res = mysql_query($query,$db);
 	if( mysql_num_rows( $res ) > 0 )
 	{
 ?>
