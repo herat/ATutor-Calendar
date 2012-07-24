@@ -365,7 +365,7 @@
                 $("#fc-emode").val("create");                    
                 $("#dialog").dialog('open');
                 //display event title in the input box
-                $("#name").val("[event name]");
+                $("#name").val("<?php echo _AT("at_cal_form_title_def"); ?>");
                 //display start date
                 $("#date-start").val($.fullCalendar.formatDate(date, 'yyyy-MM-dd'));
                 //if allday is true then disable time elements else enable them
@@ -750,7 +750,9 @@
                     <label for="name"><?php echo _AT('at_cal_form_title'); ?></label>
                 </td>
                 <td>
-                    <input type="text" name="name" id="name">
+                    <input type="text" name="name" id="name" 
+                    onclick="if(this.value == '<?php echo _AT("at_cal_form_title_def"); ?>') { this.value = ''; }" 
+                    onfocus="if(this.value == '<?php echo _AT("at_cal_form_title_def"); ?>') { this.value = ''; }"/>
                 </td>
             </tr>                
             <tr>

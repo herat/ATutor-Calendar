@@ -52,6 +52,7 @@ INSERT INTO `language_text` VALUES ('en', '_module','at_cal_form_start_d','Start
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_form_start_t','Start Time (24hours)',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_form_end_d','End Date (yyyy-mm-dd)',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_form_end_t','End Time (24hours)',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_form_title_def','Event Name',NOW(),'');
 
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_next','Next',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_prev','Previous',NOW(),'');
