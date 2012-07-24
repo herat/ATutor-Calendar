@@ -89,8 +89,8 @@
             $_SESSION['sessionToken'] = $row['token'];
             if(isvalidtoken($_SESSION['sessionToken'])) {
                 $client = getAuthSubHttpClient();
-                $query = "SELECT * FROM ".TABLE_PREFIX."google_sync WHERE userid='".$_SESSION['member_id']."'";
-                $res = mysql_query($query);
+                $query = "SELECT * FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
+                $res = mysql_query($query,$db);
                 $rowval = mysql_fetch_assoc($res);
                 $prevval = $rowval['calids'];
 
