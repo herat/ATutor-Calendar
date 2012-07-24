@@ -25,6 +25,10 @@
     else if ($_POST['submit']) {
         $missing_fields = array();
         
+		if( $_POST['to'] == 2 && isset( $_POST['selection_error']) ) {
+			$msg->addError('NO_RECIPIENTS');
+		}
+		
         //Verify input fields
         if (($_POST['to'] == '') || ($_POST['to'] == 0)) {
             $missing_fields[] = _AT('to');
@@ -46,12 +50,24 @@
                 $msg->addError('INVALID_EMAIL');
             }
         }
+		
+		if( $_POST['to'] == 1 ) {
+			$sql    = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
+                    "course_enrollment WHERE status=".AT_STATUS_STUDENT." and course_id=".$_SESSION['course_id']." and member_id <> ".
+					$_SESSION['member_id']." )";
+			$result = mysql_query($sql,$db);
+			$norow  = mysql_num_rows($result);
+			if( $norow < 1 ) {
+				$msg->addError('NO_RECIPIENTS');
+			}
+		}
         
         if (!$msg->containsErrors()) {
             if ($_POST['to'] == 1) {
                 // choose all members associated with course
                 $sql    = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
-                    "course_enrollment WHERE course_id=".$_SESSION['course_id']." and member_id <> ".$_SESSION['member_id']." )";
+                    "course_enrollment WHERE status=".AT_STATUS_STUDENT." and course_id=".$_SESSION['course_id']." and member_id <> ".
+					$_SESSION['member_id']." )";
             } else if ($_POST['to'] == 2) {
                 // choose particular login
                 $sql     = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_POST['selection'];
@@ -155,25 +171,40 @@
         </span>
         
         <span id="selection" <?php if( $_POST['to'] != 2 ) echo "class='fc-forme-hide'"; ?>>
-        <label for="selection1"> <?php echo _AT('at_cal_membrselect'); ?>: </label>
-        <select name="selection" id="selection1">
+               
             <?php
                 global $db;
                 $sql = "SELECT login,member_id FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
-                "course_enrollment WHERE course_id=".$_SESSION['course_id']." and member_id <> ".$_SESSION['member_id']." )";
-                $result = mysql_query($sql, $db);
-                while ($row = mysql_fetch_assoc($result)) {
-                    echo "<option value='".$row['member_id']."'>". $row['login'] ."</option>";                    
-                }
+                "course_enrollment WHERE status=".AT_STATUS_STUDENT." and course_id=".$_SESSION['course_id']." and member_id <> ".
+				$_SESSION['member_id']." )";
+                $result = mysql_query($sql,$db);
+				$norow = mysql_num_rows($result);
+				if( $norow > 0 )
+				{
+					echo "<label for='selection1'>". _AT('at_cal_membrselect') .": </label>";
+					echo "<select name='selection' id='selection1'>";
+					while ($row = mysql_fetch_assoc($result)) {
+						echo "<option value='".$row['member_id']."'>". $row['login'] ."</option>";                    
+					}
+					echo "</select>";
+				}
+				else
+				{
+					echo "<div id='selection_error'>You are the only one in this course, no available recipients.</div>";
+					echo "<input type='hidden' name='selection_error' value='only one' />";
+				}
             ?>
-        </select>
+
         </span>
     
     </div>
 
     <div class="row">
         <label for="subject"> <?php echo _AT('at_cal_titletxt'); ?> </label><br />
-        <input type="text" name="subject" size="40" id="subject" value="<?php echo $_POST['subject']; ?>" />
+        <input type="text" name="subject" size="40" id="subject" value="<?php echo $_POST['subject']; ?>" /><br/>
+        <label> Optional: If the title is not specified, default title will be set to "Calendar of 
+		<?php echo get_display_name($_SESSION['member_id']); ?>" 
+        </label>
     </div>    
 
     <div class="row buttons">

@@ -77,7 +77,7 @@ INSERT INTO `language_text` VALUES ('en', '_module','at_cal_share','Share Calend
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_bookmarkd','Bookmarked Calendars',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_of','Calendar of',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_viewcal','View',NOW(),'');
-INSERT INTO `language_text` VALUES ('en', '_module','at_cal_sendall','Send to all',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','at_cal_sendall','Send to all other students in this course',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_sellist','Select from list',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_manemail','Enter email address',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','at_cal_mailtxt','Enter email',NOW(),'');
