@@ -76,9 +76,9 @@
             else
                 $calname = _AT('at_cal_of')." ".get_display_name($_SESSION['member_id']);
                 
-            $body = "";
-            $body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id'].
-            "&email=1&calname=".$calname."'>"._AT('at_cal_viewcal')." ".$calname."</a>";
+            $body = get_display_name($_SESSION['member_id']).' has shared "'.$calname.'" with you. You may browse calendar at: ';
+            /*$body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id'].
+            "&email=1&calname=".$calname."'>"._AT('at_cal_viewcal')." ".$calname."</a>";*/
             
             $sql = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_SESSION['member_id'];
             $result = mysql_query($sql,$db);
@@ -87,7 +87,7 @@
                 $fromemail = $row['email'];
             }
             
-            //$body .= AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=TestCal";
+            $body .= AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=".urlencode($calname);
             //echo $body;
             //exit;
                     
@@ -102,6 +102,16 @@
                $msg->printErrors('SENDING_ERROR');
                exit;
             }
+			
+			/*$to      = 'herat_000@yahoo.co.in';
+			$subject = $stripslashes(_AT("at_cal_mail_title"));
+			$message = $body;
+			$headers = 'From: abc@gmail.com' . "\r\n" .
+				'Reply-To: abc@gmail.com' . "\r\n" .
+				'X-Mailer: PHP/' . phpversion();
+			
+			mail($to, $subject, $message, $headers);*/
+			
             unset($mail);
             
             $msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');
