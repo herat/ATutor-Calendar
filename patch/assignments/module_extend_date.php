@@ -72,10 +72,10 @@ function assignments_extend_date($course_id=null){
                                 "end"=>$row['date_cutoff'],
                                 "allDay"=>false,
                                 "color"=>"red",
-                                "textColor" => "black",
+                                "textColor" => "white",
                                 "editable"=>false 
                                  ) ;            
-                $index++;
+                    $index++;
                 }
             }
         }    

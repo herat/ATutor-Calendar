@@ -50,7 +50,7 @@ function courses_extend_date($course_id=null){
                             "end"=>$row['release_date'],
                             "allDay"=>false,
                             "color"=>"green",
-                            "textColor" => "black",
+                            "textColor" => "white",
                             "editable"=>false                        
                             ) ;
                           
