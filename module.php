@@ -85,4 +85,9 @@
     
     $this->_pages['mods/calendar/shared_cal.php']['title_var']='at_cal_view_title';
     $this->_pages['mods/calendar/shared_cal.php']['parent'] = 'mods/calendar/index.php';
+    
+    $this->_pages[AT_NAV_PUBLIC] = array('mods/calendar/index_public.php');
+    $this->_pages['mods/calendar/index_public.php']['title_var'] = 'calendar';
+    $this->_pages['mods/calendar/index_public.php']['parent'] = 'login.php';
+    $this->_pages['login.php']['children'] = array('mods/calendar/index_public.php');
 ?>
