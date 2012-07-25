@@ -150,8 +150,8 @@
                 }
             },
             /* Allow adding events by selecting cells. */
-            selectable: true,
-            selectHelper: true,
+            selectable: false,
+            selectHelper: false,
             
             /* Add tooltip to events after they are rendered. */
             eventAfterRender: function( evento,elemento,viewo ){
