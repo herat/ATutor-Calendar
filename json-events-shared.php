@@ -15,7 +15,8 @@
      * This file returns events from database as well as 
      * ATutor events in JSON format.
      */
-     
+     if( $_GET['pub'] == 1 )
+	 	$_user_location = "public";
     //Retrieve all the personal events.
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');

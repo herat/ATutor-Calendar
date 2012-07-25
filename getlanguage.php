@@ -14,6 +14,8 @@
     /** 
      * This file returns text for a term. 
      */
+	if( isset($_GET['pub']) )
+	    $_user_location = "public";
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
     $token = $_GET["token"];
