@@ -4,6 +4,14 @@
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
 	
+	if( !isset($_GET['mid']) )
+	{
+		require (AT_INCLUDE_PATH.'header.inc.php'); 
+		echo "This file displays shared calendar.";
+		require (AT_INCLUDE_PATH.'footer.inc.php'); 
+		exit;
+	}
+	
 	global $db;
 	
 	if( isset($_GET['bookm']) && $_GET['bookm'] == 1 )
