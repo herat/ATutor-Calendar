@@ -45,7 +45,7 @@
      * create a side menu box/stack.
      */
     if( !stristr( $_SERVER["REQUEST_URI"], "calendar") )
-    $this->_stacks['at_cal_header'] = array('title_var' => 'at_cal_header', 'file' => AT_INCLUDE_PATH.'../mods/calendar/side_menu.inc.php');
+    $this->_stacks['calendar_header'] = array('title_var' => 'calendar_header', 'file' => AT_INCLUDE_PATH.'../mods/calendar/side_menu.inc.php');
     // ** possible alternative: **
     // $this->addStack('calendar', array('title_var' => 'calendar', 'file' => './side_menu.inc.php');
 
@@ -68,22 +68,22 @@
     /*******
      * student page.
      */
-    $this->_pages['mods/calendar/index.php']['title_var'] = 'at_cal_header';
+    $this->_pages['mods/calendar/index.php']['title_var'] = 'calendar_header';
     $this->_pages['mods/calendar/index.php']['img']       = 'mods/calendar/img/calendar.png';
 
     /*******
      * import page
      */
-    $this->_pages['mods/calendar/file_import.php']['title_var']='at_cal_import_file';
+    $this->_pages['mods/calendar/file_import.php']['title_var']='calendar_import_file';
     $this->_pages['mods/calendar/file_import.php']['parent'] = 'mods/calendar/index.php';
 	
 	/*******
      * Calendar sharing pages
      */
-	$this->_pages['mods/calendar/send_mail.php']['title_var']='at_cal_share';
+	$this->_pages['mods/calendar/send_mail.php']['title_var']='calendar_share';
     $this->_pages['mods/calendar/send_mail.php']['parent'] = 'mods/calendar/index.php';
     
-    $this->_pages['mods/calendar/shared_cal.php']['title_var']='at_cal_view_title';
+    $this->_pages['mods/calendar/shared_cal.php']['title_var']='calendar_view_title';
     $this->_pages['mods/calendar/shared_cal.php']['parent'] = 'mods/calendar/index.php';
     
     $this->_pages[AT_NAV_PUBLIC] = array('mods/calendar/index_public.php');

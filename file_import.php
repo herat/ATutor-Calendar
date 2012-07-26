@@ -20,10 +20,10 @@
 ?>
 
 <form action="mods/calendar/import_db.php" method="post" enctype="multipart/form-data">
-    <label for="file"><?php echo _AT("at_cal_upload_file"); ?></label>
+    <label for="file"><?php echo _AT("calendar_upload_file"); ?></label>
     <input type="file" name="file" id="file" />
     <br />
-    <input type="submit" name="submit" value="<?php echo _AT("at_cal_submit"); ?>" />
+    <input type="submit" name="submit" value="<?php echo _AT("calendar_submit"); ?>" />
 </form>
 
 <?php

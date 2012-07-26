@@ -48,6 +48,6 @@
     $savant->assign('dropdown_contents', ob_get_contents());
     ob_end_clean();
     
-    $savant->assign('title', _AT('at_cal_header')); // the box title
+    $savant->assign('title', _AT('calendar_header')); // the box title
     $savant->display('include/box.tmpl.php');
 ?>

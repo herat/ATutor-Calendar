@@ -90,11 +90,11 @@
             if( isset($_POST['subject']) && $_POST['subject'] != "" )
                 $calname = $_POST['subject'];
             else
-                $calname = _AT('at_cal_of')." ".get_display_name($_SESSION['member_id']);
+                $calname = _AT('calendar_of')." ".get_display_name($_SESSION['member_id']);
                 
             $body = get_display_name($_SESSION['member_id']).' has shared "'.$calname.'" with you. You may browse calendar at: ';
             /*$body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id'].
-            "&email=1&calname=".$calname."'>"._AT('at_cal_viewcal')." ".$calname."</a>";*/
+            "&email=1&calname=".$calname."'>"._AT('calendar_viewcal')." ".$calname."</a>";*/
             
             $sql = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_SESSION['member_id'];
             $result = mysql_query($sql,$db);
@@ -110,7 +110,7 @@
             $mail->From     = $fromemail;
             $mail->FromName = $_config['site_name'];
             $mail->AddAddress($fromemail);
-            $mail->Subject = $stripslashes(_AT("at_cal_mail_title"));
+            $mail->Subject = $stripslashes(_AT("calendar_mail_title"));
             $mail->Body    = $body;
 
             if(!$mail->Send()) {
@@ -120,7 +120,7 @@
             }
 			
 			/*$to      = 'herat_000@yahoo.co.in';
-			$subject = $stripslashes(_AT("at_cal_mail_title"));
+			$subject = $stripslashes(_AT("calendar_mail_title"));
 			$message = $body;
 			$headers = 'From: abc@gmail.com' . "\r\n" .
 				'Reply-To: abc@gmail.com' . "\r\n" .
@@ -152,21 +152,21 @@
         
         <input type="radio" name="to" value="1" id="all" <?php if( $_POST['to'] == 1 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').addClass('fc-forme-hide');$('#selection').addClass('fc-forme-hide');" />
-        <label for="all"><?php echo _AT('at_cal_sendall'); ?></label>
+        <label for="all"><?php echo _AT('calendar_sendall'); ?></label>
         
         <input type="radio" name="to" value="2" id="list" <?php if( $_POST['to'] == 2 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').addClass('fc-forme-hide');$('#selection').removeClass('fc-forme-hide');" />
-        <label for="list"><?php echo _AT('at_cal_sellist'); ?></label>
+        <label for="list"><?php echo _AT('calendar_sellist'); ?></label>
         
         <input type="radio" name="to" value="3" id="manual" <?php if( $_POST['to'] == 3 ) echo "checked = 'checked'"; ?>
         onclick="$('#emails').removeClass('fc-forme-hide');$('#selection').addClass('fc-forme-hide');" />
-        <label for="manual"><?php echo _AT('at_cal_manemail'); ?></label>
+        <label for="manual"><?php echo _AT('calendar_manemail'); ?></label>
     </div>
     
     <div class="row">
         
         <span id="emails" <?php if( $_POST['to'] != 3 ) echo "class='fc-forme-hide'"; ?> >
-        <label for="emails1"> <?php echo _AT('at_cal_mailtxt'); ?>: </label>
+        <label for="emails1"> <?php echo _AT('calendar_mailtxt'); ?>: </label>
         <input type="text" id="emails1" name="emails" value="<?php echo $_POST['emails']; ?>"/>
         </span>
         
@@ -181,7 +181,7 @@
 				$norow = mysql_num_rows($result);
 				if( $norow > 0 )
 				{
-					echo "<label for='selection1'>". _AT('at_cal_membrselect') .": </label>";
+					echo "<label for='selection1'>". _AT('calendar_membrselect') .": </label>";
 					echo "<select name='selection' id='selection1'>";
 					while ($row = mysql_fetch_assoc($result)) {
 						echo "<option value='".$row['member_id']."'>". $row['login'] ."</option>";                    
@@ -200,7 +200,7 @@
     </div>
 
     <div class="row">
-        <label for="subject"> <?php echo _AT('at_cal_titletxt'); ?> </label><br />
+        <label for="subject"> <?php echo _AT('calendar_titletxt'); ?> </label><br />
         <input type="text" name="subject" size="40" id="subject" value="<?php echo $_POST['subject']; ?>" /><br/>
         <label> Optional: If the title is not specified, default title will be set to "Calendar of 
 		<?php echo get_display_name($_SESSION['member_id']); ?>" 

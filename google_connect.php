@@ -145,7 +145,7 @@
         }
         catch(Zend_Gdata_App_HttpException $e) {
                global $db;
-            $qry = "DELETE FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
+            $qry = "DELETE FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
             mysql_query($qry,$db);
             logout();
         }
@@ -158,13 +158,13 @@
     function processPageLoad() {
         global $db;
         if( isset($_GET['logout']) ) {
-            $qry = "DELETE FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
+            $qry = "DELETE FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
             mysql_query($qry,$db);
             logout();
         }
         else {
             if (!isset($_GET['token'])) {
-                $qry = "DELETE FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
+                $qry = "DELETE FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
                 mysql_query($qry,$db);
                 unset($_SESSION['sessionToken']);
                 $authSubUrl = getAuthSubUrl();
@@ -172,7 +172,7 @@
             }
             else {
                 $client = getAuthSubHttpClient();
-                $qry = "INSERT INTO ".TABLE_PREFIX."at_cal_google_sync (token,userid,calids) values ('".$_SESSION['sessionToken']."','".$_SESSION['member_id']."','')";
+                $qry = "INSERT INTO ".TABLE_PREFIX."calendar_google_sync (token,userid,calids) values ('".$_SESSION['sessionToken']."','".$_SESSION['member_id']."','')";
                 mysql_query($qry,$db);
                 echo "<script>window.opener.location.reload(true);window.close();</script>";
             }

@@ -8,50 +8,50 @@
 
 <div style="float:right;width:20%" class="box">
 <fieldset>
-<legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
+<legend><h4><?php echo _AT('calendar_options'); ?></h4></legend>
 <ul class="social_side_menu">
-<li><a  href='mods/calendar/file_import.php'><?php echo _AT('at_cal_import_file')?></a> </li>
-<li><a id="export" href="mods/calendar/test_export.php"><?php echo _AT('at_cal_export_file')?></a> </li>
-<li><a  href='mods/calendar/send_mail.php'><?php echo _AT('at_cal_share'); ?></a></li>
+<li><a  href='mods/calendar/file_import.php'><?php echo _AT('calendar_import_file')?></a> </li>
+<li><a id="export" href="mods/calendar/test_export.php"><?php echo _AT('calendar_export_file')?></a> </li>
+<li><a  href='mods/calendar/send_mail.php'><?php echo _AT('calendar_share'); ?></a></li>
 <?php
     global $db;
-    $query = "SELECT * FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
+    $query = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
     $res = mysql_query($query,$db);
     if( mysql_num_rows($res) > 0 )
     {
         echo "<li><a href='mods/calendar/google_connect.php?logout=yes'
-        target='_blank'>"._AT('at_cal_disconnect_gcal')."</a></li></ul></fieldset>";
-        echo "<br/><fieldset><legend><h4>"._AT('at_cal_gcals')."</h4></legend>";
+        target='_blank'>"._AT('calendar_disconnect_gcal')."</a></li></ul></fieldset>";
+        echo "<br/><fieldset><legend><h4>"._AT('calendar_gcals')."</h4></legend>";
         include('calendarlist.php');
 		echo "</fieldset>";
     }
     else
     {
-        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>"._AT('at_cal_connect_gcal')."</a></li></ul></fieldset>";
+        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>"._AT('calendar_connect_gcal')."</a></li></ul></fieldset>";
     }
 ?>
 
 <br/>
 <fieldset>
-<legend><h4><?php echo _AT('at_cal_internal_events'); ?></h4></legend>
+<legend><h4><?php echo _AT('calendar_internal_events'); ?></h4></legend>
 <div class="fc-square fc-inline-block" style="background-color:rgb(51,102,204)"></div>
-<?php echo _AT('at_cal_events_persnl'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:yellow"></div><?php echo _AT('at_cal_events_assign_due'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:red"></div><?php echo _AT('at_cal_events_assign_cut'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:green"></div><?php echo _AT('at_cal_events_course_rel'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:maroon"></div><?php echo _AT('at_cal_events_course_end'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:lime"></div><?php echo _AT('at_cal_events_test_start'); ?><br/>
-<div class="fc-square fc-inline-block" style="background-color:purple"></div><?php echo _AT('at_cal_events_test_end'); ?><br/>
+<?php echo _AT('calendar_events_persnl'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:yellow"></div><?php echo _AT('calendar_events_assign_due'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:red"></div><?php echo _AT('calendar_events_assign_cut'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:green"></div><?php echo _AT('calendar_events_course_rel'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:maroon"></div><?php echo _AT('calendar_events_course_end'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:lime"></div><?php echo _AT('calendar_events_test_start'); ?><br/>
+<div class="fc-square fc-inline-block" style="background-color:purple"></div><?php echo _AT('calendar_events_test_end'); ?><br/>
 </fieldset>
 
 <?php
-	$query = "SELECT * FROM ".TABLE_PREFIX."at_cal_bookmark_cal WHERE memberid = ".$_SESSION['member_id'];
+	$query = "SELECT * FROM ".TABLE_PREFIX."calendar_bookmark WHERE memberid = ".$_SESSION['member_id'];
 	$res = mysql_query($query,$db);
 	if( mysql_num_rows( $res ) > 0 )
 	{
 ?>
 <fieldset>
-<legend><h4><?php echo _AT('at_cal_bookmarkd'); ?></h4></legend>
+<legend><h4><?php echo _AT('calendar_bookmarkd'); ?></h4></legend>
 <ul class="social_side_menu">
 <?php
 	while ($row = mysql_fetch_assoc($res)) 
@@ -154,7 +154,7 @@
                 {
                     fluid.tooltip( elemento, {
                             content: function(){
-                                return "<?php echo _AT('at_cal_tooltip_event'); ?>";
+                                return "<?php echo _AT('calendar_tooltip_event'); ?>";
                             }
                         });
                 }
@@ -185,26 +185,26 @@
                         if( $(this).text().indexOf( 'Previous' ) >= 0 )
                         {
                             if( view.name == "month" )
-                                $(this).text("<?php echo _AT('at_cal_prv_mnth'); ?>");
+                                $(this).text("<?php echo _AT('calendar_prv_mnth'); ?>");
                             else if( view.name == "agendaWeek" )
-                                $(this).text("<?php echo _AT('at_cal_prv_week'); ?>");
+                                $(this).text("<?php echo _AT('calendar_prv_week'); ?>");
                             else
-                                $(this).text("<?php echo _AT('at_cal_prv_day'); ?>");
+                                $(this).text("<?php echo _AT('calendar_prv_day'); ?>");
                         }
                         if( $(this).text().indexOf( 'Next' ) >= 0 )
                         {
                             if( view.name == "month" )
-                                $(this).text("<?php echo _AT('at_cal_nxt_mnth'); ?>");
+                                $(this).text("<?php echo _AT('calendar_nxt_mnth'); ?>");
                             else if( view.name == "agendaWeek" )
-                                $(this).text("<?php echo _AT('at_cal_nxt_week'); ?>");
+                                $(this).text("<?php echo _AT('calendar_nxt_week'); ?>");
                             else
-                                $(this).text("<?php echo _AT('at_cal_nxt_day'); ?>");
+                                $(this).text("<?php echo _AT('calendar_nxt_day'); ?>");
                         }
                    }
                 );
                 fluid.tooltip(".fc-view-"+view.name, {
                     content: function () {
-                        return "<?php echo _AT('at_cal_tooltip_cell'); ?>";
+                        return "<?php echo _AT('calendar_tooltip_cell'); ?>";
                     }
                 });
             },
@@ -365,7 +365,7 @@
                 $("#fc-emode").val("create");                    
                 $("#dialog").dialog('open');
                 //display event title in the input box
-                $("#name").val("<?php echo _AT("at_cal_form_title_def"); ?>");
+                $("#name").val("<?php echo _AT("calendar_form_title_def"); ?>");
                 //display start date
                 $("#date-start").val($.fullCalendar.formatDate(date, 'yyyy-MM-dd'));
                 //if allday is true then disable time elements else enable them
@@ -457,7 +457,7 @@
             width: 500,
             modal: true,
                 buttons: {
-                    '<?php echo _AT('at_cal_creat_e'); ?>': function () {
+                    '<?php echo _AT('calendar_creat_e'); ?>': function () {
                     //get start date
                     var startsplt = $("#date-start").val().split("-");
                     var ends;
@@ -512,7 +512,7 @@
                         activeelem.focus();
                     }
                 },
-                <?php echo _AT('at_cal_cancel_e'); ?>: function () {
+                <?php echo _AT('calendar_cancel_e'); ?>: function () {
                     $(this).dialog('close');
                     activeelem.focus();
                 }
@@ -531,7 +531,7 @@
             width: 700,
             modal: true,
             buttons: {
-                '<?php echo _AT('at_cal_del_e'); ?>': function() {
+                '<?php echo _AT('calendar_del_e'); ?>': function() {
                     if( $("#ori-name1").val().indexOf('http') >= 0 )
                     {
                         $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),cmd:"delete"});
@@ -577,7 +577,7 @@
                     $(this).dialog('close');
                     //activeelem.focus();
                 },
-                '<?php echo _AT('at_cal_edit_e'); ?>': function () {
+                '<?php echo _AT('calendar_edit_e'); ?>': function () {
                 //get new values of time and date
                 var startsplt = $("#date-start1").val().split("-");
                 var ends;
@@ -712,7 +712,7 @@
                         $(this).dialog('close');
                     }
                 },
-                <?php echo _AT('at_cal_cancel_e'); ?>: function () {
+                <?php echo _AT('calendar_cancel_e'); ?>: function () {
                     $(this).dialog('close');
                     activeelem.focus();
                 }
@@ -747,20 +747,20 @@
            <table border="0" cellpadding="5">
             <tr> 
                 <td>               
-                    <label for="name"><?php echo _AT('at_cal_form_title'); ?></label>
+                    <label for="name"><?php echo _AT('calendar_form_title'); ?></label>
                 </td>
                 <td>
                     <input type="text" name="name" id="name" 
-                    onclick="if(this.value == '<?php echo _AT("at_cal_form_title_def"); ?>') { this.value = ''; }" 
-                    onfocus="if(this.value == '<?php echo _AT("at_cal_form_title_def"); ?>') { this.value = ''; }"/>
+                    onclick="if(this.value == '<?php echo _AT("calendar_form_title_def"); ?>') { this.value = ''; }" 
+                    onfocus="if(this.value == '<?php echo _AT("calendar_form_title_def"); ?>') { this.value = ''; }"/>
                 </td>
             </tr>                
             <tr>
                 <td>
-                    <label for="date-start"><?php echo _AT('at_cal_form_start_d'); ?></label>
+                    <label for="date-start"><?php echo _AT('calendar_form_start_d'); ?></label>
                 </td>
                 <td>
-                    <label id="lbl-start-time" for ="time-start"><?php echo _AT('at_cal_form_start_t'); ?></label>
+                    <label id="lbl-start-time" for ="time-start"><?php echo _AT('calendar_form_start_t'); ?></label>
                 </td>
             </tr>
             <tr>
@@ -773,10 +773,10 @@
             </tr>
             <tr>
                 <td>
-                    <label for="date-end"><?php echo _AT('at_cal_form_end_d'); ?></label>
+                    <label for="date-end"><?php echo _AT('calendar_form_end_d'); ?></label>
                 </td>
                 <td>
-                    <label id="lbl-end-time" for ="time-end"><?php echo _AT('at_cal_form_end_t'); ?></label>
+                    <label id="lbl-end-time" for ="time-end"><?php echo _AT('calendar_form_end_t'); ?></label>
                 </td>
             </tr>
             <tr>
@@ -798,7 +798,7 @@
             <table border="0" cellpadding="5">
              <tr> 
                 <td>               
-                    <label for="name1"><?php echo _AT('at_cal_form_title'); ?></label>
+                    <label for="name1"><?php echo _AT('calendar_form_title'); ?></label>
                 </td>
                 <td>
                     <input type="text" name="name" id="name1">
@@ -806,10 +806,10 @@
             </tr>                
             <tr>
                 <td>
-                    <label for="date-start1"><?php echo _AT('at_cal_form_start_d'); ?></label>
+                    <label for="date-start1"><?php echo _AT('calendar_form_start_d'); ?></label>
                 </td>
                 <td>
-                    <label id="lbl-start-time1" for ="time-start1"><?php echo _AT('at_cal_form_start_t'); ?></label>
+                    <label id="lbl-start-time1" for ="time-start1"><?php echo _AT('calendar_form_start_t'); ?></label>
                 </td>
             </tr>
             <tr>
@@ -822,10 +822,10 @@
             </tr>
             <tr>
                 <td>
-                    <label for="date-end1"><?php echo _AT('at_cal_form_end_d'); ?></label>
+                    <label for="date-end1"><?php echo _AT('calendar_form_end_d'); ?></label>
                 </td>
                 <td>
-                    <label id="lbl-end-time1" for ="time-end1"><?php echo _AT('at_cal_form_end_t'); ?></label>
+                    <label id="lbl-end-time1" for ="time-end1"><?php echo _AT('calendar_form_end_t'); ?></label>
                 </td>
             </tr>
             <tr>

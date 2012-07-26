@@ -69,7 +69,7 @@
         }
         catch( Zend_Gdata_App_HttpException $e ) {
             global $db;
-            $qry = "DELETE FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
+            $qry = "DELETE FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
             mysql_query($qry,$db);
             logout();
         }
@@ -84,7 +84,7 @@
      */
     function processPageLoad() {
         global $db;
-        $qry = "SELECT * FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".$_SESSION['member_id']."'";
+        $qry = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
         $res = mysql_query($qry,$db);
         if( mysql_num_rows($res) > 0 ) {
             $row = mysql_fetch_assoc($res);
@@ -108,7 +108,7 @@
         
         //Get calendar list from database
         global $db;
-        $query = "SELECT * FROM ".TABLE_PREFIX."at_cal_google_sync WHERE userid='".
+        $query = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".
                   $_SESSION['member_id']."'";
         $res = mysql_query($query);
         $rowval = mysql_fetch_assoc($res);
