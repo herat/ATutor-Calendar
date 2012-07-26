@@ -49,13 +49,13 @@
 			header('Location: index.php');
 			exit;
 		}
-		else
+		/*else
 		{
 			//add in sql
 			$msg->addError('LOG_IN_FIRST');
 			header('Location: '.AT_BASE_HREF.'login.php');
 			exit;
-		}
+		}*/
 	}
 	else if( isset($_GET['editname']) && $_GET['editname'] == 1 && trim($_GET['calname']) != "" )
 	{
@@ -66,13 +66,13 @@
 			header('Location: index.php');
 			exit;
 		}
-		else
+		/*else
 		{
 			//add in sql
 			$msg->addError('LOG_IN_FIRST');
 			header('Location: '.AT_BASE_HREF.'login.php');
 			exit;
-		}
+		}*/
 	}
 
     require (AT_INCLUDE_PATH.'header.inc.php');
@@ -80,7 +80,7 @@
 <div style="left:50%; z-index:20000; position:absolute; top:50%" id="loader"><img src="mods/calendar/img/loader.gif" alt="Loading" /> </div>
 
 <?php 
-	if( isset($_GET['email']) && $_GET['email'] == 1 )
+	if( isset($_GET['email']) && $_GET['email'] == 1 && isset($_SESSION['member_id']) )
 	{
 ?>
 <div style="float:right;width:20%" class="box">
@@ -97,7 +97,7 @@
 </div>
 <?php
 	}
-	else
+	else if( isset($_SESSION['member_id']) )
 	{
 ?>
 <div style="float:right;width:20%" class="box">
@@ -126,8 +126,23 @@
 </div>
 <?php		
 	}
+	else
+	{
 ?>
-
+<div style="float:right;width:20%" class="box">
+    <fieldset>
+        <legend><h4><?php echo _AT('calendar_options'); ?></h4></legend>
+        <ul class="social_side_menu">
+        <li>
+        	<?php echo _AT("calendar_public_note1")." <a href= '".AT_BASE_HREF."login.php'>"._AT("calendar_public_note2")."</a> "._AT("calendar_public_note3");
+			?>	
+        </li>
+        </ul>
+    </fieldset>
+</div>
+<?php
+	}
+?>
 <?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
 
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js"></script>

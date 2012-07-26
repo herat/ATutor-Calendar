@@ -90,6 +90,10 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_edit_title','Edit 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_view_title','View Shared Calendar',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_mail_title','Shared Calendar',NOW(),'');
 
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note1','You can',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note2','login',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note3','to bookmark this calendar.',NOW(),'');
+
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_INVALID_EMAIL','Email address is invalid.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_ALREADY_BOOKMARKED','Calendar is already bookmarked.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_CAL_FILE_ERROR','Error in file processing.',NOW(),'');
