@@ -103,7 +103,7 @@
                 $fromemail = $row['email'];
             }
             
-            $body .= AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id']."&email=1&calname=".urlencode($calname);
+            $body .= AT_BASE_HREF."mods/calendar/index_public.php?mid=".$_SESSION['member_id']."&email=1&calname=".urlencode($calname);
             //echo $body;
             //exit;
                     

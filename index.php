@@ -57,7 +57,7 @@
 	while ($row = mysql_fetch_assoc($res)) 
 	{
 ?>
-<li><a  href='mods/calendar/shared_cal.php?mid=<?php echo $row['ownerid']; ?>&calname=<?php echo $row['calname']; ?>'><?php echo $row['calname'];?></a> </li>
+<li><a  href='mods/calendar/index_public.php?mid=<?php echo $row['ownerid']; ?>&calname=<?php echo $row['calname']; ?>'><?php echo $row['calname'];?></a> </li>
 <?php
 	}
 ?>

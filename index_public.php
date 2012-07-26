@@ -8,33 +8,63 @@
 	
 	if( isset($_GET['bookm']) && $_GET['bookm'] == 1 )
 	{
-		$sql = "SELECT * FROM ".TABLE_PREFIX."at_cal_bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
-		$result = mysql_query( $sql, $db );
-		if( mysql_num_rows( $result ) > 0 )
+		if( isset($_SESSION['member_id']) )
 		{
-			$msg->addError('ALREADY_BOOKMARKED');
+			$sql = "SELECT * FROM ".TABLE_PREFIX."at_cal_bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+			$result = mysql_query( $sql, $db );
+			if( mysql_num_rows( $result ) > 0 )
+			{
+				$msg->addError('ALREADY_BOOKMARKED');
+			}
+			else
+			{
+				$sql = "INSERT INTO ".TABLE_PREFIX."at_cal_bookmark_cal VALUES (".$_SESSION['member_id'].",".$_GET['mid'].",'".$_GET['calname']."')";
+				mysql_query( $sql, $db );
+			}
+			header('Location: index.php');
+			exit;
 		}
 		else
 		{
-			$sql = "INSERT INTO ".TABLE_PREFIX."at_cal_bookmark_cal VALUES (".$_SESSION['member_id'].",".$_GET['mid'].",'".$_GET['calname']."')";
-			mysql_query( $sql, $db );
+			//add in sql
+			$msg->addError('LOG_IN_FIRST');
+			header('Location: '.AT_BASE_HREF.'login.php');
+			exit;
 		}
-		header('Location: index.php');
-		exit;
 	}
 	else if( isset($_GET['del']) && $_GET['del'] == 1 )
 	{
-		$sql = "DELETE FROM ".TABLE_PREFIX."at_cal_bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
-		mysql_query( $sql, $db );
-		header('Location: index.php');
-		exit;
+		if( isset($_SESSION['member_id']) )
+		{
+			$sql = "DELETE FROM ".TABLE_PREFIX."at_cal_bookmark_cal WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+			mysql_query( $sql, $db );
+			header('Location: index.php');
+			exit;
+		}
+		else
+		{
+			//add in sql
+			$msg->addError('LOG_IN_FIRST');
+			header('Location: '.AT_BASE_HREF.'login.php');
+			exit;
+		}
 	}
 	else if( isset($_GET['editname']) && $_GET['editname'] == 1 && trim($_GET['calname']) != "" )
 	{
-		$sql = "UPDATE ".TABLE_PREFIX."at_cal_bookmark_cal SET calname='".$_GET['calname']."' WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
-		mysql_query( $sql, $db );
-		header('Location: index.php');
-		exit;
+		if( isset($_SESSION['member_id']) )
+		{
+			$sql = "UPDATE ".TABLE_PREFIX."at_cal_bookmark_cal SET calname='".$_GET['calname']."' WHERE memberid=".$_SESSION['member_id']." AND ownerid=".$_GET['mid'];
+			mysql_query( $sql, $db );
+			header('Location: index.php');
+			exit;
+		}
+		else
+		{
+			//add in sql
+			$msg->addError('LOG_IN_FIRST');
+			header('Location: '.AT_BASE_HREF.'login.php');
+			exit;
+		}
 	}
 
     require (AT_INCLUDE_PATH.'header.inc.php');
@@ -50,7 +80,7 @@
         <legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
         <ul class="social_side_menu">
         <li>
-        	<a  href='mods/calendar/shared_cal.php?mid=<?php echo $_GET['mid'];?>&bookm=1&calname=<?php echo $_GET['calname']; ?>'>
+        	<a  href='mods/calendar/index_public.php?mid=<?php echo $_GET['mid'];?>&bookm=1&calname=<?php echo $_GET['calname']; ?>'>
         		<?php echo _AT('at_cal_bookmark_this'); ?>
             </a> 
         </li>
@@ -67,7 +97,7 @@
         <legend><h4><?php echo _AT('at_cal_options'); ?></h4></legend>
         <ul class="social_side_menu">
         <li>
-        	<form action="mods/calendar/shared_cal.php" method="get" >
+        	<form action="mods/calendar/index_public.php" method="get" >
             	<label for="calname"><?php echo _AT('at_cal_edit_title'); ?></label>
                 <br/>
                 <input type="hidden" value="<?php echo $_GET['mid'];?>" name="mid" />
@@ -79,7 +109,7 @@
             </form>
         </li>
         <li>
-        	<a  href='mods/calendar/shared_cal.php?mid=<?php echo $_GET['mid'];?>&del=1&calname=<?php echo $_GET['calname']; ?>'>
+        	<a  href='mods/calendar/index_public.php?mid=<?php echo $_GET['mid'];?>&del=1&calname=<?php echo $_GET['calname']; ?>'>
         		<?php echo _AT('at_cal_del_bookmark'); ?>
             </a>
         </li>        	
