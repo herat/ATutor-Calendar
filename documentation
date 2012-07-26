@@ -41,7 +41,7 @@ Contents-------------------
  DESIGN & IMPLEMENTATION
  -----------------------
  
-  The ATutor Calendar Module uses a calendar + accordion interface. The calendar provides the users with the dates relevant to the course. 
+  The ATutor Calendar Module uses a calendar , accordion interface. The calendar provides the users with the dates relevant to the course. 
   The accordion provides the different views for each date namely Month,Week and Date views. It also has an export interface.
   
   Calendar Interface
