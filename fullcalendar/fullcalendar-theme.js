@@ -776,7 +776,7 @@
                                     $.ajax({
                                       url: "mods/calendar/getlanguage.php",
                                       async: false,
-                                      data: {token: 'at_cal_prev', pub:"1"},
+                                      data: {token: 'calendar_prev', pub:"1"},
                                       success: function(data){
                                                   hiddn = data;
                                                }
@@ -789,7 +789,7 @@
                                     $.ajax({
                                       url: "mods/calendar/getlanguage.php",
                                       async: false,
-                                      data: {token: 'at_cal_next', pub:"1"},
+                                      data: {token: 'calendar_next', pub:"1"},
                                       success: function(data){
                                                   hiddn = data;
                                                }
@@ -800,7 +800,7 @@
                                     $.ajax({
                                       url: "mods/calendar/getlanguage.php",
                                       async: false,
-                                      data: {token: 'at_cal_'+text, pub:"1"},
+                                      data: {token: 'calendar_'+text, pub:"1"},
                                       success: function(data){
                                                   text = data;
                                                }
