@@ -31,13 +31,5 @@
 		array_push($rows,$event);
 	}
 
-    //Encode in JSON format.
-    $str = json_encode( $rows );
-
-    //Replace "true","false" with true,false for javascript.
-    $str = str_replace('"true"','true',$str);
-    $str = str_replace('"false"','false',$str);
-
-    //Return the events in the JSON format.
-    echo $str;
+    echo $eventObj->caledarEncode($rows);
 ?>
