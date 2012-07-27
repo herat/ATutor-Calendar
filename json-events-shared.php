@@ -20,17 +20,16 @@
     //Retrieve all the personal events.
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
-    global $db;
-    $query = "SELECT * FROM `".TABLE_PREFIX."calendar_events` WHERE userid='".$_GET['mid']."'";
-    $result = mysql_query($query,$db);
+    require('includes/classes/events.class.php');
+    
+	$eventObj = new Events();	
 
     //Create an empty array and push all the events in it.
     $rows = array();
-    while ($row = mysql_fetch_assoc($result)) {
-        $row["editable"]=false;
-		$row["calendar"]="Personal event";
-        array_push( $rows, $row );
-    }
+    foreach( $eventObj->getPersonalEvents($_GET['mid']) as $event) {
+		$event["editable"] = false;
+		array_push($rows,$event);
+	}
 
     //Encode in JSON format.
     $str = json_encode( $rows );
