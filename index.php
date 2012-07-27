@@ -445,7 +445,7 @@
             /* Retrieve events from php file. */
             //events: "mods/calendar/json-events-gcal.php"
             eventSources: [
-                'mods/calendar/json-events.php',
+                'mods/calendar/json-events.php?all=1',
                 'mods/calendar/json-events-gcal.php'
             ]
         });

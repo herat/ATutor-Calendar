@@ -39,7 +39,7 @@
                     $(jsEvent.target).attr('title', event.title);
                 }
             },
-            events: "<?php echo AT_BASE_HREF; ?>mods/calendar/json-events-mini.php"
+            events: "<?php echo AT_BASE_HREF; ?>mods/calendar/json-events.php?mini=1"
         }); 
     });
 </script>

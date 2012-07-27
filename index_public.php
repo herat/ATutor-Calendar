@@ -513,7 +513,7 @@
             /* Events are editable. */
             editable: false,
             /* Retrieve events from php file. */
-            events: "mods/calendar/json-events-shared.php?mid=<?php echo $_GET['mid']; ?>&pub=1"            
+            events: "mods/calendar/json-events.php?mid=<?php echo $_GET['mid']; ?>&pub=1"            
         });
         
         /*Create event jQuery dialog
