@@ -47,7 +47,7 @@
 		array_push($rows,$event);
 	}
     
-	if( isset($_GET['all']) ) {
+	if( isset($_GET['all']) || isset($_GET['mini']) ) {
 		if( $eventObj->getATutorEvents() !== false ) {
 			foreach( $eventObj->getATutorEvents() as $event ) {
 				array_push($rows,$event);
