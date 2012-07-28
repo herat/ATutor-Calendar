@@ -15,7 +15,7 @@
     $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
     $_authSubKeyFilePassphrase = null;
 
-	class googleCalendar {
+	class GoogleCalendar {
 		/**
 		 * Returns the full URL of the current page, based upon env variables
 		 *
@@ -27,7 +27,7 @@
 		 *
 		 * @return string Current URL
 		 */
-		function getCurrentUrl() {
+		public function getCurrentUrl() {
 			global $_SERVER;
 	
 			/**
@@ -61,9 +61,9 @@
 		 *
 		 * @return string AuthSub URL
 		 */
-		function getAuthSubUrl() {
+		public function getAuthSubUrl() {
 			global $_authSubKeyFile;
-			$next = getCurrentUrl();
+			$next = $this->getCurrentUrl();
 			$scope = 'http://www.google.com/calendar/feeds/';
 			$session = true;
 			if ($_authSubKeyFile != null) {
@@ -83,8 +83,8 @@
 		 *
 		 * @return void
 		 */
-		function requestUserLogin($linkText) {
-			$authSubUrl = getAuthSubUrl();
+		public function requestUserLogin($linkText) {
+			$authSubUrl = $this->getAuthSubUrl();
 			echo "<a href='javascript:void(0)' onclick=\"window.open('{$authSubUrl}','Authentication','height=500,width=600');\">{$linkText}</a>";
 		}
 		/**
@@ -98,12 +98,16 @@
 		 *
 		 * @return Zend_Http_Client
 		 */
-		function getAuthSubHttpClient() {
+		public function getAuthSubHttpClient() {
 			global $_SESSION, $_GET, $_authSubKeyFile, $_authSubKeyFilePassphrase;
 			$client = new Zend_Gdata_HttpClient();
 			if ($_authSubKeyFile != null) {
 				// set the AuthSub key
 				$client->setAuthSubPrivateKeyFile($_authSubKeyFile, $_authSubKeyFilePassphrase, true);
+			}
+			if (!isset($_SESSION['sessionToken']) && isset($_GET['token'])) {
+				$_SESSION['sessionToken'] =
+					Zend_Gdata_AuthSub::getAuthSubSessionToken($_GET['token'], $client);
 			}
 			$client->setAuthSubToken($_SESSION['sessionToken']);
 			return $client;
@@ -117,22 +121,22 @@
 		 *
 		 * @return void
 		 */
-		function outputCalendarListCheck($client) {
+		public function outputCalendarListCheck($client) {
 			$gdataCal = new Zend_Gdata_Calendar($client);
 			$calFeed = $gdataCal->getCalendarListFeed();
 		}
 		
-		function isvalidtoken( $tokent ) {
+		public function isvalidtoken( $tokent ) {
 			try {
-				$client = getAuthSubHttpClient();
-				outputCalendarListCheck($client);
+				$client = $this->getAuthSubHttpClient();
+				$this->outputCalendarListCheck($client);
 				return true;
 			}
 			catch( Zend_Gdata_App_HttpException $e ) {
 				global $db;
 				$qry = "DELETE FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
 				mysql_query($qry,$db);
-				logout();
+				$this->logout();
 			}
 		}
 		
@@ -142,7 +146,7 @@
 		 *
 		 * @return void
 		 */
-		function outputCalendarList($client) {
+		public function outputCalendarList($client) {
 			$gdataCal = new Zend_Gdata_Calendar($client);
 			$calFeed = $gdataCal->getCalendarListFeed();
 			
@@ -184,7 +188,7 @@
 		 *
 		 * @return void
 		 */
-		function logout() {
+		public function logout() {
 			// Carefully construct this value to avoid application security problems.
 			$php_self = htmlentities(substr($_SERVER['PHP_SELF'], 0 ,
 						strcspn($_SERVER['PHP_SELF'], "\n\r")), ENT_QUOTES);
@@ -192,7 +196,7 @@
 			Zend_Gdata_AuthSub::AuthSubRevokeToken($_SESSION['sessionToken']);
 			unset($_SESSION['sessionToken']);
 			//Close this popup window
-			echo "<script>window.location.reload(false);</script>";
+			echo "<script>window.opener.location.reload(true);window.close();</script>";
 			exit();
 		}
 	}
