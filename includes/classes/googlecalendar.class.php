@@ -171,9 +171,9 @@
 					style='background-color:".$calendar->color->value."' ></div>
 					<input id='gcal".$i."' type='checkbox' name ='calid' value='".
 					$calendar->id->text."' ".$selectd.
-					" onclick='if(this.checked) $.get(\"mods/calendar/gcalid.php\",
+					" onclick='if(this.checked) $.get(\"mods/calendar/google_calendar_db_sync.php\",
 					{ calid: this.value, mode: \"add\" },function (data){ refreshevents(); } );
-					else $.get(\"mods/calendar/gcalid.php\",
+					else $.get(\"mods/calendar/google_calendar_db_sync.php\",
 					{ calid: this.value, mode: \"remove\" },function (data){ refreshevents(); } );'
 					/>
 					<label for='gcal".$i."'>".$calendar->title->text."</label><br/>";

@@ -19,15 +19,15 @@
     $res = mysql_query($query,$db);
     if( mysql_num_rows($res) > 0 )
     {
-        echo "<li><a href='mods/calendar/google_connect.php?logout=yes'
+        echo "<li><a href='mods/calendar/google_connect_disconnect.php?logout=yes'
         target='_blank'>"._AT('calendar_disconnect_gcal')."</a></li></ul></fieldset>";
         echo "<br/><fieldset><legend><h4>"._AT('calendar_gcals')."</h4></legend>";
-        include('calendarlist.php');
+        include('google_calendarlist.php');
 		echo "</fieldset>";
     }
     else
     {
-        echo "<li><a href='mods/calendar/google_connect.php' target='_blank'>"._AT('calendar_connect_gcal')."</a></li></ul></fieldset>";
+        echo "<li><a href='mods/calendar/google_connect_disconnect.php' target='_blank'>"._AT('calendar_connect_gcal')."</a></li></ul></fieldset>";
     }
 ?>
 
@@ -97,7 +97,7 @@
 		
 		var gmtHours = -date.getTimezoneOffset()/60;
 		
-		$("#export").attr("href","mods/calendar/test_export.php?hrs="+gmtHours);
+		$("#export").attr("href","mods/calendar/export.php?hrs="+gmtHours);
 		
 		var calendar = $('#calendar').fullCalendar({
         
@@ -534,7 +534,7 @@
                 '<?php echo _AT('calendar_del_e'); ?>': function() {
                     if( $("#ori-name1").val().indexOf('http') >= 0 )
                     {
-                        $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),cmd:"delete"});
+                        $.get("mods/calendar/google_calendar_update.php",{id:$("#ori-name1").val(),cmd:"delete"});
                     }
                     else
                     {
@@ -672,7 +672,7 @@
                         {
                             var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2])), 'u');
                             var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2])), 'u');
-                            $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
+                            $.get("mods/calendar/google_calendar_update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
                                 calendar.fullCalendar('refetchEvents'); 
                                 focusd = true;
                             });
@@ -695,7 +695,7 @@
                         {
                             var mysqlendd = $.fullCalendar.formatDate( new Date(parseInt(endsplt[0]),parseInt(endsplt[1])-1,parseInt(endsplt[2]),timestp[0],timestp[1]), 'u');
                             var mysqlstartd = $.fullCalendar.formatDate(new Date(parseInt(startsplt[0]),parseInt(startsplt[1])-1,parseInt(startsplt[2]),timestr[0],timestr[1]), 'u');
-                            $.get("mods/calendar/update_gcal.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
+                            $.get("mods/calendar/google_calendar_update.php",{id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd, title:$("#name1").val(), cmd:"update"},function(data){
                                     calendar.fullCalendar('refetchEvents');
                                     focusd = true;
                                 });
