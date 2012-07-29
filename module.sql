@@ -1,3 +1,5 @@
+# sql file for calendar module
+
 CREATE TABLE `calendar_events` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(256),
@@ -21,6 +23,8 @@ CREATE TABLE `calendar_bookmark` (
   `ownerid` int(8),
   `calname` varchar(256)
 );
+
+# language text
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar','Calendar',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_header','ATutor Calendar',NOW(),'');
@@ -93,6 +97,8 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_mail_title','Share
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note1','You can',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note2','login',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note3','to bookmark this calendar.',NOW(),'');
+
+# feedback messages
 
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_INVALID_EMAIL','Email address is invalid.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_ALREADY_BOOKMARKED','Calendar is already bookmarked.',NOW(),'');
