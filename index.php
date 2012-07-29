@@ -236,7 +236,7 @@
                 if (document.activeElement.tagName == "A") {
                     activeelem = document.activeElement;
                 }    
-                if (!calevent.editable) //for atutor events {
+                if (!calevent.editable) {
                     return;            
                 }
                 $("#fc-emode1").val("edit");
