@@ -18,30 +18,32 @@
      * a consent screen is displaed. After user gives consent, the
      * pop-up window closes and the caledar page gets refreshed.
      */
-	require_once 'includes/classes/googlecalendar.class.php';
-	define('AT_INCLUDE_PATH', '../../include/');
-    require (AT_INCLUDE_PATH.'vitals.inc.php');
+    require_once 'includes/classes/googlecalendar.class.php';
+    define('AT_INCLUDE_PATH', '../../include/');
+    require(AT_INCLUDE_PATH.'vitals.inc.php');
 
-	$gcalobj = new GoogleCalendar();
-	global $db;
-	if( isset($_GET['logout']) ) {
-		$qry = "DELETE FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
-		mysql_query($qry,$db);
-		$gcalobj->logout();
-	}
-	else {
-		if (!isset($_GET['token'])) {
-			$qry = "DELETE FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
-			mysql_query($qry,$db);
-			unset($_SESSION['sessionToken']);
-			$authSubUrl = $gcalobj->getAuthSubUrl();
-			header("Location:".$authSubUrl);
-		}
-		else {
-			$client = $gcalobj->getAuthSubHttpClient();
-			$qry = "INSERT INTO ".TABLE_PREFIX."calendar_google_sync (token,userid,calids) values ('".$_SESSION['sessionToken']."','".$_SESSION['member_id']."','')";
-			mysql_query($qry,$db);
-			echo "<script>window.opener.location.reload(true);window.close();</script>";
-		}
-	}    
+    $gcalobj = new GoogleCalendar();
+    global $db;
+    
+    if (isset($_GET['logout'])) {
+        $qry = "DELETE FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
+               $_SESSION['member_id'] . "'";
+        mysql_query($qry, $db);
+        $gcalobj->logout();
+    } else {
+        if (!isset($_GET['token'])) {
+            $qry = "DELETE FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
+                   $_SESSION['member_id']."'";
+            mysql_query($qry, $db);
+            unset($_SESSION['sessionToken']);
+            $authSubUrl = $gcalobj->getAuthSubUrl();
+            header('Location:' . $authSubUrl);
+        } else {
+            $client = $gcalobj->getAuthSubHttpClient();
+            $qry    = "INSERT INTO " . TABLE_PREFIX . "calendar_google_sync (token,userid,calids) VALUES ('".
+                      $_SESSION['sessionToken'] . "','" . $_SESSION['member_id'] . "','')";
+            mysql_query($qry, $db);
+            echo '<script>window.opener.location.reload(true);window.close();</script>';
+        }
+    }
 ?>

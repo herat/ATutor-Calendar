@@ -16,44 +16,42 @@
      * ATutor events in JSON format.
      */
     
-	if( isset($_GET['pub']) && $_GET['pub'] == 1 )
-	 	$_user_location = "public";
-	
+    if (isset($_GET['pub']) && $_GET['pub'] == 1) {
+         $_user_location = 'public';
+    }
+    
     //Retrieve all the personal events.
     define('AT_INCLUDE_PATH', '../../include/');
     require(AT_INCLUDE_PATH.'vitals.inc.php');
-	require('includes/classes/events.class.php');
+    require('includes/classes/events.class.php');
     
-	$eventObj = new Events();
-	
+    $eventObj = new Events();
+    
     //Create an empty array and push all the events in it.
     $rows = array();
     
-	if( isset($_GET['all']) ) {
-		$member = $_SESSION['member_id'];
-	}
-	else if( isset($_GET['mini']) ) {
-		$member = $_SESSION['member_id'];
-	}
-	else {
-		$member = $_GET['mid'];
-	}
-	
-	
-	foreach( $eventObj->getPersonalEvents($member) as $event) {
-		if( !isset($_GET['all']) ) {
-			$event["editable"] = false;
-		}
-		array_push($rows,$event);
-	}
+    if (isset($_GET['all'])) {
+        $member = $_SESSION['member_id'];
+    } else if (isset($_GET['mini'])) {
+        $member = $_SESSION['member_id'];
+    } else {
+        $member = $_GET['mid'];
+    }
+        
+    foreach ($eventObj->getPersonalEvents($member) as $event) {
+        if (!isset($_GET['all'])) {
+            $event['editable'] = false;
+        }
+        array_push($rows, $event);
+    }
     
-	if( isset($_GET['all']) || isset($_GET['mini']) ) {
-		if( $eventObj->getATutorEvents() !== false ) {
-			foreach( $eventObj->getATutorEvents() as $event ) {
-				array_push($rows,$event);
-			}                  
-		 }
-	}
-	
+    if (isset($_GET['all']) || isset($_GET['mini'])) {
+        if ($eventObj->getATutorEvents() !== false) {
+            foreach ($eventObj->getATutorEvents() as $event) {
+                array_push($rows, $event);
+            }                  
+         }
+    }
+    
     echo $eventObj->caledarEncode($rows);
 ?>

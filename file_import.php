@@ -15,17 +15,17 @@
      * This file provides UI for uploading ics file.
      */
     define('AT_INCLUDE_PATH', '../../include/');
-    require (AT_INCLUDE_PATH.'vitals.inc.php');
-    require (AT_INCLUDE_PATH.'header.inc.php');
+    require(AT_INCLUDE_PATH.'vitals.inc.php');
+    require(AT_INCLUDE_PATH.'header.inc.php');
 ?>
 
 <form action="mods/calendar/import_db.php" method="post" enctype="multipart/form-data">
-    <label for="file"><?php echo _AT("calendar_upload_file"); ?></label>
+    <label for="file"><?php echo _AT('calendar_upload_file'); ?></label>
     <input type="file" name="file" id="file" />
     <br />
-    <input type="submit" name="submit" value="<?php echo _AT("calendar_submit"); ?>" />
+    <input type="submit" name="submit" value="<?php echo _AT('calendar_submit'); ?>" />
 </form>
 
 <?php
-    require (AT_INCLUDE_PATH.'footer.inc.php');
+    require(AT_INCLUDE_PATH.'footer.inc.php');
 ?>

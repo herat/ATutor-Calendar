@@ -14,79 +14,81 @@
     /**
      * This file returns events from Google Calendar in JSON format.
      */
-	require_once 'includes/classes/googlecalendar.class.php';
-	define('AT_INCLUDE_PATH', '../../include/');
-    require (AT_INCLUDE_PATH.'vitals.inc.php');
+    require_once 'includes/classes/googlecalendar.class.php';
+    define('AT_INCLUDE_PATH', '../../include/');
+    require(AT_INCLUDE_PATH.'vitals.inc.php');
 
-	$gcalobj = new GoogleCalendar();
+    $gcalobj = new GoogleCalendar();
     
-     global $db;
-     $qry = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
-     $res = mysql_query($qry,$db);
-     if(mysql_num_rows($res) > 0) {
-         $row = mysql_fetch_assoc($res);
-         $_SESSION['sessionToken'] = $row['token'];
-         if($gcalobj->isvalidtoken($_SESSION['sessionToken'])) {
-             $client = $gcalobj->getAuthSubHttpClient();
-             $query = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
-             $res = mysql_query($query,$db);
-             $rowval = mysql_fetch_assoc($res);
-             $prevval = $rowval['calids'];
+    global $db;
+    $qry = "SELECT * FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
+            $_SESSION['member_id']."'";
+    $res = mysql_query($qry, $db);
+    if (mysql_num_rows($res) > 0) {
+        $row = mysql_fetch_assoc($res);
+        $_SESSION['sessionToken'] = $row['token'];
+        
+        if ($gcalobj->isvalidtoken($_SESSION['sessionToken'])) {
+         $client  = $gcalobj->getAuthSubHttpClient();
+         $query   = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".
+                    $_SESSION['member_id']."'";
+         $res     = mysql_query($query,$db);
+         $rowval  = mysql_fetch_assoc($res);
+         $prevval = $rowval['calids'];
 
-             outputCalendarByDateRange($client,$_GET['start'],$_GET['end'],$prevval,$gcalobj);
-         }
-     }
+         outputCalendarByDateRange($client, $_GET['start'], $_GET['end'], $prevval, $gcalobj);
+        }
+    }
 
     /**
      * Iterate through all the Google Calendars and create a JSON encoded array of events.
      *
      * @return array of events in JSON format
      */
-    function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2007-08-01',$idsofcal,$gcalobj) {
+    function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2007-08-01', $idsofcal, $gcalobj) {
         $gdataCal = new Zend_Gdata_Calendar($client);
-        $rows = array();
+        $rows     = array();
 
         $idsofcal = explode(',',$idsofcal);
-        $calFeed = $gdataCal->getCalendarListFeed();
+        $calFeed  = $gdataCal->getCalendarListFeed();
 
-        foreach($idsofcal as $idofcal) {
-            if( $idofcal != '' ) {
+        foreach ($idsofcal as $idofcal) {
+            if ($idofcal != '') {
                 $query = $gdataCal->newEventQuery();
+                
                 $query->setUser(substr($idofcal,strrpos($idofcal,"/")+1));
                 $query->setVisibility('private');
                 $query->setProjection('full');
                 $query->setOrderby('starttime');
                 $query->setStartMin($startDate);
                 $query->setStartMax($endDate);
-                $eventFeed = $gdataCal->getCalendarEventFeed($query);
                 
-                $color = "#3399FF";
-				$accesslevl = true;
+                $eventFeed  = $gdataCal->getCalendarEventFeed($query);
+                $color      = '#3399FF';
+                $accesslevl = true;
                 foreach ($calFeed as $calendar) {
-                    if(strpos($idofcal,$calendar->id->text) !== false) {
+                    if (strpos($idofcal,$calendar->id->text) !== false) {
                         $color = $calendar->color->value;
-						if( $calendar->accesslevel->value == 'read' ) {
-							$accesslevl = false;
-						}
+                        if ($calendar->accesslevel->value == 'read') {
+                            $accesslevl = false;
+                        }
                     }
                 }
 
                 foreach ($eventFeed as $event) {
                     foreach ($event->when as $when) {
-                        $startD = substr($when->startTime,0,19);
-                        $startD = str_replace("T"," ",$startD);
-
-                        $endD = substr($when->endTime,0,19);
-                        $endD = str_replace("T"," ",$endD);
+                        $startD = substr($when->startTime, 0, 19);
+                        $startD = str_replace('T', ' ', $startD);
+                        $endD   = substr($when->endTime, 0, 19);
+                        $endD   = str_replace('T', ' ', $endD);
 
                         /*
                          * If both start time and end time are different and their time parts differ then allDay is false
                          */
-                        if(($startD != $endD) && substr($startD,0,10) == substr($endD,0,10)) {
-                            $allDay = 'false';
-                        }
-                        else {
-                            $allDay = 'true';
+                        if (($startD != $endD) && substr($startD,0,10) == substr($endD,0,10)) {
+                            $allDay = "false";
+                        } else {
+                            $allDay = "true";
                         }
                         $row = array();
                         $row["title"]     = $event->title->text;
@@ -97,21 +99,21 @@
                         $row["allDay"]    = $allDay;
                         $row["color"]     = $color;
                         $row["textColor"] = "white";
-						$row["calendar"]  = "Google Calendar event";
+                        $row["calendar"]  = "Google Calendar event";
 
-                        array_push( $rows, $row );
+                        array_push($rows, $row);
                     }
                 }
             }
         }
         //Encode in JSON format.
-        $str =  json_encode( $rows );
+        $str =  json_encode($rows);
         
         //Replace "true","false" with true,false for javascript.
-        $str = str_replace('"true"','true',$str);
-        $str = str_replace('"false"','false',$str);
+        $str = str_replace('"true"', 'true', $str);
+        $str = str_replace('"false"', 'false', $str);
         
         //Return the events in the JSON format.
         echo $str;    
-    }    
+    }
 ?>

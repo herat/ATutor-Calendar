@@ -15,26 +15,25 @@
      * This file is used to send emails for sharing calendars.
      */    
     define('AT_INCLUDE_PATH', '../../include/');
-    require (AT_INCLUDE_PATH.'vitals.inc.php');
+    require(AT_INCLUDE_PATH.'vitals.inc.php');
 
     if ($_POST['cancel']) {
         //user pressed cancel button
         header('Location: index.php');
         exit;
-    } 
-    else if ($_POST['submit']) {
+    } else if ($_POST['submit']) {
         $missing_fields = array();
         
-		if( $_POST['to'] == 2 && isset( $_POST['selection_error']) ) {
-			$msg->addError('NO_RECIPIENTS');
-		}
-		
+        if ($_POST['to'] == 2 && isset($_POST['selection_error'])) {
+            $msg->addError('NO_RECIPIENTS');
+        }
+        
         //Verify input fields
         if (($_POST['to'] == '') || ($_POST['to'] == 0)) {
             $missing_fields[] = _AT('to');
         }
         
-        if( $_POST['to'] == 3 && $_POST['emails'] == '' ) {
+        if ($_POST['to'] == 3 && $_POST['emails'] == '') {
             $missing_fields[] = 'email';        
         }
 
@@ -43,31 +42,32 @@
             $msg->addError(array('EMPTY_FIELDS', $missing_fields));
         }
         
-        if( $_POST['to'] == 3 && $_POST['emails'] != '' ) {
+        if ($_POST['to'] == 3 && $_POST['emails'] != '') {
             if( filter_var($_POST['emails'], FILTER_VALIDATE_EMAIL) ) {
-            }
-            else {
+            
+            } else {
                 $msg->addError('INVALID_EMAIL');
             }
         }
-		
-		if( $_POST['to'] == 1 ) {
-			$sql    = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
-                    "course_enrollment WHERE status=".AT_STATUS_STUDENT." and course_id=".$_SESSION['course_id']." and member_id <> ".
-					$_SESSION['member_id']." )";
-			$result = mysql_query($sql,$db);
-			$norow  = mysql_num_rows($result);
-			if( $norow < 1 ) {
-				$msg->addError('NO_RECIPIENTS');
-			}
-		}
+        
+        if ($_POST['to'] == 1) {
+            $sql    = "SELECT * FROM " . TABLE_PREFIX . "members WHERE member_id IN (SELECT member_id FROM ".
+                      TABLE_PREFIX . "course_enrollment WHERE status=" . AT_STATUS_STUDENT.
+                      " and course_id=" . $_SESSION['course_id'] . " and member_id <> ".
+                      $_SESSION['member_id']." )";
+            $result = mysql_query($sql,$db);
+            $norow  = mysql_num_rows($result);
+            if ($norow < 1) {
+                $msg->addError('NO_RECIPIENTS');
+            }
+        }
         
         if (!$msg->containsErrors()) {
             if ($_POST['to'] == 1) {
                 // choose all members associated with course
-                $sql    = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
-                    "course_enrollment WHERE status=".AT_STATUS_STUDENT." and course_id=".$_SESSION['course_id']." and member_id <> ".
-					$_SESSION['member_id']." )";
+                $sql    = "SELECT * FROM " . TABLE_PREFIX . "members WHERE member_id IN (SELECT member_id FROM ".
+                          TABLE_PREFIX . "course_enrollment WHERE status=" . AT_STATUS_STUDENT . " and course_id=".
+                          $_SESSION['course_id'] . " and member_id <> " . $_SESSION['member_id'] . " )";
             } else if ($_POST['to'] == 2) {
                 // choose particular login
                 $sql     = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_POST['selection'];
@@ -78,56 +78,57 @@
             require(AT_INCLUDE_PATH . 'classes/phpmailer/atutormailer.class.php');
             $mail = new ATutorMailer;
             
-            if( $_POST['to'] == 1 || $_POST['to'] == 2 ) {
+            if ($_POST['to'] == 1 || $_POST['to'] == 2) {
                 $result = mysql_query($sql,$db);
                 while ($row = mysql_fetch_assoc($result)) {
                     $mail->AddBCC($row['email']);
                 }        
-            }
-            else {
+            } else {
                 $mail->AddBCC($_POST['emails']);
             }
-            if( isset($_POST['subject']) && $_POST['subject'] != "" )
-                $calname = $_POST['subject'];
-            else
-                $calname = _AT('calendar_of')." ".get_display_name($_SESSION['member_id']);
-                
-            $body = get_display_name($_SESSION['member_id']).' has shared "'.$calname.'" with you. You may browse calendar at: ';
-            /*$body .= "<a target='_blank' href = '".AT_BASE_HREF."mods/calendar/shared_cal.php?mid=".$_SESSION['member_id'].
-            "&email=1&calname=".$calname."'>"._AT('calendar_viewcal')." ".$calname."</a>";*/
             
-            $sql = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_SESSION['member_id'];
-            $result = mysql_query($sql,$db);
+            if (isset($_POST['subject']) && $_POST['subject'] != '') {
+                $calname = $_POST['subject'];
+            } else {
+                $calname = _AT('calendar_of') . " " . get_display_name($_SESSION['member_id']);
+            }
+            
+            $body      = get_display_name($_SESSION['member_id']) . ' has shared "' . $calname . 
+                         '" with you. You may browse calendar at: ';
+            $sql       = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_SESSION['member_id'];
+            $result    = mysql_query($sql,$db);
             $fromemail = $_config['contact_email'];
+            
             while ($row = mysql_fetch_assoc($result)) {
                 $fromemail = $row['email'];
             }
             
-            $body .= AT_BASE_HREF."mods/calendar/index_public.php?mid=".$_SESSION['member_id']."&email=1&calname=".urlencode($calname);
+            $body .= AT_BASE_HREF . "mods/calendar/index_public.php?mid=".
+                    $_SESSION['member_id'] . "&email=1&calname=" . urlencode($calname);
             //echo $body;
             //exit;
                     
             $mail->From     = $fromemail;
             $mail->FromName = $_config['site_name'];
             $mail->AddAddress($fromemail);
-            $mail->Subject = $stripslashes(_AT("calendar_mail_title"));
+            $mail->Subject = $stripslashes(_AT('calendar_mail_title'));
             $mail->Body    = $body;
 
-            if(!$mail->Send()) {
+            if (!$mail->Send()) {
                //echo 'There was an error sending the message';
                $msg->printErrors('SENDING_ERROR');
                exit;
             }
-			
-			/*$to      = 'herat_000@yahoo.co.in';
-			$subject = $stripslashes(_AT("calendar_mail_title"));
-			$message = $body;
-			$headers = 'From: abc@gmail.com' . "\r\n" .
-				'Reply-To: abc@gmail.com' . "\r\n" .
-				'X-Mailer: PHP/' . phpversion();
-			
-			mail($to, $subject, $message, $headers);*/
-			
+            
+            /*$to      = 'herat_000@yahoo.co.in';
+            $subject = $stripslashes(_AT("calendar_mail_title"));
+            $message = $body;
+            $headers = 'From: abc@gmail.com' . "\r\n" .
+                'Reply-To: abc@gmail.com' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+            
+            mail($to, $subject, $message, $headers);*/
+            
             unset($mail);
             
             $msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');
@@ -135,7 +136,6 @@
             exit;
         }
     }
-
     require(AT_INCLUDE_PATH.'header.inc.php');
 ?>
 
@@ -174,25 +174,24 @@
                
             <?php
                 global $db;
-                $sql = "SELECT login,member_id FROM ".TABLE_PREFIX."members WHERE member_id IN (SELECT member_id FROM ".TABLE_PREFIX.
-                "course_enrollment WHERE status=".AT_STATUS_STUDENT." and course_id=".$_SESSION['course_id']." and member_id <> ".
-				$_SESSION['member_id']." )";
-                $result = mysql_query($sql,$db);
-				$norow = mysql_num_rows($result);
-				if( $norow > 0 )
-				{
-					echo "<label for='selection1'>". _AT('calendar_membrselect') .": </label>";
-					echo "<select name='selection' id='selection1'>";
-					while ($row = mysql_fetch_assoc($result)) {
-						echo "<option value='".$row['member_id']."'>". $row['login'] ."</option>";                    
-					}
-					echo "</select>";
-				}
-				else
-				{
-					echo "<div id='selection_error'>You are the only one in this course, no available recipients.</div>";
-					echo "<input type='hidden' name='selection_error' value='only one' />";
-				}
+                $sql    = "SELECT login,member_id FROM " . TABLE_PREFIX.
+                          "members WHERE member_id IN (SELECT member_id FROM " . TABLE_PREFIX.
+                          "course_enrollment WHERE status=" . AT_STATUS_STUDENT.
+                          " and course_id=" . $_SESSION['course_id'].
+                          " and member_id <> " . $_SESSION['member_id'] . " )";
+                $result = mysql_query($sql, $db);
+                $norow  = mysql_num_rows($result);
+                if ($norow > 0) {
+                    echo "<label for='selection1'>" . _AT('calendar_membrselect') . ": </label>";
+                    echo "<select name='selection' id='selection1'>";
+                    while ($row = mysql_fetch_assoc($result)) {
+                        echo "<option value='" . $row['member_id'] . "'>" . $row['login'] . "</option>";                    
+                    }
+                    echo "</select>";
+                } else {
+                    echo "<div id='selection_error'>You are the only one in this course, no available recipients.</div>";
+                    echo "<input type='hidden' name='selection_error' value='only one' />";
+                }
             ?>
 
         </span>
@@ -203,7 +202,7 @@
         <label for="subject"> <?php echo _AT('calendar_titletxt'); ?> </label><br />
         <input type="text" name="subject" size="40" id="subject" value="<?php echo $_POST['subject']; ?>" /><br/>
         <label> Optional: If the title is not specified, default title will be set to "Calendar of 
-		<?php echo get_display_name($_SESSION['member_id']); ?>" 
+        <?php echo get_display_name($_SESSION['member_id']); ?>" 
         </label>
     </div>    
 
@@ -215,33 +214,5 @@
 </form>
 
 <?php 
-    require(AT_INCLUDE_PATH.'footer.inc.php'); 
-/*require(AT_INCLUDE_PATH . 'classes/phpmailer/atutormailer.class.php');
-
-$mail = new ATutorMailer;
-$mail->From     = '07bit012@nirmauni.ac.in';
-$mail->FromName = 'admin';
-$mail->AddAddress('07bit012@nirmauni.ac.in');
-$mail->AddBCC('herat_000@yahoo.co.in');
-$mail->Subject = 'Subject- ATutor';
-$mail->Body    = 'BoDY';
-
-if(!$mail->Send()) {
-   //echo 'There was an error sending the message';
-   $msg->printErrors('SENDING_ERROR');
-   exit;
-}
-unset($mail);
-
-$msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');*/
-/*$to      = 'herat_000@yahoo.co.in';
-$subject = 'the subject';
-$message = 'hello';
-$headers = 'From: abc@gmail.com' . "\r\n" .
-    'Reply-To: abc@gmail.com' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
-
-mail($to, $subject, $message, $headers);
-header('Location: index.php');
-exit; */
+    require(AT_INCLUDE_PATH.'footer.inc.php');
 ?>
