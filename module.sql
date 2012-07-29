@@ -97,6 +97,7 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_mail_title','Share
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note1','You can',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note2','login',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note3','to bookmark this calendar.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_pub_def_msg','Use this tab to view shared calendar.',NOW(),'');
 
 # feedback messages
 
