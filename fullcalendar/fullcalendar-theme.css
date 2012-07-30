@@ -10,22 +10,22 @@
  */
  /* Google style color */
  .fc-inline-block{
-	 position:relative;
-	 display:-moz-inline-box;
-	 display:inline-block
-	}
+    position:relative;
+    display:-moz-inline-box;
+    display:inline-block
+    }
  .fc-square{
-	 background:#fff;
-	 border:1px solid #dcdcdc;
-	 border-radius:1px;
-	 height:15px;
-	 margin-right:4px;
-	 top:2px;
-	 *top:-1px;
-	 width:15px;
-	 -moz-border-radius:1px;
-	 -webkit-border-radius:1px
-	}
+    background:#fff;
+    border:1px solid #dcdcdc;
+    border-radius:1px;
+    height:15px;
+    margin-right:4px;
+    top:2px;
+    *top:-1px;
+    width:15px;
+    -moz-border-radius:1px;
+    -webkit-border-radius:1px
+    }
  /* Hide calendar type */
  .fc-cal-type{
     position:absolute;
@@ -38,18 +38,18 @@
     }
  /* hide initial rendering */
  .initial-hide{
-	 display:none;
- }
+    display:none;
+    }
  .sidemenu-cal{
     float: right;
     background-color: gray;
- }
+    }
  .scw{
-     z-index:1100 !important;
- }
+    z-index:1100 !important;
+    }
  div.course div.shortcuts, a{
-     text-align: justify; !important
- }
+    text-align: justify; !important
+    }
  /* top buttons */
  .fc-button-firsts{
     position:absolute;

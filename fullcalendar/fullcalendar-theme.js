@@ -878,14 +878,14 @@
         function activateButton(buttonName) {
             element.find('span.fc-button-' + buttonName)
             .addClass(tm + '-state-active');
-			element.find('span.fc-button-' + buttonName).find(".fc-button-firsts").text("Selected");
+            element.find('span.fc-button-' + buttonName).find(".fc-button-firsts").text("Selected");
         }
 
 
         function deactivateButton(buttonName) {
             element.find('span.fc-button-' + buttonName)
             .removeClass(tm + '-state-active');
-			element.find('span.fc-button-' + buttonName).find(".fc-button-firsts").text("");
+            element.find('span.fc-button-' + buttonName).find(".fc-button-firsts").text("");
         }
 
 
@@ -2763,17 +2763,17 @@
              * ATutor - Fire eventClick event when enter is pressed
              * on the highlighted event.
              */
-			$("a.fc-event-hori").click(
+            $("a.fc-event-hori").click(
                 function(event){
                     event.preventDefault();
-					var typ;
-					for( var zy = 0;zy < events.length;zy++)
-					{
-						if( events[zy].id == $(this).find(".fc-id").text())
-							typ = events[zy];
-					}
-					//for month view
-					trigger('eventClick', this,typ, event);
+                    var typ;
+                    for( var zy = 0;zy < events.length;zy++)
+                    {
+                        if( events[zy].id == $(this).find(".fc-id").text())
+                            typ = events[zy];
+                    }
+                    //for month view
+                    trigger('eventClick', this,typ, event);
                 }
             ); 
             $("a.fc-event-hori").keydown(
