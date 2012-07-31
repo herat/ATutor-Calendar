@@ -18,7 +18,7 @@
      * will get the same state again.
      */
     define('AT_INCLUDE_PATH', '../../include/');
-    require (AT_INCLUDE_PATH.'vitals.inc.php');
+    require(AT_INCLUDE_PATH.'vitals.inc.php');
 
     $_SESSION['fc-viewname'] = "'" . $_GET['viewn'] . "'";
     $_SESSION['fc-year']     = $_GET['year'];

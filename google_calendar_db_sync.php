@@ -21,7 +21,7 @@
     require(AT_INCLUDE_PATH.'vitals.inc.php');
 
     //Get calendar id and operation mode
-    $newid = $_GET['calid'];
+    $new_id = $_GET['calid'];
     $mode  = $_GET['mode'];
 
     global $db;
@@ -29,24 +29,23 @@
         //Get calendar ids from database, append the new id and update database
         $query    = "SELECT * FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
                     $_SESSION['member_id']."'";
-        $res      = mysql_query($query);
-        $rowval   = mysql_fetch_assoc($res);
-        $prevval  = $rowval['calids'];
-        $prevval .= htmlspecialchars($newid).',';
+        $result   = mysql_query($query);
+        $row_val  = mysql_fetch_assoc($result);
+        $prev_val = $row_val['calids'];
+        $prev_val .= htmlspecialchars($new_id).',';
         $query    = "UPDATE " . TABLE_PREFIX . "calendar_google_sync SET calids='".
-                    $prevval. "' WHERE userid='" . $_SESSION['member_id'] . "'";
+                    $prev_val. "' WHERE userid='" . $_SESSION['member_id'] . "'";
         mysql_query($query, $db);
-    }
-    else {
+    } else {
         //Get calendar ids from database, remove entry for selected id and update database
-        $query   = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".
-                   $_SESSION['member_id']."'";
-        $res     = mysql_query($query);
-        $rowval  = mysql_fetch_assoc($res);
-        $prevval = $rowval['calids'];
-        $prevval = str_replace(htmlspecialchars($newid) . ",", "", $prevval);
-        $query   = "UPDATE " . TABLE_PREFIX . "calendar_google_sync SET calids='".
-                   $prevval."' WHERE userid='" .$_SESSION['member_id'] . "'";
+        $query    = "SELECT * FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
+                   $_SESSION['member_id'] . "'";
+        $result   = mysql_query($query);
+        $row_val  = mysql_fetch_assoc($result);
+        $prev_val = $row_val['calids'];
+        $prev_val = str_replace(htmlspecialchars($new_id) . ",", "", $prev_val);
+        $query    = "UPDATE " . TABLE_PREFIX . "calendar_google_sync SET calids='".
+                   $prev_val . "' WHERE userid='" . $_SESSION['member_id'] . "'";
         mysql_query($query, $db);
     }
 ?>

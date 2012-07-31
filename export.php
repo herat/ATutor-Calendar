@@ -15,7 +15,7 @@
      * This file is used to generate ics file.
      */
     define('AT_INCLUDE_PATH', '../../include/');
-    require (AT_INCLUDE_PATH.'vitals.inc.php');
+    require(AT_INCLUDE_PATH.'vitals.inc.php');
     global $db;
 
     //Create ics file in $ical string variable
@@ -23,10 +23,10 @@
 VERSION:2.0
 PRODID:-//ATutor//ATutor Calendar Module//EN";
     
-    //Get all the events of a user
-    $qry    = "SELECT * FROM `". TABLE_PREFIX . "calendar_events` WHERE userid='".
+    //Get all the events of the user
+    $query  = "SELECT * FROM `" . TABLE_PREFIX . "calendar_events` WHERE userid='".
               $_SESSION['member_id']."'";
-    $result = mysql_query($qry,$db);
+    $result = mysql_query($query,$db);
     $rows   = array();
 
     while ($row = mysql_fetch_assoc($result)) {
@@ -65,14 +65,14 @@ PRODID:-//ATutor//ATutor Calendar Module//EN";
         $startdt  = gmdate('Y-m-d H:i:s', $sstamp);
         $enddt    = gmdate('Y-m-d H:i:s', $estamp);
         
-        $parts    = explode(' ', $startdt);
-        $parts1   = explode(' ', $enddt);
+        $part_s   = explode(' ', $startdt);
+        $part_e   = explode(' ', $enddt);
 
-        $s_date_p = explode('-', $parts[0]);
-        $e_date_p = explode('-', $parts1[0]);
+        $s_date_p = explode('-', $part_s[0]);
+        $e_date_p = explode('-', $part_e[0]);
 
-        $s_time_p = explode(':', $parts[1]);
-        $e_time_p = explode(':', $parts1[1]);
+        $s_time_p = explode(':', $part_s[1]);
+        $e_time_p = explode(':', $part_e[1]);
         $ical    .= "
 BEGIN:VEVENT
 UID:" . md5(uniqid(mt_rand(), true)). "@atutor.ca

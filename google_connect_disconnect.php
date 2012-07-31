@@ -12,11 +12,14 @@
     /****************************************************************/
     
     /**
-     * This file is used to associate user's Google account with
-     * ATutor Calendar module. First this page will display a login
-     * screen, after login is successful or user is already logged in
-     * a consent screen is displaed. After user gives consent, the
-     * pop-up window closes and the caledar page gets refreshed.
+     * This file is used to associate/dissociate user's Google account
+     * with ATutor Calendar module.
+     * If request is for association then first this page will 
+     * display a login screen, after login is successful or 
+     * user is already logged in then a consent screen is displaed. 
+     * After user gives consent, the pop-up window closes.
+     * If the request is for dissociation then user's entry in the 
+     * database is removed and session token is invalidated. 
      */
     require_once 'includes/classes/googlecalendar.class.php';
     define('AT_INCLUDE_PATH', '../../include/');
@@ -26,23 +29,29 @@
     global $db;
     
     if (isset($_GET['logout'])) {
-        $qry = "DELETE FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
+        //request is for dissociation
+        //removed entry from database
+        $query = "DELETE FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
                $_SESSION['member_id'] . "'";
-        mysql_query($qry, $db);
+        mysql_query($query, $db);
+        //invalidate session token
         $gcalobj->logout();
     } else {
+        //request is for association
         if (!isset($_GET['token'])) {
-            $qry = "DELETE FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
+            //redirect to login page/consent page
+            $query = "DELETE FROM " . TABLE_PREFIX . "calendar_google_sync WHERE userid='".
                    $_SESSION['member_id']."'";
-            mysql_query($qry, $db);
+            mysql_query($query, $db);
             unset($_SESSION['sessionToken']);
             $authSubUrl = $gcalobj->getAuthSubUrl();
             header('Location:' . $authSubUrl);
         } else {
+            //insert session token in the database for future use and close pop-up window
             $client = $gcalobj->getAuthSubHttpClient();
-            $qry    = "INSERT INTO " . TABLE_PREFIX . "calendar_google_sync (token,userid,calids) VALUES ('".
+            $query    = "INSERT INTO " . TABLE_PREFIX . "calendar_google_sync (token,userid,calids) VALUES ('".
                       $_SESSION['sessionToken'] . "','" . $_SESSION['member_id'] . "','')";
-            mysql_query($qry, $db);
+            mysql_query($query, $db);
             echo '<script>window.opener.location.reload(true);window.close();</script>';
         }
     }
