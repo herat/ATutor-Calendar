@@ -21,7 +21,7 @@
     $filename = $_SESSION['member_id'] . '.ics';
 
     if ($_FILES['file']['error'] > 0) {
-        //error in file processing
+        //Error in file processing
         $msg->addError('CAL_FILE_ERROR');
         header('Location: file_import.php');
     } else {
@@ -31,11 +31,12 @@
                 //File successfully deleted
             }
             else {
-                //error in deleting files
+                //Error in deleting files
                 $msg->addError('CAL_FILE_DELETE');
                 header('Location: file_import.php');
             }
         }
+        //Move uploaded file to proper location in content directory
         move_uploaded_file($_FILES['file']['tmp_name'],
         '../../content/calendar/' . $filename);
     }
@@ -45,15 +46,16 @@
     function dump_t($x) {
         echo '<pre>' . print_r($x,true) . '</pre>';
     }
-    
+    //Open iCal File
     $ICS = '../../content/calendar/' . $filename;
     $ical = new SG_iCalReader($ICS);
     $query = new SG_iCal_Query();
-    //get all the events from ics file
+    //Get all the events from ics file
     $evts = $ical->getEvents();
     $data = array();
-    //iterate through events and construct array that can be used by full calendar
+    //Iterate through events and construct array that can be used by full calendar
     foreach ($evts as $id => $ev) {
+        //Parse data using SG_iCal parser
         $jsEvt = array(
             "id"     => ($id+1),
             "title"  => $ev->getProperty('summary'),
@@ -83,6 +85,7 @@
         }
     }
     global $db;
+    //If there are events then insert them in the database
     if(count($data) > 0) {
         foreach($data as $event) {
             if($event['allDay'] == 1) {
@@ -90,13 +93,15 @@
             } else  {
                 $alld = "false";
             }
+            //Insert each event in the database
             $query = "INSERT INTO `" . TABLE_PREFIX . "calendar_events` (title,start,end,allDay,userid) values".
             " ('".$event['title']."','". Date('Y-m-d H:m:s',$event['start']) . "','".
             Date('Y-m-d H:m:s',$event['end']). "','".$alld."','".$_SESSION['member_id']."')" ;
+            
             mysql_query($query, $db);
         }
     }
     $msg->addFeedback('ACTION_COMPLETED_SUCCESSFULLY');
-    unlink('../../content/calendar/'.$filename );
+    unlink('../../content/calendar/'.$filename);
     header('Location: index.php');
 ?>
