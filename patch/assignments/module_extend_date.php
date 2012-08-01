@@ -10,14 +10,10 @@
          */
 
 
-    function assignments_extend_date($course_id=null) {
+    function assignments_extend_date($member_id, $course_id) {
 
         global $db;
         $assignments = array();
-        
-        if ($course_id == null) {
-            $course_id = $_SESSION['course_id'];
-        }
         
         // get course title
         $sql = "SELECT title 

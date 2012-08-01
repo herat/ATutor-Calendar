@@ -34,7 +34,7 @@
                 $rows = array();
                 
                 $coursesmod = $moduleFactory->getModule("_core/courses");
-                $courses    = $coursesmod->extend_date();    
+                $courses    = $coursesmod->extend_date($member_id, $course_id);    
                 if ($courses != "") {
                     foreach ( $courses as $event ) {
                         $event["calendar"]="ATutor internal";
@@ -43,7 +43,7 @@
                 }
                 
                 $assignmentsmod = $moduleFactory->getModule("_standard/assignments");
-                $assignments=$assignmentsmod->extend_date();
+                $assignments=$assignmentsmod->extend_date($member_id, $course_id);
                 if( $assignments != "" ) {
                     foreach ( $assignments as $event ) {
                         $event["calendar"]="ATutor internal";
@@ -52,7 +52,7 @@
                 }        
                 
                 $testsmod = $moduleFactory->getModule("_standard/tests");
-                $tests=$testsmod->extend_date();
+                $tests=$testsmod->extend_date($member_id, $course_id);
                 if( $tests != "" ) {
                     foreach ( $tests as $event ) {
                         $event["calendar"]="ATutor internal";

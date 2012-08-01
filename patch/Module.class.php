@@ -710,13 +710,13 @@ class Module {
      * @author Anurup Raveendran
       * @date Jul 8, 2011
      */
-   function extend_date($param=null){
+   function extend_date($member_id, $course_id){
          if (file_exists(AT_MODULE_PATH . $this->_directoryName . '/module_extend_date.php')) {
              require_once(AT_MODULE_PATH . $this->_directoryName . '/module_extend_date.php');
         
              if (function_exists(basename($this->_directoryName).'_extend_date')) {
                  $fnctn = basename($this->_directoryName).'_extend_date';
-                 return $fnctn($param);
+                 return $fnctn($member_id, $course_id);
             }        
     }
     }     

@@ -10,16 +10,12 @@
          */
 
 
-    function tests_extend_date($course_id=null) {
+    function tests_extend_date($member_id, $course_id) {
 
         global $db;
         $tests = array();
         
-        if ($course_id == null) {
-            $course_id = $_SESSION['course_id'];
-        }
-        
-         // get course title
+        // get course title
         $sql = "SELECT title 
                 FROM " . TABLE_PREFIX . "courses 
                 WHERE course_id = '" . $course_id . "'";

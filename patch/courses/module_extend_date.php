@@ -9,20 +9,16 @@
          * @author    :    Anurup Raveendran, Herat Gandhi
          */
 
-    function courses_extend_date($course_id=null) {
+    function courses_extend_date($member_id, $course_id) {
         
         global $db;
         $course = array();      
-        
-        if ($course_id == null) {
-            $course_id = $_SESSION['course_id'];
-        }
         
         // get the course details along with the relevant dates
         $sql = "SELECT M.first_name, M.last_name, C.title, C.release_date, C.end_date
                 FROM " . TABLE_PREFIX . "courses C , " . TABLE_PREFIX . "members M , ".
                 TABLE_PREFIX . "course_enrollment E WHERE C.course_id = '".
-                $course_id . "' AND M.member_id = '" . $_SESSION['member_id']."' 
+                $course_id . "' AND M.member_id = '" . $member_id."' 
                 AND E.member_id = M.member_id";   
         
         
