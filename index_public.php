@@ -16,14 +16,16 @@
     if (isset($_GET['bookm']) && $_GET['bookm'] == 1) {
         if (isset($_SESSION['member_id'])) {
             $sql    = "SELECT * FROM " . TABLE_PREFIX . "calendar_bookmark WHERE memberid=".
-                      $_SESSION['member_id'] . " AND ownerid=" . $_GET['mid'];
+                      $_SESSION['member_id'] . " AND ownerid=" . $_GET['mid'].
+                      " AND courseid=" . $_GET['cid'];
             $result = mysql_query($sql, $db);
             
             if (mysql_num_rows( $result ) > 0) {
                 $msg->addError('ALREADY_BOOKMARKED');
             } else {
                 $sql = "INSERT INTO " . TABLE_PREFIX . "calendar_bookmark VALUES (".
-                       $_SESSION['member_id'] . "," . $_GET['mid'] . ",'" . $_GET['calname'] . "')";
+                       $_SESSION['member_id'] . "," . $_GET['mid'] . "," . $_GET['cid']. 
+                       ",'" . $_GET['calname'] . "')";
                 mysql_query($sql, $db);
             }
             header('Location: index.php');
@@ -69,7 +71,7 @@
         <legend><h4><?php echo _AT('calendar_options'); ?></h4></legend>
         <ul class="social_side_menu">
         <li>
-            <a  href='mods/calendar/index_public.php?mid=<?php echo $_GET['mid'];?>&bookm=1&calname=<?php echo $_GET['calname']; ?>'>
+            <a  href='mods/calendar/index_public.php?mid=<?php echo $_GET['mid'];?>&cid=<?php echo $_GET['cid'];?>&bookm=1&calname=<?php echo $_GET['calname']; ?>'>
                 <?php echo _AT('calendar_bookmark_this'); ?>
             </a> 
         </li>
@@ -88,6 +90,7 @@
                 <label for="calname"><?php echo _AT('calendar_edit_title'); ?></label>
                 <br/>
                 <input type="hidden" value="<?php echo $_GET['mid'];?>" name="mid" />
+                <input type="hidden" value="<?php echo $_GET['cid'];?>" name="cid" />
                 <input type="hidden" value="1" name="editname" />
                 <input type="text" size="12" value="<?php echo $_GET['calname']; ?>" name="calname" id="calname" />
                 <br/>
@@ -96,7 +99,7 @@
             </form>
         </li>
         <li>
-            <a  href='mods/calendar/index_public.php?mid=<?php echo $_GET['mid'];?>&del=1&calname=<?php echo $_GET['calname']; ?>'>
+            <a  href='mods/calendar/index_public.php?mid=<?php echo $_GET['mid'];?>&cid=<?php echo $_GET['cid'];?>&del=1&calname=<?php echo $_GET['calname']; ?>'>
                 <?php echo _AT('calendar_del_bookmark'); ?>
             </a>
         </li>            
@@ -215,7 +218,7 @@
             /* Events are editable. */
             editable: false,
             /* Retrieve events from php file. */
-            events: "mods/calendar/json-events.php?mid=<?php echo $_GET['mid']; ?>&pub=1"            
+            events: "mods/calendar/json-events.php?mid=<?php echo $_GET['mid']; ?>&pub=1&cid=<?php echo $_GET['cid']; ?>"            
         });            
     });
     function refreshevents() {

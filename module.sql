@@ -21,6 +21,7 @@ CREATE TABLE `calendar_google_sync` (
 CREATE TABLE `calendar_bookmark` (
   `memberid` int(11),
   `ownerid` int(8),
+  `courseid` int(8),
   `calname` varchar(256)
 );
 

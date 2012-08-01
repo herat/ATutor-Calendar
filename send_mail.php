@@ -104,11 +104,12 @@
             }
             
             $body .= AT_BASE_HREF . "mods/calendar/index_public.php?mid=".
-                    $_SESSION['member_id'] . "&email=1&calname=" . urlencode($calname);
+                    $_SESSION['member_id'] . "&email=1&cid=" . $_SESSION['course_id'].
+                    "&calname=" . urlencode($calname);
             //echo $body;
             //exit;
                     
-            $mail->From     = $fromemail;
+            /*$mail->From     = $fromemail;
             $mail->FromName = $_config['site_name'];
             $mail->AddAddress($fromemail);
             $mail->Subject = $stripslashes(_AT('calendar_mail_title'));
@@ -118,16 +119,16 @@
                //echo 'There was an error sending the message';
                $msg->printErrors('SENDING_ERROR');
                exit;
-            }
+            }*/
             
-            /*$to      = 'herat_000@yahoo.co.in';
+            $to      = 'herat_000@yahoo.co.in';
             $subject = $stripslashes(_AT("calendar_mail_title"));
             $message = $body;
             $headers = 'From: abc@gmail.com' . "\r\n" .
                 'Reply-To: abc@gmail.com' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
             
-            mail($to, $subject, $message, $headers);*/
+            mail($to, $subject, $message, $headers);
             
             unset($mail);
             

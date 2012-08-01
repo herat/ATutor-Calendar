@@ -45,12 +45,17 @@
         array_push($rows, $event);
     }
     
-    if (isset($_GET['all']) || isset($_GET['mini'])) {
-        if ($eventObj->getATutorEvents() !== false) {
-            foreach ($eventObj->getATutorEvents() as $event) {
+    if (isset($_GET['all']) || isset($_GET['mini']) || isset($_GET['mid'])) {
+        if (isset($_GET['all']) || isset($_GET['mini'])) {
+            foreach ($eventObj->getATutorEvents($_SESSION['member_id'],$_SESSION['course_id']) as $event) {
                 array_push($rows, $event);
-            }                  
-         }
+            }
+        }
+        if (isset($_GET['mid'])) {
+            foreach ($eventObj->getATutorEvents($_GET['mid'],$_GET['cid']) as $event) {
+                array_push($rows, $event);
+            }
+        }
     }
     
     echo $eventObj->caledarEncode($rows);

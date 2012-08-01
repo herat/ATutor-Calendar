@@ -95,7 +95,7 @@
             while ($row = mysql_fetch_assoc($res)) {
         ?>
         <li>
-            <a  href='mods/calendar/index_public.php?mid=<?php echo $row['ownerid']; ?>&calname=<?php echo $row['calname']; ?>'><?php echo $row['calname'];?>
+            <a  href='mods/calendar/index_public.php?mid=<?php echo $row['ownerid']; ?>&cid=<?php echo $row['courseid']; ?>&calname=<?php echo $row['calname']; ?>'><?php echo $row['calname'];?>
             </a>
         </li>
         <?php
