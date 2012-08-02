@@ -25,7 +25,7 @@
     /******
     * modules sub-content to display on course home detailed view
     */
-    $this->_list['calendar'] = array('title_var'=>'ATutor Calendar','file'=>'mods/calendar/sublinks.php');
+    $this->_list['calendar'] = array('title_var'=>'calendar_header','file'=>'mods/calendar/sublinks.php');
 
     /*******
      * assign the instructor and admin privileges to the constants.
@@ -74,18 +74,18 @@
     /*******
      * import page
      */
-    $this->_pages['mods/calendar/file_import.php']['title_var']='calendar_import_file';
-    $this->_pages['mods/calendar/file_import.php']['parent'] = 'mods/calendar/index.php';
+    $this->_pages['mods/calendar/file_import.php']['title_var']= 'calendar_import_file';
+    $this->_pages['mods/calendar/file_import.php']['parent']   = 'mods/calendar/index.php';
     
     /*******
-     * Calendar sharing pages
+     * Email calendar link
      */
-    $this->_pages['mods/calendar/send_mail.php']['title_var']='calendar_share';
-    $this->_pages['mods/calendar/send_mail.php']['parent'] = 'mods/calendar/index.php';
+    $this->_pages['mods/calendar/send_mail.php']['title_var'] = 'calendar_share';
+    $this->_pages['mods/calendar/send_mail.php']['parent']    = 'mods/calendar/index.php';
     
-    $this->_pages['mods/calendar/shared_cal.php']['title_var']='calendar_view_title';
-    $this->_pages['mods/calendar/shared_cal.php']['parent'] = 'mods/calendar/index.php';
-    
+    /*******
+     * Public page to display shared calendar
+     */
     $this->_pages[AT_NAV_PUBLIC] = array('mods/calendar/index_public.php');
     $this->_pages['mods/calendar/index_public.php']['title_var'] = 'calendar';
 ?>
