@@ -123,84 +123,84 @@ Contents-------------------
    
    The following is the code structure for the module.
    
-    -index.php                                 -- Home page of this module where user can 
-                                                   access all the features of the module.
+    -index.php              -- Home page of this module where user can
+                               access all the features of the module.
 
-    -index_public.php                          -- Enables a user to view shared calendar.
+    -index_public.php       -- Enables a user to view shared calendar.
     
-    -send_mail.php                             -- Provides interface to share calendar with
-                                                   other users.
+    -send_mail.php          -- Provides interface to share calendar with
+                               other users.
 
-    -change_view.php                           -- Saves the current state of calendar in session.
-                                                   So when user refreshes the page, he/she 
-                                                   will get same view again.
+    -change_view.php        -- Saves the current state of calendar in session.
+                               So when user refreshes the page, he/she 
+                               will get same view again.
 
-    -export.php                                -- Exports the events in ics file which can be 
-                                                   imported by other calendar programs.
+    -export.php             -- Exports the events in ics file which can be 
+                               imported by other calendar programs.
 
-    -file_import.php                           -- Provides interface to upload ics file.
+    -file_import.php        -- Provides interface to upload ics file.
 
-    -import_db.php                             -- Imports events from uploaded ics file into database.
+    -import_db.php          -- Imports events from uploaded ics file into database.
 
-    -getlanguage.php                           -- This script is used by javascripts to retrieve
-                                                   text for given language token. AJAX is used 
-                                                   for this procedure.
+    -getlanguage.php        -- This script is used by javascripts to retrieve
+                               text for given language token. AJAX is used 
+                               for this procedure.
 
-    -google_calendar_db_sync.php               -- Synchronizes Google calendar ids in the database.
+    -google_calendar_db_sync.php -- Synchronizes Google calendar ids in the database.
 
-    -google_calendar_update.php                -- Updates events in Google Calendar when they are
-                                                   updated in the ATutor.
+    -google_calendar_update.php -- Updates events in Google Calendar when they are
+                                    updated in the ATutor.
 
-    -google_calendarlist.php                   -- Displays available calendars in user's Google 
-                                                 account.
+    -google_calendarlist.php -- Displays available calendars in user's Google 
+                                account.
 
-    -google_connect_disconnect.php             -- This script associates and dissociates user's
-                                                   Google account with ATutor calendar module.
+    -google_connect_disconnect.php -- This script associates and dissociates user's
+                                      Google account with ATutor calendar module.
 
-    -json-events-gcal.php                      -- Retrieves events from synchronized Google calendars
-                                                   and returns them in JSON format.
+    -json-events-gcal.php   -- Retrieves events from synchronized Google calendars
+                               and returns them in JSON format.
                                                 
-    -json-events.php                           -- Retrieves personal and ATutor internal events and
-                                                   returns them in JSON format.
+    -json-events.php        -- Retrieves personal and ATutor internal events and
+                               returns them in JSON format.
                                          
-    -update.php                                -- This script is used to create, edit and delete
-                                                   events.
+    -update.php             -- This script is used to create, edit and delete
+                               events.
                                                 
-    -side_menu.inc.php                         -- Displays mini calendar in the side menu.
+    -side_menu.inc.php      -- Displays mini calendar in the side menu.
     
-    -SG_iCal.php                               -- SG_iCal parser is used to parse ics files.
+    -SG_iCal.php            -- SG_iCal parser is used to parse ics files.
     
-    -helpers/                                  -- This is part of SG_iCal parser.
+    -helpers/               -- This is part of SG_iCal parser.
     
-    -blocks/                                   -- This is part of SG_iCal parser.
+    -blocks/                -- This is part of SG_iCal parser.
     
-    -Zend/                                     -- This folder contains Zend framework which is used
-                                                   to interact with Google Calendar.
+    -Zend/                  -- This folder contains Zend framework which is used
+                               to interact with Google Calendar.
                                                 
-    -patch/                                    -- This folder contains patch for ATutor which
-                                                   enables event retrieval from ATutor.
+    -patch/                 -- This folder contains patch for ATutor which
+                               enables event retrieval from ATutor.
     
-    -includes/classes/events.class.php         -- Provides all the functions which can be used to
-                                                   retrieve personal and ATutor internal events.
+    -includes/classes/events.class.php -- Provides all the functions which can be used to
+                                          retrieve personal and ATutor internal events.
                                                 
-    -includes/classes/googlecalendar.class.php -- Provides functions to retrieve Google Calendar
-                                                    events.
+    -includes/classes/googlecalendar.class.php -- Provides functions to retrieve 
+                                                  Google Calendar events.
                                                     
-    -img/                                      -- Contains images used in front end interface.
+    -img/                   -- Contains images used in front end interface.
     
-    -jquery/                                   -- Includes custom jquery css and related images.
+    -jquery/                -- Includes custom jquery css and related images.
     
-    -fullcalendar/                             -- This folder includes core javascripts and css files
-                                                   which are used to display calendar interface.
+    -fullcalendar/          -- This folder includes core javascripts and css files
+                               which are used to display calendar interface.
                                                    
-    -module.php                                -- Configuration file of this module.
+    -module.php             -- Configuration file of this module.
     
-    -module.xml                                -- This file is used to display module information
-                                                   during installation process.
+    -module.xml             -- This file is used to display module information
+                               during installation process.
     
-    -module_install.php                        -- Script used to install module.
+    -module_install.php     -- Script used to install module.
     
-    -module_uninstall.php                      -- Script used to uninstall module.  
+    -module_uninstall.php   -- Script used to uninstall module.  
 
    PATCH
    -----

@@ -74,8 +74,8 @@
     -includes/classes/events.class.php -- Provides all the functions which can be used to
                                           retrieve personal and ATutor internal events.
                                                 
-    -includes/classes/googlecalendar.class.php -- Provides functions to retrieve Google Calendar
-                                                  events.
+    -includes/classes/googlecalendar.class.php -- Provides functions to retrieve 
+                                                  Google Calendar events.
                                                     
     -img/                   -- Contains images used in front end interface.
     
