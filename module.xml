@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
 <module version="0.1"> 
     <name lang="en">ATutor Calendar</name> 
-    <description lang="en">Displays dates relevant to the user's courses. This module requires the module_extend_date patch to be installed for the courses,tests, and assignments modules.</description> 
+    <description lang="en">
+        Displays dates relevant to the user's courses. 
+        Create personal events and Synchronize Google Calendar in ATutor.
+    </description> 
     <maintainers>
         <maintainer> 
             <name>ATutor Team</name> 
@@ -17,11 +20,11 @@
         </maintainer>
     </maintainers> 
     <url>http://atutor.ca</url> 
-    <license>BSD</license> 
+    <license>GPL/ATutor</license> 
     <release> 
-        <version>0.1</version> 
-        <date>2011-</date> 
+        <version>1.0</version> 
+        <date>2011-08-22</date> 
         <state>stable</state> 
-        <notes></notes> 
+        <notes>This module requires the module_extend_date patch to be installed for the courses,tests, and assignments modules.</notes> 
     </release> 
 </module>
