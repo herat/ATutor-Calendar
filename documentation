@@ -362,6 +362,15 @@ Contents-------------------
      | allDay | varchar   |                              |
      | userid | int       |                              |
       ---------------------------------------------------
+      The `calendar_events` table is used to store users'
+      personal events. Events imported from iCalendar file
+      are also stored in this table. This table has all the
+      properties of an event. `title` is used to store event
+      description. `start` and `end` indicate event's start
+      and end date & time respectively. `allDay` is of boolean
+      type which indicates whether an event is all day long
+      or not. `userid` stores owner of the event. `userid`
+      is very useful while retrieving events.
       
       --------------------
      |calendar_google_sync|
@@ -371,6 +380,15 @@ Contents-------------------
      | userid | int      |                             |
      | calids | text     |                             |
       -------------------------------------------------
+      The `calendar_google_sync` table stores Google related
+      user data. The `token` is the session token returned by
+      Google. This token is very important in maintaining session.
+      Using this token only, user does not need to log in again 
+      and again. The `userid` indicates owner of the token.
+      `calids` store calendar ids of Google Calendars. This field
+      only stores ids of those calendars which user has selected to
+      synchronize with ATutor. Multiple calendar ids are 
+      seperated by ",".
       
       -------------------
      | calendar_bookmark |
@@ -380,3 +398,13 @@ Contents-------------------
      | courseid  | int     |
      | calname   | varchar |
       ---------------------
+      The `calendar_bookmark` table stores bookmarked calendars 
+      for users. This module provides facility to bookmark
+      shared calendars. This table is at the core for this feature.
+      When user chooses to bookmark a calendar, an entry is made in 
+      this table. The `memberid` stores member id of the current
+      user who wants to bookmark shared calendar for future use.
+      `ownerid` is the member id of the user who owns the events
+      of shared calendar. `courseid` is the id of the course from
+      which owner has shared the calendar. `calname` is the name
+      of the bookmark.
