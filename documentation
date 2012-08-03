@@ -1,13 +1,26 @@
 ATutor Calendar Module Documentation
 ------------------------------------
 
-Website
+WEBSITE
 -------
 http://atutorcalendar.wordpress.com/
 
-License
+LICENSE
 -------
 GPL/ATutor
+
+FEATURES
+--------
+* 3 different views of the calendar
+* View ATutor course related events
+* Create and edit personal events
+* Synchronize with Google Calendar
+* Import iCalendar file
+* Export iCalendar file
+* Mini calendar in the side menu
+* Fully accessible interface
+* Share calendar with other users
+* Bookmark the shared calendar
 
 Contents-------------------
  |--Introduction
@@ -31,6 +44,7 @@ Contents-------------------
  |--Code Structure
     |-- Module
     |-- Patch
+    |-- Database
   -------------------------
   
  INTRODUCTION
@@ -334,3 +348,35 @@ Contents-------------------
      module_extend_date.php     -- This script allows the modules 
      to expose the dates that are associated with that module. It 
      should be located in all 3 modules(courses|tests|assignments).
+   
+   DATABASE
+   --------
+     The calendar module has following 3 tables:
+      -----------------
+     | calendar_events |
+      ---------------------------------------------------
+     | id     | int       | AUTO_INCREMENT, Primary Key  |
+     | title  | varchar   |                              |
+     | start  | datetime  |                              |
+     | end    | datetime  |                              |
+     | allDay | varchar   |                              |
+     | userid | int       |                              |
+      ---------------------------------------------------
+      
+      --------------------
+     |calendar_google_sync|
+      -------------------------------------------------
+     | id     | int      | AUTO_INCREMENT, Primary Key |
+     | token  | varchar  |                             |
+     | userid | int      |                             |
+     | calids | text     |                             |
+      -------------------------------------------------
+      
+      -------------------
+     | calendar_bookmark |
+      ---------------------
+     | memberid  | int     |
+     | ownerid   | int     |
+     | courseid  | int     |
+     | calname   | varchar |
+      ---------------------
