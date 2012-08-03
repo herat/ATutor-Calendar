@@ -37,21 +37,21 @@ PRODID:-//ATutor//ATutor Calendar Module//EN";
     global $moduleFactory;
 
     $coursesmod = $moduleFactory->getModule('_core/courses');
-    $courses    = $coursesmod->extend_date();    
+    $courses    = $coursesmod->extend_date($_SESSION['member_id'],$_SESSION['course_id']);    
     if($courses != '') {
         foreach ($courses as $event)
             array_push($rows, $event);
     }
 
     $assignmentsmod = $moduleFactory->getModule('_standard/assignments');
-    $assignments    = $assignmentsmod->extend_date();
+    $assignments    = $assignmentsmod->extend_date($_SESSION['member_id'],$_SESSION['course_id']);
     if($assignments != '') {
         foreach ($assignments as $event)
             array_push($rows, $event);
     }        
 
     $testsmod = $moduleFactory->getModule('_standard/tests');
-    $tests    = $testsmod->extend_date();
+    $tests    = $testsmod->extend_date($_SESSION['member_id'],$_SESSION['course_id']);
     if($tests != '') {
         foreach ($tests as $event)
             array_push($rows, $event);
