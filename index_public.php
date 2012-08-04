@@ -139,13 +139,13 @@
 <?php
     }
 ?>
-<?php $_custom_css = $_base_path . 'mods/calendar/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
+<?php $_custom_css = $_base_path . 'mods/calendar/lib/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
 
 <script language="javascript" type="text/javascript" 
-    src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.js">
+    src="<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.js">
 </script>
 
-<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
+<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 
 <script>
     $.ajaxSetup({cache: false});

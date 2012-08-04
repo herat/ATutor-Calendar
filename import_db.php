@@ -41,7 +41,7 @@
         '../../content/calendar/' . $filename);
     }
 
-    require_once('SG_iCal.php');
+    require_once('lib/SG_iCal/SG_iCal.php');
 
     function dump_t($x) {
         echo '<pre>' . print_r($x,true) . '</pre>';

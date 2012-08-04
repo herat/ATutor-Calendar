@@ -38,7 +38,7 @@
     'jscripts/infusion/InfusionAll.js"></script>
     <script language="javascript" type="text/javascript" src="'.AT_BASE_HREF.
     'jscripts/lib/calendar.js"></script>
-    <link href="'.AT_BASE_HREF.'mods/calendar/jquery/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
+    <link href="'.AT_BASE_HREF.'mods/calendar/lib/jquery/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
     <link href="'.AT_BASE_HREF.'jscripts/infusion/lib/jquery/plugins/tooltip/css/jquery.tooltip.css" rel="stylesheet" type="text/css"/>';
 
     /*******
