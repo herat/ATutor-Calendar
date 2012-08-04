@@ -44,9 +44,9 @@
     <?php
         global $db;
         $query = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
-        $res = mysql_query($query,$db);
+        $result = mysql_query($query,$db);
         
-        if (mysql_num_rows($res) > 0) {
+        if (mysql_num_rows($result) > 0) {
             echo "<li><a href='mods/calendar/google_connect_disconnect.php?logout=yes' target='_blank'>".
                  _AT('calendar_disconnect_gcal') . "</a></li></ul></fieldset>";
             echo "<br/><fieldset><legend><h4>". _AT('calendar_gcals') . "</h4></legend>";
@@ -97,8 +97,8 @@
     <?php
         $query = "SELECT * FROM " . TABLE_PREFIX.
                  "calendar_bookmark WHERE memberid = ".$_SESSION['member_id'];
-        $res   = mysql_query($query,$db);
-        if (mysql_num_rows( $res ) > 0) {
+        $result   = mysql_query($query,$db);
+        if (mysql_num_rows( $result ) > 0) {
     ?>
     <fieldset>
     <legend>
@@ -108,7 +108,7 @@
     </legend>
     <ul class="social_side_menu">
         <?php
-            while ($row = mysql_fetch_assoc($res)) {
+            while ($row = mysql_fetch_assoc($result)) {
         ?>
         <li>
             <a  href='mods/calendar/index_public.php?mid=<?php echo $row['ownerid']; ?>&cid=<?php echo $row['courseid']; ?>&calname=<?php echo $row['calname']; ?>'><?php echo $row['calname'];?>
