@@ -15,7 +15,14 @@
      * This file is used to display all the available
      * calendars in Google Account of a user.
      */
-    require_once 'mods/calendar/lib/Zend/Loader.php';
+    $includePath = array();
+    $includePath[] = '.';
+    $includePath[] = 'lib';
+    $includePath[] = get_include_path();
+    $includePath = implode(PATH_SEPARATOR,$includePath);
+    set_include_path($includePath); 
+    
+    require_once 'Zend/Loader.php';
 
     Zend_Loader::loadClass('Zend_Gdata');
     Zend_Loader::loadClass('Zend_Gdata_AuthSub');
