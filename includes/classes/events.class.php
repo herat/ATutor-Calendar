@@ -12,11 +12,19 @@
     /****************************************************************/
     
     /**
-     * This class file provides personal and ATutor internal events.
+     * This class file provides class to access personal 
+     * and ATutor internal events.
      */
     
     class Events {
-        public function getPersonalEvents($userid) {
+        /**
+		 * Retrieve personal events
+		 *
+         * @access public
+		 * @param int id of user
+		 * @return mixed Array containing all personal events of a user
+		 */
+        public function get_personal_events($userid) {
             global $db;
             $rows = array();
             $query = "SELECT * FROM `".TABLE_PREFIX."calendar_events` WHERE userid='".
@@ -33,7 +41,15 @@
             return $rows;    
         }
         
-        public function getATutorEvents($member_id, $course_id) {
+        /**
+		 * Retrieve ATutor course events
+		 *
+         * @access public
+		 * @param int id of user
+         * @param int id of course
+		 * @return mixed Array containing all course related events
+		 */
+        public function get_atutor_events($member_id, $course_id) {
             /* check if the user is enrolled in the course */
             global $db;
             
@@ -79,7 +95,14 @@
             }                
         }
         
-        public function caledarEncode($rows) {
+        /**
+		 * Retrieve JSON encoded events
+		 *
+         * @access public
+		 * @param mixed Array events extracted from db
+		 * @return string JSON formatted string of events
+		 */
+        public function caledar_encode($rows) {
             //Encode in JSON format.
             $str =  json_encode( $rows );
         

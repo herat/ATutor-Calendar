@@ -38,7 +38,7 @@
         $member = $_GET['mid'];
     }
         
-    foreach ($eventObj->getPersonalEvents($member) as $event) {
+    foreach ($eventObj->get_personal_events($member) as $event) {
         if (!isset($_GET['all'])) {
             $event['editable'] = false;
         }
@@ -47,16 +47,16 @@
     
     if (isset($_GET['all']) || isset($_GET['mini']) || isset($_GET['mid'])) {
         if (isset($_GET['all']) || isset($_GET['mini'])) {
-            foreach ($eventObj->getATutorEvents($_SESSION['member_id'],$_SESSION['course_id']) as $event) {
+            foreach ($eventObj->get_atutor_events($_SESSION['member_id'],$_SESSION['course_id']) as $event) {
                 array_push($rows, $event);
             }
         }
         if (isset($_GET['mid'])) {
-            foreach ($eventObj->getATutorEvents($_GET['mid'],$_GET['cid']) as $event) {
+            foreach ($eventObj->get_atutor_events($_GET['mid'],$_GET['cid']) as $event) {
                 array_push($rows, $event);
             }
         }
     }
     
-    echo $eventObj->caledarEncode($rows);
+    echo $eventObj->caledar_encode($rows);
 ?>

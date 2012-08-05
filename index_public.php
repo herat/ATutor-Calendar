@@ -15,11 +15,13 @@
      * This file provides calendar interface for shared calendar.
      */
     
+    //It is possible that user is not logged in.
     $_user_location = 'public';
     
     define('AT_INCLUDE_PATH', '../../include/');
     require(AT_INCLUDE_PATH.'vitals.inc.php');
     
+    //Get member id from request if it is not set then display default message
     if (!isset($_GET['mid'])) {
         require(AT_INCLUDE_PATH.'header.inc.php'); 
         echo _AT('calendar_pub_def_msg');
@@ -28,17 +30,19 @@
     }
     
     global $db;
-    
+    //User requested to bookmark calendar
     if (isset($_GET['bookm']) && $_GET['bookm'] == 1) {
         if (isset($_SESSION['member_id'])) {
+            //Check whether user already bookmarked the calendar
             $sql    = "SELECT * FROM " . TABLE_PREFIX . "calendar_bookmark WHERE memberid=".
                       $_SESSION['member_id'] . " AND ownerid=" . $_GET['mid'].
                       " AND courseid=" . $_GET['cid'];
             $result = mysql_query($sql, $db);
-            
+            //If user has already bookmarked calendar then display error
             if (mysql_num_rows( $result ) > 0) {
                 $msg->addError('ALREADY_BOOKMARKED');
             } else {
+                //Not bookmarked so bookmark now
                 $sql = "INSERT INTO " . TABLE_PREFIX . "calendar_bookmark VALUES (".
                        $_SESSION['member_id'] . "," . $_GET['mid'] . "," . $_GET['cid']. 
                        ",'" . $_GET['calname'] . "')";
@@ -53,6 +57,7 @@
             exit;
         }
     } else if (isset($_GET['del']) && $_GET['del'] == 1) {
+        //Delete the bookmark
         if (isset($_SESSION['member_id'])) {
             $sql = "DELETE FROM " . TABLE_PREFIX . "calendar_bookmark WHERE memberid=".
                    $_SESSION['member_id'] . " AND ownerid=" . $_GET['mid'];
@@ -63,6 +68,7 @@
     } else if (isset($_GET['editname']) 
                 && $_GET['editname'] == 1 
                 && trim($_GET['calname']) != "") {
+        //Change name of bookmark
         if (isset($_SESSION['member_id'])) {
             $sql = "UPDATE " . TABLE_PREFIX . "calendar_bookmark SET calname='".
                     $_GET['calname'] . "' WHERE memberid=".
@@ -148,10 +154,11 @@
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 
 <script>
+    //For IE
     $.ajaxSetup({cache: false});
 
     $(document).ready(function () {
-        /* Get current date for calculations. */
+        //Get current date for calculations.
                 
         var date = new Date();
         var d    = date.getDate();
@@ -171,21 +178,22 @@
                 else
                     $("#loader").hide();
             },            
-            /* Apply theme */
+            //Do not apply theme
             theme: false,            
-            /* Header details */
+            //Header details
             header: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
+            //Catch the fired event but do not save view
             saveView: function() {
                 var viewo = calendar.fullCalendar('getView');
                 if (viewchangd) {
                     viewchangd = false;
                 }
             },
-            /* Allow adding events by selecting cells. */
+            //Do not allow adding events by selecting cells
             selectable: false,
             selectHelper: false,            
             eventAfterRender: function(evento,elemento,viewo) {
@@ -204,10 +212,11 @@
                     }
                 }
             },            
-            /* Event is resized. So update db. */
+            //Event is resized. So update db.
             eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) { 
             },
             viewDisplay: function(view) {
+                //Add data for screen reader
                 viewchangd = true;
                 $(".fc-button-firsts").each(
                    function() {
@@ -231,13 +240,14 @@
                         }
                    });                
             },
-            /* Events are editable. */
+            //Events are not editable.
             editable: false,
-            /* Retrieve events from php file. */
+            //Retrieve events from php file.
             events: "mods/calendar/json-events.php?mid=<?php echo $_GET['mid']; ?>&pub=1&cid=<?php echo $_GET['cid']; ?>"            
         });            
     });
     function refreshevents() {
+        //Refresh events as view is changed
         $("#calendar").fullCalendar("refetchEvents");
     }    
 </script>

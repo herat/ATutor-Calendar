@@ -19,11 +19,11 @@
     require(AT_INCLUDE_PATH.'vitals.inc.php');
     require(AT_INCLUDE_PATH.'header.inc.php');
 ?>
-
+<!-- Loader wheel to indicate on-going transfer of data -->
 <div style="left:50%; z-index:20000; position:absolute; top:50%" id="loader">
     <img src="mods/calendar/img/loader.gif" alt="Loading" /> 
 </div>
-
+<!-- Right side calendar menu -->
 <div style="float:right;width:20%" class="box">
     <fieldset>
         <legend>
@@ -42,6 +42,10 @@
                 <a  href="mods/calendar/send_mail.php"><?php echo _AT('calendar_share'); ?></a>
             </li>
     <?php
+        /**
+         * Check if user has token for Google Account. If yes then display disconnect option
+         * otherwise display connect option.
+         */
         global $db;
         $query = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
         $result = mysql_query($query,$db);
@@ -58,7 +62,7 @@
         }
     ?>
     <br/>
-    
+    <!-- Display color codes with description. -->
     <fieldset>
         <legend>
             <h4>
@@ -95,6 +99,9 @@
     </fieldset>
 
     <?php
+        /**
+         * If user has bookmarked calendars then display them.
+         */
         $query = "SELECT * FROM " . TABLE_PREFIX.
                  "calendar_bookmark WHERE memberid = ".$_SESSION['member_id'];
         $result   = mysql_query($query,$db);
@@ -123,7 +130,10 @@
         }
     ?>
 </div>
-<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF;?>jscripts/infusion/InfusionAll.js"></script>
+
+<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF;?>jscripts/infusion/InfusionAll.js">
+</script>
+
 <?php $_custom_css = $_base_path . 'mods/calendar/lib/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet ?>
 
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.js">
@@ -132,15 +142,17 @@
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 
 <script>
+    //For IE
     $.ajaxSetup({cache: false});
 
     function changeview(name, year, month, datem) {
+        //Save view in session object
         $.ajax({url:"mods/calendar/change_view.php?viewn=" +
                 name + "&year=" + year + "&month=" + month + "&date=" + datem});
     }
     
     $(document).ready(function () {
-        /* Get current date for calculations. */
+        // Get current date for calculations.
         var date       = new Date();
         var d          = date.getDate();
         var m          = date.getMonth();
@@ -149,12 +161,13 @@
         var viewchangd = false;        
         var gmtHours   = -date.getTimezoneOffset() / 60;
         var activeelem;
-        
+        //Get client's timezone and save it for future reference
         $("#export").attr("href", "mods/calendar/export.php?hrs="+gmtHours);
         
         var calendar = $('#calendar').fullCalendar({        
             defaultView: 
             <?php 
+                //Change view according to session value 
                 if (!isset($_SESSION['fc-viewname'])) {
                     echo "'month'";
                 } else {
@@ -162,20 +175,22 @@
                 }
             ?>,
             loading: function (isLoading, view) {
+                //If data is loading then show loader otherwise hide it
                 if (isLoading) {
                     $("#loader").show();
                 } else {
                     $("#loader").hide();
                 }
             },            
-            /* Apply theme */
+            //Do not apply theme
             theme: false,            
-            /* Header details */
+            //Header details
             header: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
+            //Save current state of the calendar after view is changed
             saveView: function() {
                 var viewo = calendar.fullCalendar('getView');
                 if (viewchangd) {
@@ -184,11 +199,11 @@
                     viewchangd = false;
                 }
             },
-            /* Allow adding events by selecting cells. */
+            //Allow adding events by selecting cells.
             selectable: true,
             selectHelper: true,            
-            /* Add tooltip to events after they are rendered. */
             eventAfterRender: function(evento, elemento, viewo) {
+                //If events are editable then add tooltip otherwise add hidden data for screen reader
                 if (!evento.editable) {
                     var childo = elemento.children();
                     if( viewo.name == "month" )
@@ -202,6 +217,7 @@
                             }
                         });
                 }
+                //Adjust focus on currently selected event
                 if (focusd) {
                     if (evento.id + "" == $("#ori-name1").val()) {
                         elemento.focus();
@@ -209,16 +225,16 @@
                     }
                 }
             },
-            /* Event is resized. So update db. */
+            //Event is resized. So update db.
             eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) { 
                 //get new start date, end date and send it to the db
                 var newsdate = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm") + ":00"; 
                 var newedate = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm") + ":00"; 
                 $.get("mods/calendar/update.php",{id:event.id, start:newsdate, end:newedate, title:'',allday:'', cmd:"drag"});
             },            
-            /* Add tooltip to cells. */
             viewDisplay: function(view) {
                 viewchangd = true;
+                //Add button description for screen reader
                 $(".fc-button-firsts").each(
                    function() {
                         if ($(this).text().indexOf( 'Previous' ) >= 0) {
@@ -241,14 +257,16 @@
                         }
                    }
                 );
+                //Add tooltip to cells.
                 fluid.tooltip(".fc-view-" + view.name, {
                     content: function () {
                         return "<?php echo _AT('calendar_tooltip_cell'); ?>";
                     }
                 });
             },
-            /* Event is clicked. So open dialog for editing event. */
+            //Event is clicked. So open dialog for editing event.
             eventClick: function(calevent,jsEvent,view){
+                //Save currently active element so that focus can be restored later
                 if (document.activeElement.tagName == "A") {
                     activeelem = document.activeElement;
                 }    
@@ -257,18 +275,19 @@
                 }
                 $("#fc-emode1").val("edit");
                 $("#dialog1").dialog('open');                    
-                //display event name in the event title input box
+                
+                //Display event name in the event title input box
                 $("#name1").val(calevent.title);
                 
                 var date = calevent.start;
-                //display start date
+                //Display start date
                 $("#date-start1").val($.fullCalendar.formatDate(date, "yyyy-MM-dd"));
-                //store event id for manipulation
+                //Store event id for manipulation
                 $("#ori-name1").val( calevent.id );
                 
-                //if allDay is true then no need to display time otherwise display time
+                //If allDay is true then no need to display time otherwise display time
                 if (calevent.allDay == true) {
-                    //disable time elements from the form
+                    //Disable time elements from the form
                     $("#container-fc-tm").html("<input type='text' name='time' id='time-start1' disabled='disabled' class='text ui-widget-content ui-corner-all'>");
                     
                     document.getElementById("date-end1").disabled = false;
@@ -279,7 +298,7 @@
                     $("#lbl-end-time1").addClass("fc-form-hide");
                     $("#lbl-start-time1").addClass("fc-form-hide");
                      
-                    //add and set datepickers
+                    //Add and set datepickers
                     $("#date-start1").val($.fullCalendar.formatDate(date, "yyyy-MM-dd"));
                     $("#date-start1").focus(
                         function (ev){
@@ -309,7 +328,7 @@
                         }
                     );
                 } else {
-                    //enable time elements
+                    //Enable time elements
                     $("#container-fc-tm").html("<select name='time' id='time-start1' class='text ui-widget-content ui-corner-all'></select>");
                     
                     $("#time-start1").removeClass("fc-form-hide");
@@ -320,7 +339,7 @@
                     $("#date-end1").val($.fullCalendar.formatDate(date, "yyyy-MM-dd"));
                     $("#time-start1").val(date.getHours() + ":" + date.getMinutes());
                     
-                    //add and set datepickers
+                    //Add and set datepickers
                     $("#date-start1").val($.fullCalendar.formatDate(date, "yyyy-MM-dd"));
                     $("#date-start1").focus(
                         function(ev){
@@ -348,7 +367,7 @@
                         }
                     );
                     
-                    //adjust start time and end time dropdown boxes so that the current values are displayed first
+                    //Adjust start time and end time dropdown boxes so that the current values are displayed first
                     select = $('#time-end1');
                     $("#time-end1 > option").each(function() {
                         $(this).remove();
@@ -356,14 +375,14 @@
                     var startpt = date.getHours();
                     var endpt   = calevent.end;
                     var bol     = true;
-                    for (zz=0; zz<=24; zz++) {
-                        if (zz == 24) {
-                            select.append("<option value='" + zz + ":0' >" + zz + "</option>");
+                    for (tempi=0; tempi<=24; tempi++) {
+                        if (tempi == 24) {
+                            select.append("<option value='" + tempi + ":0' >" + tempi + "</option>");
                         } else {
                             if (bol) {
-                                select.append("<option value='" + zz + ":0' >" + zz + "</option>");
+                                select.append("<option value='" + tempi + ":0' >" + tempi + "</option>");
                             }
-                            select.append("<option value='" + zz + ":30' >" + zz + ":30" + "</option>");
+                            select.append("<option value='" + tempi + ":30' >" + tempi + ":30" + "</option>");
                             bol = true;                                
                         }
                     }                    
@@ -371,35 +390,35 @@
                     
                     select = $('#time-start1');
                     bol = true;
-                    for (zz=0; zz<=24; zz++) {
-                        if (zz == 24) {
-                            select.append("<option value='" + zz + ":0' >" + zz + "</option>");
+                    for (tempi=0; tempi<=24; tempi++) {
+                        if (tempi == 24) {
+                            select.append("<option value='" + tempi + ":0' >" + tempi + "</option>");
                         } else {
                             if (bol) {
-                                select.append("<option value='" + zz + ":0' >" + zz + "</option>");
+                                select.append("<option value='" + tempi + ":0' >" + tempi + "</option>");
                             }
-                            select.append("<option value='"+zz+":30' >"+zz+":30"+"</option>");                                
+                            select.append("<option value='"+tempi+":30' >"+tempi+":30"+"</option>");                                
                             bol = true;                                
                         }
                     }                    
                     select.val(date.getHours() + ":" + date.getMinutes());
                 }
-                //save allDay value in hidden field
+                //Save allDay value in hidden field
                 $("#viewname1").val("" + calevent.allDay);
             },
-            /* Cell is clicked. So open dialog for creating new event. */
+            //Cell is clicked. So open dialog for creating new event.
             select: function (date, end, allDay, jsEvent, view) {                
                 activeelem = document.activeElement;
                 
                 $("#fc-emode").val("create");                    
                 $("#dialog").dialog('open');
-                //display event title in the input box
+                //Display event title in the input box
                 $("#name").val("<?php echo _AT("calendar_form_title_def"); ?>");
-                //display start date
+                //Display start date
                 $("#date-start").val($.fullCalendar.formatDate(date, "yyyy-MM-dd"));
-                //if allday is true then disable time elements else enable them
+                //If allday is true then disable time elements else enable them
                 if (allDay == true) {
-                    //month view or all-day events from other 2 views have allDay value true
+                    //Month view or all-day events from other 2 views have allDay value true
                     //hide time elements
                     document.getElementById("date-end").disabled = false;                    
                     
@@ -408,7 +427,7 @@
                     $("#lbl-end-time").addClass("fc-form-hide");
                     $("#lbl-start-time").addClass("fc-form-hide");
                     
-                    //add and set date pickers
+                    //Add and set date pickers
                     $("#date-end").val($.fullCalendar.formatDate(date, "yyyy-MM-dd"));
                     $("#date-end").focus(
                         function(ev) {
@@ -421,7 +440,7 @@
                         }
                     );                                    
                 } else {
-                    //enable time elements and prepare them with initial values
+                    //Enable time elements and prepare them with initial values
                     document.getElementById("date-end").disabled = true;
                     
                     $("#time-start").removeClass("fc-form-hide");
@@ -444,15 +463,15 @@
                         startpt++;                            
                         bol = true;
                     }
-                    
-                    for (zz=startpt; zz<=24; zz++) {
-                        if (zz == 24) {
-                            select.append("<option value='" + zz + ":0' >" + zz + "</option>");
+                    //Adjust time dropdown
+                    for (tempi=startpt; tempi<=24; tempi++) {
+                        if (tempi == 24) {
+                            select.append("<option value='" + tempi + ":0' >" + tempi + "</option>");
                         } else {
                             if (bol) {
-                                select.append("<option value='" + zz + ":0' >" + zz + "</option>");
+                                select.append("<option value='" + tempi + ":0' >" + tempi + "</option>");
                             }
-                            select.append("<option value='"+zz+":30' >"+zz+":30"+"</option>");
+                            select.append("<option value='"+tempi+":30' >"+tempi+":30"+"</option>");
                             bol = true;                            
                         }                            
                     }                    
@@ -463,20 +482,19 @@
                         $("#time-end").val((parseInt(date.getHours()) + 1) + ":0");
                     }
                 }
-                //save view name in hidden field
+                //Save view name in hidden field
                 $("#viewname").val(view.name);                    
             },
-            /* Events are editable. */
+            //Events are editable.
             editable: false,
-            /* Retrieve events from php file. */
-            //events: "mods/calendar/json-events-gcal.php"
+            //Retrieve events from php file.
             eventSources: [
                 'mods/calendar/json-events.php?all=1',
                 'mods/calendar/json-events-gcal.php'
             ]
         });
         
-        /*Create event jQuery dialog*/
+        //Create event jQuery dialog
         $("#dialog").dialog({
             autoOpen: false,
             height:   300,
@@ -484,10 +502,10 @@
             modal:    true,
             buttons:  {
                 '<?php echo _AT('calendar_creat_e'); ?>': function() {
-                    //get start date
+                    //Get start date
                     var startsplt = $("#date-start").val().split("-");
                     var ends;
-                    //get end date and time
+                    //Get end date and time
                     if ($('#viewname').val() == "month" 
                         || document.getElementById("date-end").disabled == false) {
                         ends = $("#date-end").val();
@@ -499,7 +517,7 @@
                     
                     var endsplt = ends.split("-");
                     var newid;
-                    //string processing of the date values
+                    //String processing of the date values
                     if (startsplt[1].charAt(0) == '0') {
                         startsplt[1] = startsplt[1].charAt(1);
                     }
@@ -512,7 +530,7 @@
                     if (endsplt[2].charAt(0) == '0') {
                         endsplt[2] = endsplt[2].charAt(1);
                     }
-                    //first send new events to db, db will return id and then display events in the calendar
+                    //First send new events to db, db will return id and then display events in the calendar
                     if ($('#viewname').val() == "month" 
                         || document.getElementById("date-end").disabled == false) {
                         
@@ -579,14 +597,14 @@
                         $.get("mods/calendar/google_calendar_update.php", 
                               {id:$("#ori-name1").val(), cmd:"delete"});
                     } else {
-                        //delete event from db
+                        //Delete event from db
                         $.get("mods/calendar/update.php",
                             {id:$("#ori-name1").val(), start:"", end:"", title:"", allday:"", cmd:"delete"}
                         );
                     }
                     calendar.fullCalendar("removeEvents",
                       function(ev) {
-                        //remove event data from hidden elements
+                        //Remove event data from hidden elements
                         $(".fc-month-vhidden").each(
                             function(index) {
                                 if ($(this).parent().prev().prev().text().indexOf( '"' +ev.id +'"' ) >= 0) {
@@ -611,7 +629,7 @@
                                 }
                             }
                         );
-                        //matching event found for deleting
+                        //Matching event found for deleting
                         if (ev.id == $("#ori-name1").val()) {
                             return true;
                         }
@@ -621,7 +639,7 @@
                     $(this).dialog('close');
                 },
                 '<?php echo _AT('calendar_edit_e'); ?>': function() {
-                //get new values of time and date
+                //Get new values of time and date
                 var startsplt = $("#date-start1").val().split("-");
                 var ends;
                 if ($('#viewname1').val() == "true") {
@@ -647,7 +665,7 @@
                 if (endsplt[2].charAt(0) == '0') {
                     endsplt[2] = endsplt[2].charAt(1);
                 }
-                //if allDay is true then only use dates otherwise use both dates and time values
+                //If allDay is true then only use dates otherwise use both dates and time values
                 if ($('#viewname1').val() == "true") {
                     var sdat = new Date(parseInt(startsplt[0]),
                                         parseInt(startsplt[1])-1,
@@ -679,7 +697,7 @@
                         return;
                     }
                 }
-                //remove old event data
+                //Remove old event data
                 calendar.fullCalendar("removeEvents",
                     function(ev) {
                         $(".fc-month-vhidden").each(
@@ -711,7 +729,7 @@
                         }                        
                     }
                 );
-                //add edited event as a new event and also update db values
+                //Add edited event as a new event and also update db values
                 if ($('#viewname1').val() == "true") {
                     if ($("#ori-name1").val().indexOf('http') >= 0) {
                         var mysqlendd = $.fullCalendar.formatDate(new Date(parseInt(endsplt[0]),
