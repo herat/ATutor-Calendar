@@ -300,34 +300,7 @@ Contents-------------------
                                          
     -update.php             -- This script is used to create, edit and delete
                                events.
-                                                
-    -side_menu.inc.php      -- Displays mini calendar in the side menu.
-    
-    -SG_iCal.php            -- SG_iCal parser is used to parse ics files.
-    
-    -helpers/               -- This is part of SG_iCal parser.
-    
-    -blocks/                -- This is part of SG_iCal parser.
-    
-    -Zend/                  -- This folder contains Zend framework which is used
-                               to interact with Google Calendar.
-                                                
-    -patch/                 -- This folder contains patch for ATutor which
-                               enables event retrieval from ATutor.
-    
-    -includes/classes/events.class.php -- Provides all the functions which can be used to
-                                          retrieve personal and ATutor internal events.
-                                                
-    -includes/classes/googlecalendar.class.php -- Provides functions to retrieve 
-                                                  Google Calendar events.
-                                                    
-    -img/                   -- Contains images used in front end interface.
-    
-    -jquery/                -- Includes custom jquery css and related images.
-    
-    -fullcalendar/          -- This folder includes core javascripts and css files
-                               which are used to display calendar interface.
-                                                   
+                               
     -module.php             -- Configuration file of this module.
     
     -module.xml             -- This file is used to display module information
@@ -335,7 +308,31 @@ Contents-------------------
     
     -module_install.php     -- Script used to install module.
     
-    -module_uninstall.php   -- Script used to uninstall module.  
+    -module_uninstall.php   -- Script used to uninstall module.
+                                                
+    -side_menu.inc.php      -- Displays mini calendar in the side menu.
+    
+    -lib/SG_iCal/           -- SG_iCal parser is used to parse ics files.
+    
+    -lib/Zend/              -- This folder contains Zend framework which is
+                               used to interact with Google Calendar.
+                               
+    -lib/jquery/            -- Includes custom jquery css and related images.
+    
+    -lib/fullcalendar/      -- This folder includes core javascripts and css
+                               files which are used to display calendar interface.
+                                                
+    -patch/                 -- This folder contains patch for ATutor which
+                               enables event retrieval from ATutor.
+    
+    -includes/classes/events.class.php -- Provides all the functions which can be 
+                                          used to retrieve personal and ATutor 
+                                          internal events.
+                                                
+    -includes/classes/googlecalendar.class.php -- Provides functions to retrieve 
+                                                  Google Calendar events.
+                                                    
+    -img/                   -- Contains images used in front end interface.  
 
    PATCH
    -----
