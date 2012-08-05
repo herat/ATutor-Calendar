@@ -18,12 +18,12 @@
     
     class Events {
         /**
-		 * Retrieve personal events
-		 *
+         * Retrieve personal events
+         *
          * @access public
-		 * @param int id of user
-		 * @return mixed Array containing all personal events of a user
-		 */
+         * @param int id of user
+         * @return mixed Array containing all personal events of a user
+         */
         public function get_personal_events($userid) {
             global $db;
             $rows = array();
@@ -42,13 +42,13 @@
         }
         
         /**
-		 * Retrieve ATutor course events
-		 *
+         * Retrieve ATutor course events
+         *
          * @access public
-		 * @param int id of user
+         * @param int id of user
          * @param int id of course
-		 * @return mixed Array containing all course related events
-		 */
+         * @return mixed Array containing all course related events
+         */
         public function get_atutor_events($member_id, $course_id) {
             /* check if the user is enrolled in the course */
             global $db;
@@ -96,12 +96,12 @@
         }
         
         /**
-		 * Retrieve JSON encoded events
-		 *
+         * Retrieve JSON encoded events
+         *
          * @access public
-		 * @param mixed Array events extracted from db
-		 * @return string JSON formatted string of events
-		 */
+         * @param mixed Array events extracted from db
+         * @return string JSON formatted string of events
+         */
         public function caledar_encode($rows) {
             //Encode in JSON format.
             $str =  json_encode( $rows );
