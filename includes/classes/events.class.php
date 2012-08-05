@@ -1,4 +1,20 @@
 <?php
+    /****************************************************************/
+    /* ATutor Calendar Module                                       */
+    /* https://atutorcalendar.wordpress.com/                        */
+    /*                                                              */
+    /* This module provides standard calendar features in ATutor.   */
+    /*                                                              */
+    /* Author: Anurup Raveendran, Herat Gandhi                      */
+    /* This program is free software. You can redistribute it and/or*/
+    /* modify it under the terms of the GNU General Public License  */
+    /* as published by the Free Software Foundation.                */
+    /****************************************************************/
+    
+    /**
+     * This class file provides personal and ATutor internal events.
+     */
+    
     class Events {
         public function getPersonalEvents($userid) {
             global $db;

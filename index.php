@@ -36,7 +36,7 @@
                 <a  href="mods/calendar/file_import.php"><?php echo _AT('calendar_import_file')?></a> 
             </li>
             <li>
-                <a id="export" href="mods/calendar/test_export.php"><?php echo _AT('calendar_export_file')?></a>
+                <a id="export" href="mods/calendar/export.php"><?php echo _AT('calendar_export_file')?></a>
             </li>
             <li>
                 <a  href="mods/calendar/send_mail.php"><?php echo _AT('calendar_share'); ?></a>

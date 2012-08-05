@@ -1,9 +1,21 @@
 <?php
+    /****************************************************************/
+    /* ATutor Calendar Module                                       */
+    /* https://atutorcalendar.wordpress.com/                        */
+    /*                                                              */
+    /* This module provides standard calendar features in ATutor.   */
+    /*                                                              */
+    /* Author: Anurup Raveendran, Herat Gandhi                      */
+    /* This program is free software. You can redistribute it and/or*/
+    /* modify it under the terms of the GNU General Public License  */
+    /* as published by the Free Software Foundation.                */
+    /****************************************************************/
+    
     /**
      * This file is used to display all the available
      * calendars in Google Account of a user.
      */
-    require_once 'Zend/Loader.php';
+    require_once 'mods/calendar/lib/Zend/Loader.php';
 
     Zend_Loader::loadClass('Zend_Gdata');
     Zend_Loader::loadClass('Zend_Gdata_AuthSub');

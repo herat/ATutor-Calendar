@@ -10,11 +10,11 @@
 ?>
 <div id='mini-calendar'></div>
 
-<script type='text/javascript' src="<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar-original.js">
+<script type='text/javascript' src="<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-original.js">
 </script>
 
-<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
-<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/fullcalendar/miniCal.css" rel="stylesheet" type="text/css"/>
+<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/miniCal.css" rel="stylesheet" type="text/css"/>
 
 <script type='text/javascript'>
     $(document).ready(function() {
