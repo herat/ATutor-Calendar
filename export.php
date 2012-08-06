@@ -58,7 +58,7 @@ PRODID:-//ATutor//ATutor Calendar Module//EN";
     }
 
     foreach ($rows as $row) {
-        //Timezone manipulation
+        /*Timezone manipulation
         $sstamp   = strtotime($row['start']) - ($_GET['hrs'] * 60 * 60);
         $estamp   = strtotime($row['end'])   - ($_GET['hrs'] * 60 * 60);
         
@@ -66,8 +66,11 @@ PRODID:-//ATutor//ATutor Calendar Module//EN";
         $enddt    = gmdate('Y-m-d H:i:s', $estamp);
         
         $part_s   = explode(' ', $startdt);
-        $part_e   = explode(' ', $enddt);
-
+        $part_e   = explode(' ', $enddt);*/
+        
+        $part_s = explode(" ", $row['start']);
+        $part_e = explode(" ", $row['end']);
+        
         $s_date_p = explode('-', $part_s[0]);
         $e_date_p = explode('-', $part_e[0]);
 
