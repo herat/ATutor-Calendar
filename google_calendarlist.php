@@ -1,9 +1,9 @@
 <?php
     /****************************************************************/
     /* ATutor Calendar Module                                       */
-    /* https://atutorcalendar.wordpresults.com/                        */
+    /* https://atutorcalendar.wordpresults.com/                     */
     /*                                                              */
-    /* This module provides standard calendar featuresult in ATutor.   */
+    /* This module provides standard calendar featuresult in ATutor.*/
     /*                                                              */
     /* Author: Anurup Raveendran, Herat Gandhi                      */
     /* This program is free software. You can redistribute it and/or*/
