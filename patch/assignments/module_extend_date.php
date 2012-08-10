@@ -42,7 +42,7 @@
                 if (strpos( $row['date_due'] . '', '0000-00-00' ) === false) {
                     $assignments[$index] = array(
                                     "id"        => rand(5000,9000) . '',
-                                    "title"     => 'Due date of ' . $row['title'],
+                                    "title"     => _AT('calendar_assignment_due') . $row['title'],
                                     "start"     => $row['date_due'],
                                     "end"       => $row['date_due'],
                                     "allDay"    => false,
@@ -58,7 +58,7 @@
                 if (strpos($row['date_cutoff'] . '', '0000-00-00' ) === false) {
                     $assignments[$index] = array(
                                 "id"        => rand(5000,9000).'',
-                                "title"     => 'Cut off date of ' . $row['title'],
+                                "title"     => _AT('calendar_assignment_cut') . $row['title'],
                                 "start"     => $row['date_cutoff'],
                                 "end"       => $row['date_cutoff'],
                                 "allDay"    => false,

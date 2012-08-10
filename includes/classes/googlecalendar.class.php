@@ -15,11 +15,11 @@
      * This file is used to display all the available
      * calendars in Google Account of a user.
      */
-    $includePath = array();
+    $includePath   = array();
     $includePath[] = '.';
     $includePath[] = 'lib';
     $includePath[] = get_include_path();
-    $includePath = implode(PATH_SEPARATOR,$includePath);
+    $includePath   = implode(PATH_SEPARATOR,$includePath);
     set_include_path($includePath); 
     
     require_once 'Zend/Loader.php';
@@ -30,7 +30,7 @@
     Zend_Loader::loadClass('Zend_Gdata_HttpClient');
     Zend_Loader::loadClass('Zend_Gdata_Calendar');
 
-    $_authSubKeyFile = null; // Example value for secure use: 'mykey.pem'
+    $_authSubKeyFile           = null; // Example value for secure use: 'mykey.pem'
     $_authSubKeyFilePassphrase = null;
 
     class GoogleCalendar {

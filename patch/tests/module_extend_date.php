@@ -39,7 +39,8 @@
                     $time    = date('h:i A',$unix_ts);
                     $tests[$index] = array(
                                 "id"        => rand(20000,25000).'',
-                                "title"     => 'Start date of ' . $row['title']. ' test',
+                                "title"     => _AT('calendar_test_start') . $row['title']/*. 
+                                               _AT('calendar_test_token')*/,
                                 "start"     => $row['start_date'],
                                 "end"       => $row['start_date'],
                                 "allDay"    => false,
@@ -54,7 +55,8 @@
                 if (strpos( $row['end_date'] . '', '0000-00-00' ) === false) {        
                     $tests[$index] = array(
                                 "id"        => rand(20000,25000) . '',
-                                "title"     => 'End date of ' . $row['title'] . ' test',
+                                "title"     => _AT('calendar_test_end') . $row['title']/*.
+                                               _AT('calendar_test_token')*/,
                                 "start"     => $row['end_date'],
                                 "end"       => $row['end_date'],
                                 "allDay"    => false,

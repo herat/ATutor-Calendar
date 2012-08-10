@@ -190,7 +190,7 @@
                     }
                     echo "</select>";
                 } else {
-                    echo "<div id='selection_error'>You are the only one in this course, no available recipients.</div>";
+                    echo "<div id='selection_error'>" . _AT('calendar_no_one_else') . "</div>";
                     echo "<input type='hidden' name='selection_error' value='only one' />";
                 }
             ?>
@@ -202,8 +202,8 @@
     <div class="row">
         <label for="subject"> <?php echo _AT('calendar_titletxt'); ?> </label><br />
         <input type="text" name="subject" size="40" id="subject" value="<?php echo $_POST['subject']; ?>" /><br/>
-        <label> Optional: If the title is not specified, default title will be set to "Calendar of 
-        <?php echo get_display_name($_SESSION['member_id']); ?>" 
+        <label>
+            <?php echo _AT('calendar_optional_fld') . get_display_name($_SESSION['member_id']) . '"'; ?> 
         </label>
     </div>    
 

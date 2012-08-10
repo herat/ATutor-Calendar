@@ -1,4 +1,16 @@
 <?php
+    /****************************************************************/
+    /* ATutor Calendar Module                                       */
+    /* https://atutorcalendar.wordpress.com/                        */
+    /*                                                              */
+    /* This module provides standard calendar features in ATutor.   */
+    /*                                                              */
+    /* Author: Anurup Raveendran, Herat Gandhi                      */
+    /* This program is free software. You can redistribute it and/or*/
+    /* modify it under the terms of the GNU General Public License  */
+    /* as published by the Free Software Foundation.                */
+    /****************************************************************/
+    
     /**
      * This php file is used for side menu. When instructor allows students to
      * access this module as a course tool then in side menu of course's home page
@@ -48,6 +60,6 @@
     $savant->assign('dropdown_contents', ob_get_contents());
     ob_end_clean();
     
-    $savant->assign('title', _AT('calendar_header')); // the box title
+    $savant->assign('title', _AT('calendar_header')); //The box title
     $savant->display('include/box.tmpl.php');
 ?>

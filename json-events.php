@@ -56,7 +56,6 @@
                 array_push($rows, $event);
             }
         }
-    }
-    
+    }    
     echo $eventObj->caledar_encode($rows);
 ?>

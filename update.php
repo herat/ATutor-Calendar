@@ -19,12 +19,12 @@
     //Retrieve all the parameters from request
     define('AT_INCLUDE_PATH', '../../include/');
     require (AT_INCLUDE_PATH.'vitals.inc.php');
-    $iddd = $_GET["id"];
+    $iddd      = $_GET["id"];
     $newstartd = $_GET["start"];
-    $newend = $_GET["end"];
-    $newtitle = $_GET["title"];
-    $alld = $_GET["allday"];
-    $command = $_GET["cmd"];
+    $newend    = $_GET["end"];
+    $newtitle  = $_GET["title"];
+    $alld      = $_GET["allday"];
+    $command   = $_GET["cmd"];
     
     //Connect to database
     global $db;

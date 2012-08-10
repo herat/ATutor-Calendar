@@ -94,11 +94,23 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_save','Save',NOW()
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_edit_title','Edit Title',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_view_title','View Shared Calendar',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_mail_title','Shared Calendar',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_optional_fld','Optional: If the title is not specified, default title will be set to "Calendar of ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_no_one_else','You are the only one in this course, no available recipients.',NOW(),'');
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note1','You can',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note2','login',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_public_note3','to bookmark this calendar.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_pub_def_msg','Use this tab to view shared calendar.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_error','Error: ',NOW(),'');
+
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_test_start','Start date of ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_test_end','End date of ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_test_token',' test',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_course_start','Release date of ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_course_end','End date of ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_course_token',' course',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_assignment_due','Due date of ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_assignment_cut','Cut off date of ',NOW(),'');
 
 # feedback messages
 

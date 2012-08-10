@@ -47,7 +47,7 @@
     } 
     catch (Zend_Gdata_App_Exception $e) {
         //If some error occurs then stop execution and print error.
-        echo 'Error: ' . $e->getMessage();
+        echo _AT('calendar_error') . $e->getMessage();
         exit();
     }
 ?>
