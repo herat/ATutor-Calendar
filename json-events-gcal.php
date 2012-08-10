@@ -18,6 +18,9 @@
     define('AT_INCLUDE_PATH', '../../include/');
     require(AT_INCLUDE_PATH.'vitals.inc.php');
 
+    //Default values
+    define('CALENDAR_DEF_COLOR','#3399FF');
+    
     $gcalobj = new GoogleCalendar();
     
     global $db;
@@ -45,7 +48,7 @@
      *
      * @return array of events in JSON format
      */
-    function outputCalendarByDateRange($client, $startDate='2007-05-01', $endDate='2007-08-01', $idsofcal, $gcalobj) {
+    function outputCalendarByDateRange($client, $startDate, $endDate, $idsofcal, $gcalobj) {
         $gdataCal = new Zend_Gdata_Calendar($client);
         $rows     = array();
 
@@ -64,7 +67,7 @@
                 $query->setStartMax($endDate);
                 
                 $eventFeed  = $gdataCal->getCalendarEventFeed($query);
-                $color      = '#3399FF';
+                $color      = CALENDAR_DEF_COLOR;
                 $accesslevl = true;
                 foreach ($calFeed as $calendar) {
                     if (strpos($idofcal,$calendar->id->text) !== false) {
