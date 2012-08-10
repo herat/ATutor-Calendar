@@ -22,9 +22,10 @@
          *
          * @access public
          * @param int id of user
+         * @param bool FALSE=Default value, TRUE= For export purpose
          * @return mixed Array containing all personal events of a user
          */
-        public function get_personal_events($userid) {
+        public function get_personal_events($userid, $export = FALSE) {
             global $db;
             $rows = array();
             $query = "SELECT * FROM `".TABLE_PREFIX."calendar_events` WHERE userid='".
@@ -33,11 +34,12 @@
         
             //Create an empty array and push all the events in it.
             while ($row = mysql_fetch_assoc($result)) {
-                $row["editable"] = true;
-                $row["calendar"] = "Personal event";
+                if (!$export) { 
+                    $row["editable"] = true;
+                    $row["calendar"] = "Personal event";
+                }
                 array_push($rows,$row);
-            }
-            
+            }            
             return $rows;    
         }
         
@@ -47,9 +49,10 @@
          * @access public
          * @param int id of user
          * @param int id of course
+         * @param bool FALSE=Default value, TRUE= For export purpose
          * @return mixed Array containing all course related events
          */
-        public function get_atutor_events($member_id, $course_id) {
+        public function get_atutor_events($member_id, $course_id, $export = FALSE) {
             /* check if the user is enrolled in the course */
             global $db;
             
@@ -63,32 +66,23 @@
             
             if ($row[0]>0) {
                 global $moduleFactory;
-                $rows = array();
+                $rows    = array();
+                $modules = array();
                 
-                $coursesmod = $moduleFactory->getModule("_core/courses");
-                $courses    = $coursesmod->extend_date($member_id, $course_id);    
-                if ($courses != "") {
-                    foreach ( $courses as $event ) {
-                        $event["calendar"]="ATutor internal";
-                        array_push( $rows, $event );
-                    }
-                }
+                $modules[] = "_core/courses";
+                $modules[] = "_standard/assignments";
+                $modules[] = "_standard/tests";
                 
-                $assignmentsmod = $moduleFactory->getModule("_standard/assignments");
-                $assignments=$assignmentsmod->extend_date($member_id, $course_id);
-                if( $assignments != "" ) {
-                    foreach ( $assignments as $event ) {
-                        $event["calendar"]="ATutor internal";
-                        array_push( $rows, $event );
-                    }
-                }        
-                
-                $testsmod = $moduleFactory->getModule("_standard/tests");
-                $tests=$testsmod->extend_date($member_id, $course_id);
-                if( $tests != "" ) {
-                    foreach ( $tests as $event ) {
-                        $event["calendar"]="ATutor internal";
-                        array_push( $rows, $event );
+                foreach ( $modules as $modulename ) {
+                    $module_obj = $moduleFactory -> getModule($modulename);
+                    $events     = $module_obj    -> extend_date($member_id, $course_id);    
+                    if ($events != "") {
+                        foreach ( $events as $event ) {
+                            if (!$export) {
+                                $event["calendar"]="ATutor internal";
+                            }
+                            array_push($rows, $event);
+                        }
                     }
                 }
                 return $rows;

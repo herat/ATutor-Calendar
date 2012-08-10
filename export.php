@@ -16,45 +16,25 @@
      */
     define('AT_INCLUDE_PATH', '../../include/');
     require(AT_INCLUDE_PATH.'vitals.inc.php');
+    require('includes/classes/events.class.php');
+    
     global $db;
-
+    $rows     = array();
+    $eventObj = new Events();
+    
     //Create ics file in $ical string variable
     $ical = "BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//ATutor//ATutor Calendar Module//EN";
     
     //Get all the events of the user
-    $query  = "SELECT * FROM `" . TABLE_PREFIX . "calendar_events` WHERE userid='".
-              $_SESSION['member_id']."'";
-    $result = mysql_query($query,$db);
-    $rows   = array();
-
-    while ($row = mysql_fetch_assoc($result)) {
-        array_push($rows, $row);
+    foreach ($eventObj->get_personal_events($_SESSION['member_id'],TRUE) as $event) {
+        array_push($rows, $event);
     }
 
     //Get ATutor system events
-    global $moduleFactory;
-
-    $coursesmod = $moduleFactory->getModule('_core/courses');
-    $courses    = $coursesmod->extend_date($_SESSION['member_id'],$_SESSION['course_id']);    
-    if($courses != '') {
-        foreach ($courses as $event)
-            array_push($rows, $event);
-    }
-
-    $assignmentsmod = $moduleFactory->getModule('_standard/assignments');
-    $assignments    = $assignmentsmod->extend_date($_SESSION['member_id'],$_SESSION['course_id']);
-    if($assignments != '') {
-        foreach ($assignments as $event)
-            array_push($rows, $event);
-    }        
-
-    $testsmod = $moduleFactory->getModule('_standard/tests');
-    $tests    = $testsmod->extend_date($_SESSION['member_id'],$_SESSION['course_id']);
-    if($tests != '') {
-        foreach ($tests as $event)
-            array_push($rows, $event);
+    foreach ($eventObj->get_atutor_events($_SESSION['member_id'],$_SESSION['course_id'],TRUE) as $event) {
+        array_push($rows, $event);
     }
 
     foreach ($rows as $row) {
