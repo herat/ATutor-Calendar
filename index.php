@@ -230,7 +230,7 @@
                 //get new start date, end date and send it to the db
                 var newsdate = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm") + ":00"; 
                 var newedate = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm") + ":00"; 
-                $.get("mods/calendar/update.php",{id:event.id, start:newsdate, end:newedate, title:'',allday:'', cmd:"drag"});
+                $.get("mods/calendar/update_personal_event.php",{id:event.id, start:newsdate, end:newedate, title:'',allday:'', cmd:"drag"});
             },            
             viewDisplay: function(view) {
                 viewchangd = true;
@@ -544,7 +544,7 @@
                                             "yyyy-MM-dd HH:mm") + ":00";
                         
                         $.get(
-                            "mods/calendar/update.php",
+                            "mods/calendar/update_personal_event.php",
                             {id:'',start:mysqlstartd, end:mysqlendd, title:$("#name").val(), cmd:"create",allday:"true"}, 
                             function(data) {
                                 calendar.fullCalendar("refetchEvents");
@@ -564,7 +564,7 @@
                                           timestp[0],
                                           timestp[1]), "yyyy-MM-dd HH:mm") + ":00";
                         $.get(
-                            "mods/calendar/update.php",
+                            "mods/calendar/update_personal_event.php",
                             {id:'',start:mysqlstartd, end:mysqlendd, title:$("#name").val(), cmd:"create",allday:"false"}, function(data) {
                                 calendar.fullCalendar('refetchEvents');
                             }
@@ -598,7 +598,7 @@
                               {id:$("#ori-name1").val(), cmd:"delete"});
                     } else {
                         //Delete event from db
-                        $.get("mods/calendar/update.php",
+                        $.get("mods/calendar/update_personal_event.php",
                             {id:$("#ori-name1").val(), start:"", end:"", title:"", allday:"", cmd:"delete"}
                         );
                     }
@@ -763,7 +763,7 @@
                                                                                       parseInt(startsplt[2])),
                                                                                       "yyyy-MM-dd HH:mm") + ":00";
                         $.get(
-                            "mods/calendar/update.php",
+                            "mods/calendar/update_personal_event.php",
                             {
                             id:$("#ori-name1").val(), start:mysqlstartd, end:mysqlendd, 
                             title:$("#name1").val(), cmd:"update",allday:"true"
@@ -814,7 +814,7 @@
                                                                              timestr[1]),
                                                                              "yyyy-MM-dd HH:mm") + ":00";
                         $.get(
-                            "mods/calendar/update.php",
+                            "mods/calendar/update_personal_event.php",
                             {
                             id:$("#ori-name1").val(),start:mysqlstartd, end:mysqlendd,
                             title:$("#name1").val(), cmd:"update",allday:"false"},

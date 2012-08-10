@@ -19,7 +19,7 @@
     require(AT_INCLUDE_PATH.'header.inc.php');
 ?>
 
-<form action="mods/calendar/import_db.php" method="post" enctype="multipart/form-data">
+<form action="mods/calendar/import_ics.php" method="post" enctype="multipart/form-data">
     <label for="file"><?php echo _AT('calendar_upload_file'); ?></label>
     <input type="file" name="file" id="file" />
     <br />
