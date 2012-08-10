@@ -4,8 +4,8 @@
 
         /**
          * Extending the assignment dates to make them accessible to Calendar Module
-         * @param    :    none | course_id(if this function is going to be used for multiple courses)
-         * @return    :    array (assignment dates)
+         * @param     :    Course id, Member id
+         * @return    :    array (assignment due and cut off dates) in format that can be used by fullcalendar
          * @author    :    Anurup Raveendran, Herat Gandhi
          */
 
