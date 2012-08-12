@@ -43,15 +43,18 @@
         var calendar_cancel_e       = '" . _AT('calendar_cancel_e') . "';
         var calendar_del_e          = '" . _AT('calendar_del_e') . "';
         var calendar_edit_e         = '" . _AT('calendar_edit_e') . "';
-        var session_view_on         = " . $session_view_on . ";
-        var fc_year                 = " . $_SESSION['fc-year'] . ";
-        var fc_month                = " . $_SESSION['fc-month'] . ";
-        var fc_date                 = " . $_SESSION['fc-date'] . ";
-    ";
+        var session_view_on         = " . $session_view_on . ";";
+        if ($session_view_on == 1) {
+            $global_js_vars .= "
+            var fc_year                 = " . $_SESSION['fc-year'] . ";
+            var fc_month                = " . $_SESSION['fc-month'] . ";
+            var fc_date                 = " . $_SESSION['fc-date'] . ";
+            ";
+        }
     $_custom_head .= 
     '<script language="javascript" type="text/javascript">' . $global_js_vars . '</script>
     <script language="javascript" type="text/javascript" src="' . AT_BASE_HREF .
-     'mods/calendar/index.js"></script>';    
+     'mods/calendar/js/index.js"></script>';    
     require(AT_INCLUDE_PATH.'header.inc.php');
 ?>
 <!-- Loader wheel to indicate on-going transfer of data -->

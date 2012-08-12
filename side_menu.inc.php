@@ -28,34 +28,11 @@
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/miniCal.css" rel="stylesheet" type="text/css"/>
 
-<script type='text/javascript'>
-    $(document).ready(function() {
-        //get current date
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-        $('#mini-calendar').fullCalendar({
-            theme: false,
-            /* ToDo: Remove week and day views when ported to ATutor */
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: ''
-            },
-            /* Events are editable */
-            editable: false,     
-            /* ToDo: Replace with fluid tooltip */
-            eventMouseover: function(event, jsEvent, view) {
-                if (view.name !== 'agendaDay') {
-                    $(jsEvent.target).attr('title', event.title);
-                }
-            },
-            events: "<?php echo AT_BASE_HREF; ?>mods/calendar/json-events.php?mini=1"
-        }); 
-    });
+<script type="text/javascript">
+    var path = "<?php echo AT_BASE_HREF; ?>";
 </script>
-
+<script type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/js/side_menu.js">
+</script>
 <?php
     $savant->assign('dropdown_contents', ob_get_contents());
     ob_end_clean();

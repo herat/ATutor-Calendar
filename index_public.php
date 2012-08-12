@@ -21,6 +21,21 @@
     define('AT_INCLUDE_PATH', '../../include/');
     require(AT_INCLUDE_PATH.'vitals.inc.php');
     
+    $global_js_vars = "
+        var calendar_prv_mnth       = '" . _AT('calendar_prv_mnth') . "';
+        var calendar_prv_week       = '" . _AT('calendar_prv_week') . "';
+        var calendar_prv_day        = '" . _AT('calendar_prv_day') . "';
+        var calendar_nxt_mnth       = '" . _AT('calendar_nxt_mnth') . "';
+        var calendar_nxt_week       = '" . _AT('calendar_nxt_week') . "';
+        var calendar_nxt_day        = '" . _AT('calendar_nxt_day') . "';
+        var mid                     = '" . $_GET['mid'] . "';
+        var cid                     = '" . $_GET['cid'] . "';
+    ";
+    $_custom_head .= 
+    '<script language="javascript" type="text/javascript">' . $global_js_vars . '</script>
+    <script language="javascript" type="text/javascript" src="' . AT_BASE_HREF .
+     'mods/calendar/js/index_public.js"></script>';
+    
     //Get member id from request if it is not set then display default message
     if (!isset($_GET['mid'])) {
         require(AT_INCLUDE_PATH.'header.inc.php'); 
@@ -153,104 +168,6 @@
 
 <link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 
-<script>
-    //For IE
-    $.ajaxSetup({cache: false});
-
-    $(document).ready(function () {
-        //Get current date for calculations.
-                
-        var date = new Date();
-        var d    = date.getDate();
-        var m    = date.getMonth();
-        var y    = date.getFullYear();
-        
-        var activeelem;
-        var focusd     = false;
-        var viewchangd = false;
-        
-        var calendar = $('#calendar').fullCalendar({
-        
-            defaultView: "month",            
-            loading: function(isLoading, view) {
-                if( isLoading )
-                    $("#loader").show();
-                else
-                    $("#loader").hide();
-            },            
-            //Do not apply theme
-            theme: false,            
-            //Header details
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            //Catch the fired event but do not save view
-            saveView: function() {
-                var viewo = calendar.fullCalendar('getView');
-                if (viewchangd) {
-                    viewchangd = false;
-                }
-            },
-            //Do not allow adding events by selecting cells
-            selectable: false,
-            selectHelper: false,            
-            eventAfterRender: function(evento,elemento,viewo) {
-                if (!evento.editable) {
-                    var childo = elemento.children();
-                    if (viewo.name == "month") {
-                        childo[1].innerHTML += "<div class='fc-unedit-announce'>Uneditable event</div>";
-                    } else {
-                        childo[0].innerHTML += "<div class='fc-unedit-announce'>Uneditable event</div>";
-                    }
-                }
-                if (focusd) {
-                    if (evento.id + "" == $("#ori-name1").val()) {
-                        elemento.focus();
-                        focusd = false;
-                    }
-                }
-            },            
-            //Event is resized. So update db.
-            eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) { 
-            },
-            viewDisplay: function(view) {
-                //Add data for screen reader
-                viewchangd = true;
-                $(".fc-button-firsts").each(
-                   function() {
-                        if ($(this).text().indexOf( 'Previous' ) >= 0) {
-                            if (view.name == "month") {
-                                $(this).text("<?php echo _AT('calendar_prv_mnth'); ?>");
-                            } else if (view.name == "agendaWeek") {
-                                $(this).text("<?php echo _AT('calendar_prv_week'); ?>");
-                            } else {
-                                $(this).text("<?php echo _AT('calendar_prv_day'); ?>");
-                            }
-                        }
-                        if ($(this).text().indexOf( 'Next' ) >= 0) {
-                            if (view.name == "month") {
-                                $(this).text("<?php echo _AT('calendar_nxt_mnth'); ?>");
-                            } else if (view.name == "agendaWeek") {
-                                $(this).text("<?php echo _AT('calendar_nxt_week'); ?>");
-                            } else {
-                                $(this).text("<?php echo _AT('calendar_nxt_day'); ?>");
-                            }
-                        }
-                   });                
-            },
-            //Events are not editable.
-            editable: false,
-            //Retrieve events from php file.
-            events: "mods/calendar/json-events.php?mid=<?php echo $_GET['mid']; ?>&pub=1&cid=<?php echo $_GET['cid']; ?>"            
-        });            
-    });
-    function refreshevents() {
-        //Refresh events as view is changed
-        $("#calendar").fullCalendar("refetchEvents");
-    }    
-</script>
 <style type="text/css">
     #calendar {
         width: 75%;
