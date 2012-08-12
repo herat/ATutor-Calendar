@@ -104,8 +104,8 @@
             }
             
             $body .= AT_BASE_HREF . "mods/calendar/index_public.php?mid=".
-                    $_SESSION['member_id'] . "&email=1&cid=" . $_SESSION['course_id'].
-                    "&calname=" . urlencode($calname);
+                    urlencode(base64_encode($_SESSION['member_id'])) . "&email=1&cid=".
+                    $_SESSION['course_id'] . "&calname=" . urlencode($calname);
             //echo $body;
             //exit;
                     

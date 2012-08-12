@@ -20,7 +20,7 @@
     
     define('AT_INCLUDE_PATH', '../../include/');
     require(AT_INCLUDE_PATH.'vitals.inc.php');
-    
+
     $global_js_vars = "
         var calendar_prv_mnth       = '" . _AT('calendar_prv_mnth') . "';
         var calendar_prv_week       = '" . _AT('calendar_prv_week') . "';
@@ -28,7 +28,7 @@
         var calendar_nxt_mnth       = '" . _AT('calendar_nxt_mnth') . "';
         var calendar_nxt_week       = '" . _AT('calendar_nxt_week') . "';
         var calendar_nxt_day        = '" . _AT('calendar_nxt_day') . "';
-        var mid                     = '" . $_GET['mid'] . "';
+        var mid                     = '" . base64_decode(urldecode($_GET['mid'])) . "';
         var cid                     = '" . $_GET['cid'] . "';
     ";
     $_custom_head .= 
@@ -50,7 +50,7 @@
         if (isset($_SESSION['member_id'])) {
             //Check whether user already bookmarked the calendar
             $sql    = "SELECT * FROM " . TABLE_PREFIX . "calendar_bookmark WHERE memberid=".
-                      $_SESSION['member_id'] . " AND ownerid=" . $_GET['mid'].
+                      $_SESSION['member_id'] . " AND ownerid=" . base64_decode(urldecode($_GET['mid'])).
                       " AND courseid=" . $_GET['cid'];
             $result = mysql_query($sql, $db);
             //If user has already bookmarked calendar then display error
@@ -59,7 +59,7 @@
             } else {
                 //Not bookmarked so bookmark now
                 $sql = "INSERT INTO " . TABLE_PREFIX . "calendar_bookmark VALUES (".
-                       $_SESSION['member_id'] . "," . $_GET['mid'] . "," . $_GET['cid']. 
+                       $_SESSION['member_id'] . "," . base64_decode(urldecode($_GET['mid'])) . "," . $_GET['cid']. 
                        ",'" . $_GET['calname'] . "')";
                 mysql_query($sql, $db);
             }
@@ -75,7 +75,7 @@
         //Delete the bookmark
         if (isset($_SESSION['member_id'])) {
             $sql = "DELETE FROM " . TABLE_PREFIX . "calendar_bookmark WHERE memberid=".
-                   $_SESSION['member_id'] . " AND ownerid=" . $_GET['mid'];
+                   $_SESSION['member_id'] . " AND ownerid=" . base64_decode(urldecode($_GET['mid']));
             mysql_query($sql, $db);
             header('Location: index.php');
             exit;
@@ -87,7 +87,7 @@
         if (isset($_SESSION['member_id'])) {
             $sql = "UPDATE " . TABLE_PREFIX . "calendar_bookmark SET calname='".
                     $_GET['calname'] . "' WHERE memberid=".
-                    $_SESSION['member_id'] . " AND ownerid=" . $_GET['mid'];
+                    $_SESSION['member_id'] . " AND ownerid=" . base64_decode(urldecode($_GET['mid']));
             mysql_query($sql, $db);
             header('Location: index.php');
             exit;
