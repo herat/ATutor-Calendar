@@ -222,6 +222,9 @@ $(document).ready(function () {
                 });
                 var startpt = date.getHours();
                 var endpt   = calevent.end;
+                if (endpt == null) {
+                    endpt = date;
+                }
                 var bol     = true;
                 for (tempi=0; tempi<=24; tempi++) {
                     if (tempi == 24) {
@@ -233,8 +236,13 @@ $(document).ready(function () {
                         select.append("<option value='" + tempi + ":30' >" + tempi + ":30" + "</option>");
                         bol = true;                                
                     }
-                }                    
-                select.val(endpt.getHours() + ":" + endpt.getMinutes());
+                }
+                if (endpt.getMinutes() < 30) {
+                    select.val(endpt.getHours() + ":0");
+                }
+                else {
+                    select.val(endpt.getHours() + ":30");
+                }
                 
                 select = $('#time-start1');
                 bol = true;
@@ -248,8 +256,13 @@ $(document).ready(function () {
                         select.append("<option value='"+tempi+":30' >"+tempi+":30"+"</option>");                                
                         bol = true;                                
                     }
-                }                    
-                select.val(date.getHours() + ":" + date.getMinutes());
+                }
+                if (date.getMinutes() < 30) {
+                    select.val(date.getHours() + ":0");
+                }
+                else {
+                    select.val(date.getHours() + ":30");
+                }
             }
             //Save allDay value in hidden field
             $("#viewname1").val("" + calevent.allDay);
