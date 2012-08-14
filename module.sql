@@ -75,7 +75,7 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_prv_day','Previous
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_creat_e','Create Event',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_cancel_e','Cancel',NOW(),'');
-INSERT INTO `language_text` VALUES ('en', '_module','calendar_edit_e','Edit Event',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_edit_e','Save',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_del_e','Delete Event',NOW(),'');
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_share','Share Calendar',NOW(),'');
