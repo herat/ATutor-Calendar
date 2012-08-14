@@ -55,9 +55,9 @@ $(document).ready(function () {
             if (!evento.editable) {
                 var childo = elemento.children();
                 if( viewo.name == "month" )
-                    childo[1].innerHTML += "<div class='fc-unedit-announce'>Uneditable event</div>";
+                    childo[1].innerHTML += "<div class='fc-unedit-announce'>" + calendar_uneditable + "</div>";
                 else
-                    childo[0].innerHTML += "<div class='fc-unedit-announce'>Uneditable event</div>";
+                    childo[0].innerHTML += "<div class='fc-unedit-announce'>" + calendar_uneditable + "</div>";
             } else {
                 fluid.tooltip( elemento, {
                         content: function() {

@@ -44,6 +44,7 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_internal_events','
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_events_persnl','Personal Events',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_events_assign_due','Assignment Due Date',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_events_assign_cut','Assignment Cut off Date',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_uneditable','Uneditable event',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_events_course_rel','Course Release Date',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_events_course_end','Course End Date',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_events_test_start','Test Start Date',NOW(),'');

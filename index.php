@@ -43,6 +43,7 @@
         var calendar_cancel_e       = '" . _AT('calendar_cancel_e') . "';
         var calendar_del_e          = '" . _AT('calendar_del_e') . "';
         var calendar_edit_e         = '" . _AT('calendar_edit_e') . "';
+        var calendar_uneditable     = '" . _AT('calendar_uneditable') . "';
         var session_view_on         = " . $session_view_on . ";";
         if ($session_view_on == 1) {
             $global_js_vars .= "
