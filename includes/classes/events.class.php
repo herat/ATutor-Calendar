@@ -18,6 +18,22 @@
     
     class Events {
         /**
+         * Array of modules from which dates are to be collected
+         */
+        public $modules;
+        
+        /**
+         * Initialize modules array, additional modules may be inserted here
+         */
+        function __construct() {
+            $this->modules   = array();
+            
+            $this->modules[] = "_core/courses";
+            $this->modules[] = "_standard/assignments";
+            $this->modules[] = "_standard/tests";
+        }        
+        
+        /**
          * Retrieve personal events
          *
          * @access public
@@ -67,13 +83,8 @@
             if ($row[0]>0) {
                 global $moduleFactory;
                 $rows    = array();
-                $modules = array();
-                
-                $modules[] = "_core/courses";
-                $modules[] = "_standard/assignments";
-                $modules[] = "_standard/tests";
-                
-                foreach ( $modules as $modulename ) {
+                                
+                foreach ($this->modules as $modulename) {
                     $module_obj = $moduleFactory -> getModule($modulename);
                     $events     = $module_obj    -> extend_date($member_id, $course_id);    
                     if ($events != "") {
