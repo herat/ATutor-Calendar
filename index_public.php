@@ -54,7 +54,13 @@
                       " AND courseid=" . $_GET['cid'];
             $result = mysql_query($sql, $db);
             //If user has already bookmarked calendar then display error
-            if (mysql_num_rows( $result ) > 0) {
+            if (is_null($result) || !$result) {
+                //Not bookmarked so bookmark now
+                $sql = "INSERT INTO " . TABLE_PREFIX . "calendar_bookmark VALUES (".
+                       $_SESSION['member_id'] . "," . base64_decode(urldecode($_GET['mid'])) . "," . $_GET['cid']. 
+                       ",'" . $_GET['calname'] . "')";
+                mysql_query($sql, $db);
+            } else if (is_resource($result) && mysql_num_rows($result) > 0) {
                 $msg->addError('ALREADY_BOOKMARKED');
             } else {
                 //Not bookmarked so bookmark now
