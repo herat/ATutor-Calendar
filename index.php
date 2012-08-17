@@ -55,7 +55,8 @@
     $_custom_head .= 
     '<script language="javascript" type="text/javascript">' . $global_js_vars . '</script>
     <script language="javascript" type="text/javascript" src="' . AT_BASE_HREF .
-     'mods/calendar/js/index.js"></script>';    
+     'mods/calendar/js/index.js"></script>';
+    $_custom_css = $_base_path . 'mods/calendar/lib/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet
     require(AT_INCLUDE_PATH.'header.inc.php');
 ?>
 <!-- Loader wheel to indicate on-going transfer of data -->
@@ -170,13 +171,10 @@
     ?>
 </div>
 
-<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF;?>jscripts/infusion/InfusionAll.js">
+<script type="text/javascript" src="<?php AT_BASE_HREF?>jscripts/infusion/lib/jquery/plugins/tooltip/js/jquery.tooltip.js">
 </script>
-
-<?php 
-    $_custom_css = $_base_path . 'mods/calendar/lib/fullcalendar/fullcalendar-theme.css'; // use a custom stylesheet     
-?>
-
+<script type="text/javascript" src="<?php AT_BASE_HREF?>jscripts/infusion/lib/jquery/plugins/tooltip/js/jquery.ui.tooltip.js">
+</script>
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.js">
 </script>
 
