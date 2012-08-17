@@ -171,9 +171,7 @@
     ?>
 </div>
 
-<script type="text/javascript" src="<?php AT_BASE_HREF?>jscripts/infusion/lib/jquery/plugins/tooltip/js/jquery.tooltip.js">
-</script>
-<script type="text/javascript" src="<?php AT_BASE_HREF?>jscripts/infusion/lib/jquery/plugins/tooltip/js/jquery.ui.tooltip.js">
+<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF;?>jscripts/infusion/InfusionAll.js">
 </script>
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.js">
 </script>
