@@ -171,12 +171,8 @@
     ?>
 </div>
 
-<script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF;?>jscripts/infusion/InfusionAll.js">
-</script>
 <script language="javascript" type="text/javascript" src="<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.js">
 </script>
-
-<link href= "<?php echo AT_BASE_HREF; ?>mods/calendar/lib/fullcalendar/fullcalendar-theme.css" rel="stylesheet" type="text/css"/>
 
 <style type='text/css'>
     #calendar {

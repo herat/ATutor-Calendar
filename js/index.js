@@ -59,7 +59,15 @@ $(document).ready(function () {
                 else
                     childo[0].innerHTML += "<div class='fc-unedit-announce'>" + calendar_uneditable + "</div>";
             } else {
-                fluid.tooltip( elemento, {
+                var childo = elemento.children();
+                if( viewo.name == "month" )
+                    fluid.tooltip( childo[1], {
+                        content: function() {
+                            return calendar_tooltip_event;
+                        }
+                    });
+                else
+                    fluid.tooltip( childo[0], {
                         content: function() {
                             return calendar_tooltip_event;
                         }
