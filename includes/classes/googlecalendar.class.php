@@ -99,6 +99,8 @@
          *
          * Uses getAuthSubUrl() to get the URL which the user must visit to authenticate
          *
+         * @param string to be displayed for user interaction
+         *
          * @return void
          */
         public function requestUserLogin($linkText) {
@@ -137,6 +139,8 @@
          * call to function getCalendarListFeed is made. If there are some 
          * problems then the token is not valid.
          *
+         * @param Zend client object
+         *
          * @return void
          */
         public function outputCalendarListCheck($client) {
@@ -144,7 +148,7 @@
             $calFeed = $gdataCal->getCalendarListFeed();
         }
         
-        public function isvalidtoken( $tokent ) {
+        public function isvalidtoken($tokent) {
             try {
                 $client = $this->getAuthSubHttpClient();
                 $this->outputCalendarListCheck($client);
@@ -161,6 +165,8 @@
         /**
          * Display list of calendars in the sidemenu with 
          * checkbox ahead of each calendar's title.
+         *
+         * @param Zend client object
          *
          * @return void
          */

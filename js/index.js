@@ -1,3 +1,6 @@
+/**
+ * This javascript is used to display main view of calendar.
+ */
 //For IE
 $.ajaxSetup({cache: false});
 

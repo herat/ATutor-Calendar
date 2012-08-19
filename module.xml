@@ -23,7 +23,7 @@
     <license>GPL/ATutor</license> 
     <release> 
         <version>1.0</version> 
-        <date>2011-08-22</date> 
+        <date>2012-08-20</date> 
         <state>stable</state> 
         <notes>This module requires the module_extend_date patch to be installed for the courses,tests, and assignments modules.</notes> 
     </release> 

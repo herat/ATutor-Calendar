@@ -121,7 +121,8 @@
                exit;
             }
             
-            /*$to      = 'herat_000@yahoo.co.in';
+            /*//For testing email
+            $to      = 'herat_000@yahoo.co.in';
             $subject = $stripslashes(_AT("calendar_mail_title"));
             $message = $body;
             $headers = 'From: abc@gmail.com' . "\r\n" .

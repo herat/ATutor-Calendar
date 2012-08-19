@@ -1,3 +1,6 @@
+/**
+ * This javascript is used to display calendar in the side menu.
+ */
 $(document).ready(function() {
     //get current date
     var date = new Date();
@@ -6,15 +9,13 @@ $(document).ready(function() {
     var y = date.getFullYear();
     $('#mini-calendar').fullCalendar({
         theme: false,
-        /* ToDo: Remove week and day views when ported to ATutor */
         header: {
             left: 'prev,next today',
             center: 'title',
             right: ''
         },
-        /* Events are editable */
+        /* Events are not editable */
         editable: false,     
-        /* ToDo: Replace with fluid tooltip */
         eventMouseover: function(event, jsEvent, view) {
             if (view.name !== 'agendaDay') {
                 $(jsEvent.target).attr('title', event.title);

@@ -2,14 +2,12 @@
     @session_start();
     if (!defined('AT_INCLUDE_PATH')) { exit; }
 
-        /**
-         * Extending the assignment dates to make them accessible to Calendar Module
-         * @param     :    Course id, Member id
-         * @return    :    array (assignment due and cut off dates) in format that can be used by fullcalendar
-         * @author    :    Anurup Raveendran, Herat Gandhi
-         */
-
-
+    /**
+     * Extending the assignment dates to make them accessible to Calendar Module
+     * @param     :    Course id, Member id
+     * @return    :    array (assignment due and cut off dates) in format that can be used by fullcalendar
+     * @author    :    Anurup Raveendran, Herat Gandhi
+     */
     function assignments_extend_date($member_id, $course_id) {
 
         global $db;

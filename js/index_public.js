@@ -1,9 +1,11 @@
+/**
+ * This javascript is used to display public view of calendar.
+ */
 //For IE
 $.ajaxSetup({cache: false});
 
 $(document).ready(function () {
-    //Get current date for calculations.
-            
+    //Get current date for calculations.            
     var date = new Date();
     var d    = date.getDate();
     var m    = date.getMonth();
@@ -13,8 +15,7 @@ $(document).ready(function () {
     var focusd     = false;
     var viewchangd = false;
     
-    var calendar = $('#calendar').fullCalendar({
-    
+    var calendar = $('#calendar').fullCalendar({    
         defaultView: "month",            
         loading: function(isLoading, view) {
             if( isLoading )
@@ -56,7 +57,7 @@ $(document).ready(function () {
                 }
             }
         },            
-        //Event is resized. So update db.
+        //Event is resized. So update db. N.A. here
         eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) { 
         },
         viewDisplay: function(view) {
