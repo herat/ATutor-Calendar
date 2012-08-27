@@ -25,6 +25,11 @@ CREATE TABLE `calendar_bookmark` (
   `calname` varchar(256)
 );
 
+CREATE TABLE `calendar_notification` (
+  `memberid` int(11),
+  `status` int(8)
+);
+
 # language text
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar','Calendar',NOW(),'');
@@ -112,6 +117,14 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_course_end','End d
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_course_token',' course',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_assignment_due','Due date of ',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_assignment_cut','Cut off date of ',NOW(),'');
+
+#email notifications
+
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_notification','Email Notifications',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_on','On',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_off','Off',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_turn','Turn',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_title','ATutor Calendar Notification',NOW(),'');
 
 # feedback messages
 

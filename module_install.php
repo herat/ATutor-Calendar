@@ -44,7 +44,7 @@
      */
     $_course_privilege = TRUE; // possible values: FALSE | AT_PRIV_ADMIN | TRUE
     $_admin_privilege  = TRUE; // possible values: FALSE | TRUE
-    
+    $_cron_interval    = 1440; // run every 24 hours
     
     /********
      * the following code is used for creating a module-specific directory.

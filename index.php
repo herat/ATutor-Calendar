@@ -17,6 +17,19 @@
     
     define('AT_INCLUDE_PATH', '../../include/');
     require(AT_INCLUDE_PATH.'vitals.inc.php');
+    
+    global $db;
+    
+    //Change status of email notifications
+    if (isset($_GET['noti']) && $_GET['noti'] == 1) {
+        $sql = "UPDATE " . TABLE_PREFIX . "calendar_notification SET status = 1 WHERE 
+                 memberid = " . $_SESSION['member_id'];
+        mysql_query($sql,$db);
+    } else if (isset($_GET['noti']) && $_GET['noti'] == 0) {
+        $sql = "UPDATE " . TABLE_PREFIX . "calendar_notification SET status = 0 WHERE 
+                 memberid = " . $_SESSION['member_id'];
+        mysql_query($sql,$db);
+    }
 
     //Change view according to session value
     if (!isset($_SESSION['fc-viewname'])) {
@@ -81,12 +94,51 @@
             <li>
                 <a  href="mods/calendar/send_mail.php"><?php echo _AT('calendar_share'); ?></a>
             </li>
+            <li>
+                <?php echo _AT('calendar_notification');?>:&nbsp;
+                <?php
+                    //Find current status of notification
+                    $sql    = "SELECT * FROM " . TABLE_PREFIX . "calendar_notification WHERE memberid=".
+                      $_SESSION['member_id'];
+                    $status = 0;  
+                    $result = mysql_query($sql, $db);
+                    
+                    if (is_null($result) || !$result) {
+                        //Not any entry for user, make one default entry
+                        $sql = "INSERT INTO " . TABLE_PREFIX . "calendar_notification VALUES (".
+                               $_SESSION['member_id'] . ",0)";
+                        mysql_query($sql, $db);
+                        $status = 0;
+                    } else if (is_resource($result) && mysql_num_rows($result) > 0) {
+                        //There is an entry in the table, find the value
+                        $row = mysql_fetch_row($result);
+                        if ($row[1] == 0) {
+                            $status = 0;
+                        } else {
+                            $status = 1;
+                        }
+                    } else {
+                        //Not any entry for user, make one default entry
+                        $sql = "INSERT INTO " . TABLE_PREFIX . "calendar_notification VALUES (".
+                               $_SESSION['member_id'] . ",0)";
+                        mysql_query($sql, $db);
+                        $status = 0;
+                    }
+                    //Put button to reflect current status
+                    if ($status == 1) {
+                        echo _AT('calendar_noti_on');
+                        echo "<br/><a href='mods/calendar/index.php?noti=0'>" . _AT('calendar_noti_turn'). " " . _AT('calendar_noti_off') . "</a>";
+                    } else {
+                        echo _AT('calendar_noti_off');
+                        echo "<br/><a href='mods/calendar/index.php?noti=1'>" . _AT('calendar_noti_turn'). " " . _AT('calendar_noti_on') . "</a>";
+                    }
+                ?>
+            </li>
     <?php
         /**
          * Check if user has token for Google Account. If yes then display disconnect option
          * otherwise display connect option.
          */
-        global $db;
         $query = "SELECT * FROM ".TABLE_PREFIX."calendar_google_sync WHERE userid='".$_SESSION['member_id']."'";
         $result = mysql_query($query,$db);
         
