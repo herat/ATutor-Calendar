@@ -55,17 +55,20 @@
                 }
                 
                 //Iterate through each event and keep only those events which will start tomorrow
-                $email_msg = "Events for tomorrow: \n"; 
+                $email_msg = "Events for tomorrow: \n";
+                $index = 1; 
                 foreach ($all_events as $id => $event) {
-                    if (strtotime(substr($event['start'],0,10)) == strtotime('tomorrow')) { 
+                    if (strtotime(substr($event['start'],0,10)) == strtotime('tomorrow')) {
+                        $email_msg .= "Event #" . $index                       . " \n"; 
                         $email_msg .= "Start: " . substr($event['start'],0,10) . " \n";
                         $email_msg .= "End: "   . substr($event['end'],0,10)   . " \n";
-                        $email_msg .= "Event: " . $event['title']              . " \n"; 
+                        $email_msg .= "Event: " . $event['title']              . " \n\n"; 
+                        $index++;
                     }
                 }
                 
                 //Send email using ATutor mailer
-                $mail->From     = $fromemail;
+                $mail->From     = $_config['contact_email'];
                 $mail->FromName = $_config['site_name'];
                 $mail->AddAddress($_config['contact_email']);
                 $mail->Subject = $stripslashes(_AT('calendar_noti_title'));
