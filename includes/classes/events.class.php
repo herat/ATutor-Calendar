@@ -70,34 +70,42 @@
          */
         public function get_atutor_events($member_id, $course_id, $export = FALSE) {
             /* check if the user is enrolled in the course */
-            global $db;
-            
-            $sql = "SELECT COUNT(*) FROM
-                   `".TABLE_PREFIX."course_enrollment`
-                    WHERE `member_id`='".$member_id."'
-                    AND   `course_id`='".$course_id."'";
-            
-            $result = mysql_query($sql,$db);
-            $row = mysql_fetch_row($result);
-            
-            if ($row[0]>0) {
-                global $moduleFactory;
-                $rows    = array();
-                                
-                foreach ($this->modules as $modulename) {
-                    $module_obj = $moduleFactory -> getModule($modulename);
-                    $events     = $module_obj    -> extend_date($member_id, $course_id);    
-                    if ($events != "") {
-                        foreach ( $events as $event ) {
-                            if (!$export) {
-                                $event["calendar"]="ATutor internal";
+            try {
+                global $db;
+                
+                $sql = "SELECT COUNT(*) FROM
+                       `".TABLE_PREFIX."course_enrollment`
+                        WHERE `member_id`='".$member_id."'
+                        AND   `course_id`='".$course_id."'";
+                
+                $result = mysql_query($sql,$db);
+                $row = mysql_fetch_row($result);
+                
+                if ($row[0]>0) {
+                    global $moduleFactory;
+                    $rows    = array();
+                                    
+                    foreach ($this->modules as $modulename) {
+                        $module_obj = $moduleFactory -> getModule($modulename);
+                        if (method_exists($module_obj,'extend_date')) {
+                            $events     = $module_obj    -> extend_date($member_id, $course_id);    
+                            if ($events != "") {
+                                foreach ( $events as $event ) {
+                                    if (!$export) {
+                                        $event["calendar"]="ATutor internal";
+                                    }
+                                    array_push($rows, $event);
+                                }
                             }
-                            array_push($rows, $event);
-                        }
+                        } else {
+                            return "error";
+                        }                       
                     }
+                    return $rows;
                 }
-                return $rows;
-            }                
+            } catch (Exception $e) {
+                return "error";
+            }
         }
         
         /**

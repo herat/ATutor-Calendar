@@ -20,6 +20,17 @@
     
     global $db;
     
+    //Check if patch is installed or not
+    require('includes/classes/events.class.php');
+    
+    $eventObj = new Events();
+    if($eventObj->get_atutor_events($_SESSION['member_id'],$_SESSION['course_id']) == "error") {
+        require(AT_INCLUDE_PATH.'header.inc.php');
+        echo _AT('calendar_patch_error');
+        require(AT_INCLUDE_PATH.'footer.inc.php');
+        exit();
+    }
+    
     //Change status of email notifications
     if (isset($_GET['noti']) && $_GET['noti'] == 1) {
         $sql = "UPDATE " . TABLE_PREFIX . "calendar_notification SET status = 1 WHERE 

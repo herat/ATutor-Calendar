@@ -118,6 +118,8 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_course_token',' co
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_assignment_due','Due date of ',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_assignment_cut','Cut off date of ',NOW(),'');
 
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_patch_error','Install Patch First.',NOW(),'');
+
 #email notifications
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_notification','Email Notifications',NOW(),'');
