@@ -4,11 +4,25 @@
  This module provides easy to use and accessible 
  calendar interface in ATutor.
  
- ------------
-|Requirements|
- ------------
- This module requires that the module_extend_date patch be
- installed for the courses, tests and assignments modules. 
+ ----------------
+|Pre-Installation|
+ ----------------
+ This module requires the module_extend_date patch.
+ There are module_extend_date.php scripts located in 
+ 3 folders(assignments,tests and courses) in the patch folder. 
+ These have to be manually copied into the respective 
+ module folders assignments(mods/_standard/assignments),
+ tests(mods/_standard/tests) and courses(mods/_core/courses).
+ Replace Module.class.php file in mods/_core/modules/classes 
+ folder with the Module.class.php in the patch folder.
+ 
+ E.g.,
+   After unarchiving module files, use following commands 
+   to install patch:
+   cp patch/assignments/module_extend_date.php ../_standard/assignments/module_extend_date.php
+   cp patch/tests/module_extend_date.php ../_standard/tests/module_extend_date.php
+   cp patch/courses/module_extend_date.php ../_core/courses/module_extend_date.php
+   cp patch/Module.class.php ../_core/modules/classes/Module.class.php   
 
  ----------------
 |Module Structure|
