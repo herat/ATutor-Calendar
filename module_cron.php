@@ -55,14 +55,14 @@
                 }
                 
                 //Iterate through each event and keep only those events which will start tomorrow
-                $email_msg = "Events for tomorrow: \n";
+                $email_msg = _AT('calendar_noti_mail_1') . "\n";
                 $index = 1; 
                 foreach ($all_events as $id => $event) {
                     if (strtotime(substr($event['start'],0,10)) == strtotime('tomorrow')) {
-                        $email_msg .= "Event #" . $index                       . " \n"; 
-                        $email_msg .= "Start: " . substr($event['start'],0,10) . " \n";
-                        $email_msg .= "End: "   . substr($event['end'],0,10)   . " \n";
-                        $email_msg .= "Event: " . $event['title']              . " \n\n"; 
+                        $email_msg .= _AT('calendar_noti_mail_2') . " #" . $index                       . " \n"; 
+                        $email_msg .= _AT('calendar_noti_mail_3') . ": " . substr($event['start'],0,10) . " \n";
+                        $email_msg .= _AT('calendar_noti_mail_4') . ": "   . substr($event['end'],0,10)   . " \n";
+                        $email_msg .= _AT('calendar_noti_mail_5') . ": " . $event['title']              . " \n\n"; 
                         $index++;
                     }
                 }

@@ -119,6 +119,9 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_assignment_due','D
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_assignment_cut','Cut off date of ',NOW(),'');
 
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_patch_error','Install Patch First.',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_email_part1',' has shared ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_email_part2',' with you. You may browse calendar at: 
+',NOW(),'');
 
 #email notifications
 
@@ -127,6 +130,11 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_on','On',NOW(
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_off','Off',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_turn','Turn',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_title','ATutor Calendar Notification',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_mail_1','Events for tomorrow: ',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_mail_2','Event',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_mail_3','Start',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_mail_4','End',NOW(),'');
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_mail_5','Event',NOW(),'');
 
 # feedback messages
 

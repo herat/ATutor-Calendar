@@ -93,8 +93,8 @@
                 $calname = _AT('calendar_of') . " " . get_display_name($_SESSION['member_id']);
             }
             
-            $body      = get_display_name($_SESSION['member_id']) . ' has shared "' . $calname . 
-                         '" with you. You may browse calendar at: ';
+            $body      = get_display_name($_SESSION['member_id']) . _AT('calendar_email_part1') . '"' . $calname . 
+                         '"' . _AT('calendar_email_part2');
             $sql       = "SELECT * FROM ".TABLE_PREFIX."members WHERE member_id = ".$_SESSION['member_id'];
             $result    = mysql_query($sql,$db);
             $fromemail = $_config['contact_email'];
