@@ -27,6 +27,8 @@
     */
     $this->_list['calendar'] = array('title_var'=>'calendar_header','file'=>'mods/calendar/sublinks.php');
 
+    $this->_pages['mods/calendar/index.php']['text'] = _AT('calendar_mod_def');
+    
     /*******
      * assign the instructor and admin privileges to the constants.
      */
@@ -86,6 +88,8 @@
     /*******
      * Public page to display shared calendar
      */
-    $this->_pages[AT_NAV_PUBLIC] = array('mods/calendar/index_public.php');
-    $this->_pages['mods/calendar/index_public.php']['title_var'] = 'calendar';
+    if (isset($_GET['mid'])) { 
+        $this->_pages[AT_NAV_PUBLIC] = array('mods/calendar/index_public.php');
+        $this->_pages['mods/calendar/index_public.php']['title_var'] = 'calendar';
+    }
 ?>

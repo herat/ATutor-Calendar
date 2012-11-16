@@ -136,10 +136,15 @@ INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_mail_3','Star
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_mail_4','End',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_module','calendar_noti_mail_5','Event',NOW(),'');
 
-# feedback messages
+#feedback messages
 
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_INVALID_EMAIL','Email address is invalid.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_ALREADY_BOOKMARKED','Calendar is already bookmarked.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_CAL_FILE_ERROR','Error in file processing.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_CAL_FILE_DELETE','Error in removing duplicate file.',NOW(),'');
 INSERT INTO `language_text` VALUES ('en', '_msgs','AT_ERROR_NO_RECIPIENTS','There are no recipients of this email.',NOW(),'');
+
+#sublinks
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_mod_def','This module allows you to create, edit, share and delete events. It also allows to synchronize calendar with Google calendar.',NOW(),'');
+
+INSERT INTO `language_text` VALUES ('en', '_module','calendar_google_check_desc','Select a calendar to automatically update the calendar view to the left.',NOW(),'');

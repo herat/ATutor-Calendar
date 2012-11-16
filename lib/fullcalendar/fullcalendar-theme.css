@@ -48,7 +48,7 @@
     z-index:1100 !important;
     }
  div.course div.shortcuts, a{
-    text-align: justify; !important
+    text-align: justify !important;
     }
  /* top buttons */
  .fc-button-firsts{
@@ -402,9 +402,15 @@ html .fc,
 .fc-state-active,
 .fc-state-active .fc-button-inner {
     border-color: #555;
-    background: #777;
+    background: #fff;
     color: #fff;
     }
+
+.fc-state-active .fc-button-inner 
+.fc-button-content .fc-dummy {
+    color: #000 !important;
+    font-weight: bold;
+    }    
     
 .fc-state-disabled,
 .fc-state-disabled .fc-button-inner {

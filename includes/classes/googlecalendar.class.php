@@ -199,8 +199,15 @@
                     { calid: this.value, mode: \"add\" },function (data){ refreshevents(); } );
                     else $.get(\"mods/calendar/google_calendar_db_sync.php\",
                     { calid: this.value, mode: \"remove\" },function (data){ refreshevents(); } );'
-                    />
-                    <label for='gcal".$i."'>".$calendar->title->text."</label><br/>";
+                    />";
+                if ($i == 1)
+                {
+                    echo "<label for='gcal".$i."'><div class='fc-cal-type'>" . _AT("calendar_google_check_desc") ."</div> ".$calendar->title->text." </label><br/>";
+                }
+                else
+                {
+                    echo "<label for='gcal".$i."'>".$calendar->title->text."</label><br/>";
+                }
                 $i++;
             }
         }
