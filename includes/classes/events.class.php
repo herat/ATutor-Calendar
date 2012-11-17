@@ -109,6 +109,53 @@
         }
         
         /**
+         * Retrieve ATutor course events
+         *
+         * @access public
+         * @param int id of user
+         * @param bool FALSE=Default value, TRUE= For export purpose
+         * @return mixed Array containing all course related events
+         */
+        public function get_atutor_events_all_courses($member_id, $export = FALSE) {
+            /* check if the user is enrolled in the course */
+            try {
+                global $db;
+                
+                $sql = "SELECT * FROM
+                       `".TABLE_PREFIX."course_enrollment`
+                        WHERE `member_id`='".$member_id."'";
+                
+                $result = mysql_query($sql,$db);
+                
+                global $moduleFactory;
+                $rows_b    = array();
+                
+                while ($row = mysql_fetch_array($result)) {
+                    
+                    foreach ($this->modules as $modulename) {
+                        $module_obj = $moduleFactory -> getModule($modulename);
+                        if (method_exists($module_obj,'extend_date')) {
+                            $events     = $module_obj    -> extend_date($member_id, $row["course_id"]);    
+                            if ($events != "") {
+                                foreach ( $events as $event ) {
+                                    if (!$export) {
+                                        $event["calendar"]="ATutor internal";
+                                    }
+                                    array_push($rows_b, $event);
+                                }
+                            }
+                        } else {
+                            return "error";
+                        }                       
+                    }
+                }
+                return $rows_b;
+            } catch (Exception $e) {
+                return "error";
+            }
+        }
+        
+        /**
          * Retrieve JSON encoded events
          *
          * @access public

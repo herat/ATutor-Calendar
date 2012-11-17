@@ -65,7 +65,13 @@
     $this->_pages['mods/calendar/index_instructor.php']['title_var'] = 'ATutor Calendar';
     $this->_pages['mods/calendar/index_instructor.php']['parent']   = 'tools/index.php';
     */
-
+    
+    /******* 
+     * my start page pages 
+     */
+    $this->_pages[AT_NAV_START]  = array('mods/calendar/index_mystart.php');
+    $this->_pages['mods/calendar/index_mystart.php']['title_var'] = 'calendar_header';
+    $this->_pages['mods/calendar/index_mystart.php']['parent'] = AT_NAV_START;
 
     /*******
      * student page.

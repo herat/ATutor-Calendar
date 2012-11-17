@@ -17,7 +17,11 @@
      */
     
     if (isset($_GET['pub']) && $_GET['pub'] == 1) {
-         $_user_location = 'public';
+        $_user_location = 'public';
+    }
+    
+    if (isset($_GET['home'])) {
+        $_user_location	= 'users';
     }
     
     //Retrieve all the personal events.
@@ -34,6 +38,8 @@
         $member = $_SESSION['member_id'];
     } else if (isset($_GET['mini'])) {
         $member = $_SESSION['member_id'];
+    } else if(isset($_GET['home'])) {
+        $member = $_SESSION['member_id'];
     } else {
         $member = $_GET['mid'];
     }
@@ -45,17 +51,23 @@
         array_push($rows, $event);
     }
     
-    if (isset($_GET['all']) || isset($_GET['mini']) || isset($_GET['mid'])) {
-        if (isset($_GET['all']) || isset($_GET['mini'])) {
-            foreach ($eventObj->get_atutor_events($_SESSION['member_id'],$_SESSION['course_id']) as $event) {
-                array_push($rows, $event);
+    if (isset($_GET['home'])) {
+        foreach ($eventObj->get_atutor_events_all_courses($member) as $event) {
+            array_push($rows, $event);
+        }
+    } else {
+        if (isset($_GET['all']) || isset($_GET['mini']) || isset($_GET['mid'])) {
+            if (isset($_GET['all']) || isset($_GET['mini'])) {
+                foreach ($eventObj->get_atutor_events($_SESSION['member_id'],$_SESSION['course_id']) as $event) {
+                    array_push($rows, $event);
+                }
+            }
+            if (isset($_GET['mid'])) {
+                foreach ($eventObj->get_atutor_events($_GET['mid'],$_GET['cid']) as $event) {
+                    array_push($rows, $event);
+                }
             }
         }
-        if (isset($_GET['mid'])) {
-            foreach ($eventObj->get_atutor_events($_GET['mid'],$_GET['cid']) as $event) {
-                array_push($rows, $event);
-            }
-        }
-    }    
+    }
     echo $eventObj->caledar_encode($rows);
 ?>
